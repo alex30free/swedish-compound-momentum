@@ -1,8 +1,8 @@
 {
-  "updated": "2026-02-27 14:15 UTC",
+  "updated": "2026-02-27 17:57 UTC",
   "total_attempted": 461,
-  "stocks_screened": 440,
-  "skipped_count": 21,
+  "stocks_screened": 439,
+  "skipped_count": 22,
   "top20": [
     {
       "name": "GomSpace Group AB (publ)",
@@ -13,7 +13,7 @@
       "mom_12m": 365.36,
       "compound_score": 482.24,
       "rank": 1,
-      "prev_rank": null
+      "prev_rank": 1
     },
     {
       "name": "Lundin Mining Corporation",
@@ -24,7 +24,7 @@
       "mom_12m": 204.27,
       "compound_score": 432.58,
       "rank": 2,
-      "prev_rank": null
+      "prev_rank": 2
     },
     {
       "name": "Actic Group AB (publ)",
@@ -35,7 +35,7 @@
       "mom_12m": 379.56,
       "compound_score": 416.1,
       "rank": 3,
-      "prev_rank": null
+      "prev_rank": 3
     },
     {
       "name": "Nanexa AB (publ)",
@@ -46,7 +46,7 @@
       "mom_12m": 176.21,
       "compound_score": 400.16,
       "rank": 4,
-      "prev_rank": null
+      "prev_rank": 4
     },
     {
       "name": "Leading Edge Materials Corp.",
@@ -57,7 +57,7 @@
       "mom_12m": 216.01,
       "compound_score": 351.2,
       "rank": 5,
-      "prev_rank": null
+      "prev_rank": 5
     },
     {
       "name": "Cheffelo AB (publ)",
@@ -68,7 +68,7 @@
       "mom_12m": 243.22,
       "compound_score": 345.7,
       "rank": 6,
-      "prev_rank": null
+      "prev_rank": 6
     },
     {
       "name": "Ovzon AB (publ)",
@@ -79,7 +79,7 @@
       "mom_12m": 211.88,
       "compound_score": 334.11,
       "rank": 7,
-      "prev_rank": null
+      "prev_rank": 7
     },
     {
       "name": "Cantargia AB (publ)",
@@ -90,7 +90,7 @@
       "mom_12m": 201.32,
       "compound_score": 326.02,
       "rank": 8,
-      "prev_rank": null
+      "prev_rank": 8
     },
     {
       "name": "Berner Industrier AB",
@@ -101,7 +101,7 @@
       "mom_12m": 212.18,
       "compound_score": 307.25,
       "rank": 9,
-      "prev_rank": null
+      "prev_rank": 9
     },
     {
       "name": "Maha Capital AB (publ)",
@@ -112,7 +112,7 @@
       "mom_12m": 80.0,
       "compound_score": 296.07,
       "rank": 10,
-      "prev_rank": null
+      "prev_rank": 10
     },
     {
       "name": "Acconeer AB (publ)",
@@ -123,7 +123,7 @@
       "mom_12m": 153.1,
       "compound_score": 287.2,
       "rank": 11,
-      "prev_rank": null
+      "prev_rank": 11
     },
     {
       "name": "ByggPartner Gruppen AB (publ)",
@@ -134,7 +134,7 @@
       "mom_12m": 177.53,
       "compound_score": 273.81,
       "rank": 12,
-      "prev_rank": null
+      "prev_rank": 12
     },
     {
       "name": "Boliden AB (publ)",
@@ -145,7 +145,7 @@
       "mom_12m": 86.81,
       "compound_score": 273.04,
       "rank": 13,
-      "prev_rank": null
+      "prev_rank": 13
     },
     {
       "name": "Nordrest Holding AB (publ)",
@@ -156,7 +156,7 @@
       "mom_12m": 181.01,
       "compound_score": 266.58,
       "rank": 14,
-      "prev_rank": null
+      "prev_rank": 14
     },
     {
       "name": "Saab AB (publ)",
@@ -167,7 +167,7 @@
       "mom_12m": 199.56,
       "compound_score": 262.82,
       "rank": 15,
-      "prev_rank": null
+      "prev_rank": 15
     },
     {
       "name": "Arctic Minerals AB (publ)",
@@ -178,7 +178,7 @@
       "mom_12m": 136.23,
       "compound_score": 259.79,
       "rank": 16,
-      "prev_rank": null
+      "prev_rank": 16
     },
     {
       "name": "Medivir AB (publ)",
@@ -189,7 +189,7 @@
       "mom_12m": -27.23,
       "compound_score": 253.73,
       "rank": 17,
-      "prev_rank": null
+      "prev_rank": 17
     },
     {
       "name": "Metacon AB (publ)",
@@ -200,7 +200,7 @@
       "mom_12m": 263.86,
       "compound_score": 245.35,
       "rank": 18,
-      "prev_rank": null
+      "prev_rank": 18
     },
     {
       "name": "Lundin Gold Inc.",
@@ -211,7 +211,7 @@
       "mom_12m": 164.37,
       "compound_score": 218.13,
       "rank": 19,
-      "prev_rank": null
+      "prev_rank": 19
     },
     {
       "name": "Cloetta AB (publ)",
@@ -222,7 +222,7 @@
       "mom_12m": 88.59,
       "compound_score": 199.91,
       "rank": 20,
-      "prev_rank": null
+      "prev_rank": 20
     }
   ],
   "skipped": [
@@ -351,6 +351,12 @@
       "ticker": "BMC.ST",
       "reason": "Insufficient history (need 265d, have 228d)",
       "days_available": 228
+    },
+    {
+      "name": "Capsol Technologies ASA",
+      "ticker": "CAPSLO.ST",
+      "reason": "No price data",
+      "days_available": 0
     }
   ]
 }
