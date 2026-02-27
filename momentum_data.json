@@ -1,0 +1,229 @@
+{
+  "updated": "2026-02-22 18:30 UTC",
+  "total_attempted": 223,
+  "stocks_screened": 210,
+  "skipped_count": 13,
+  "top20": [
+    {
+      "name": "Lundin Mining",
+      "ticker": "LUMI.ST",
+      "price": 253.2,
+      "mom_3m": 38.4,
+      "mom_6m": 52.1,
+      "mom_12m": 74.8,
+      "compound_score": 165.3,
+      "rank": 1,
+      "prev_rank": 1
+    },
+    {
+      "name": "Boliden",
+      "ticker": "BOL.ST",
+      "price": 660.4,
+      "mom_3m": 31.2,
+      "mom_6m": 44.7,
+      "mom_12m": 62.3,
+      "compound_score": 138.2,
+      "rank": 2,
+      "prev_rank": 3
+    },
+    {
+      "name": "Saab",
+      "ticker": "SAAB-B.ST",
+      "price": 412.0,
+      "mom_3m": 28.9,
+      "mom_6m": 41.2,
+      "mom_12m": 58.6,
+      "compound_score": 128.7,
+      "rank": 3,
+      "prev_rank": 2
+    },
+    {
+      "name": "Sandvik",
+      "ticker": "SAND.ST",
+      "price": 379.6,
+      "mom_3m": 24.1,
+      "mom_6m": 38.4,
+      "mom_12m": 55.2,
+      "compound_score": 117.7,
+      "rank": 4,
+      "prev_rank": 4
+    },
+    {
+      "name": "Instalco",
+      "ticker": "INSTAL.ST",
+      "price": 36.38,
+      "mom_3m": 22.7,
+      "mom_6m": 36.8,
+      "mom_12m": 51.4,
+      "compound_score": 110.9,
+      "rank": 5,
+      "prev_rank": 6
+    },
+    {
+      "name": "Swedbank",
+      "ticker": "SWED-A.ST",
+      "price": 248.5,
+      "mom_3m": 19.4,
+      "mom_6m": 33.1,
+      "mom_12m": 57.2,
+      "compound_score": 109.7,
+      "rank": 6,
+      "prev_rank": 5
+    },
+    {
+      "name": "Swedish Orphan Biovitrum",
+      "ticker": "SOBI.ST",
+      "price": 402.4,
+      "mom_3m": 20.8,
+      "mom_6m": 31.6,
+      "mom_12m": 49.3,
+      "compound_score": 101.7,
+      "rank": 7,
+      "prev_rank": 8
+    },
+    {
+      "name": "Volvo B",
+      "ticker": "VOLV-B.ST",
+      "price": 351.1,
+      "mom_3m": 18.3,
+      "mom_6m": 29.7,
+      "mom_12m": 47.8,
+      "compound_score": 95.8,
+      "rank": 8,
+      "prev_rank": 7
+    },
+    {
+      "name": "Cloetta",
+      "ticker": "CLA-B.ST",
+      "price": 51.6,
+      "mom_3m": 17.6,
+      "mom_6m": 28.4,
+      "mom_12m": 44.1,
+      "compound_score": 90.1,
+      "rank": 9,
+      "prev_rank": 9
+    },
+    {
+      "name": "Industrivärden C",
+      "ticker": "INDU-C.ST",
+      "price": 488.3,
+      "mom_3m": 16.2,
+      "mom_6m": 26.9,
+      "mom_12m": 43.7,
+      "compound_score": 86.8,
+      "rank": 10,
+      "prev_rank": 11
+    },
+    {
+      "name": "Attendo",
+      "ticker": "ATT.ST",
+      "price": 100.4,
+      "mom_3m": 15.9,
+      "mom_6m": 25.3,
+      "mom_12m": 41.2,
+      "compound_score": 82.4,
+      "rank": 11,
+      "prev_rank": 10
+    },
+    {
+      "name": "Peab",
+      "ticker": "PEAB-B.ST",
+      "price": 103.6,
+      "mom_3m": 14.7,
+      "mom_6m": 24.8,
+      "mom_12m": 38.9,
+      "compound_score": 78.4,
+      "rank": 12,
+      "prev_rank": 13
+    },
+    {
+      "name": "Tele2 B",
+      "ticker": "TEL2-B.ST",
+      "price": 190.7,
+      "mom_3m": 14.1,
+      "mom_6m": 23.2,
+      "mom_12m": 36.4,
+      "compound_score": 73.7,
+      "rank": 13,
+      "prev_rank": 12
+    },
+    {
+      "name": "Telia Company",
+      "ticker": "TELIA.ST",
+      "price": 44.93,
+      "mom_3m": 13.3,
+      "mom_6m": 22.7,
+      "mom_12m": 34.8,
+      "compound_score": 70.8,
+      "rank": 14,
+      "prev_rank": 14
+    },
+    {
+      "name": "Hexatronic",
+      "ticker": "HTRO.ST",
+      "price": 26.47,
+      "mom_3m": 12.8,
+      "mom_6m": 21.4,
+      "mom_12m": 33.2,
+      "compound_score": 67.4,
+      "rank": 15,
+      "prev_rank": 16
+    },
+    {
+      "name": "Scandi Standard",
+      "ticker": "SCST.ST",
+      "price": 125.0,
+      "mom_3m": 12.1,
+      "mom_6m": 20.6,
+      "mom_12m": 31.7,
+      "compound_score": 64.4,
+      "rank": 16,
+      "prev_rank": 15
+    },
+    {
+      "name": "Electrolux B",
+      "ticker": "ELUX-B.ST",
+      "price": 77.28,
+      "mom_3m": 11.4,
+      "mom_6m": 19.8,
+      "mom_12m": 30.4,
+      "compound_score": 61.6,
+      "rank": 17,
+      "prev_rank": 17
+    },
+    {
+      "name": "Coor Service Management",
+      "ticker": "COOR.ST",
+      "price": 58.8,
+      "mom_3m": 10.9,
+      "mom_6m": 18.3,
+      "mom_12m": 29.1,
+      "compound_score": 58.3,
+      "rank": 18,
+      "prev_rank": null
+    },
+    {
+      "name": "FM Mattsson",
+      "ticker": "FMM-B.ST",
+      "price": 75.4,
+      "mom_3m": 10.2,
+      "mom_6m": 17.6,
+      "mom_12m": 28.3,
+      "compound_score": 56.1,
+      "rank": 19,
+      "prev_rank": 19
+    },
+    {
+      "name": "Midsona B",
+      "ticker": "MSON-B.ST",
+      "price": 10.85,
+      "mom_3m": 9.8,
+      "mom_6m": 16.4,
+      "mom_12m": 27.1,
+      "compound_score": 53.3,
+      "rank": 20,
+      "prev_rank": 20
+    }
+  ],
+  "skipped": []
+}
