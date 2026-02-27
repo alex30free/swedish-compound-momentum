@@ -1,0 +1,39 @@
+name: Compound Momentum Screener Update
+
+on:
+  schedule:
+    # Every Friday at 17:30 UTC (18:30 CET / 19:30 CEST) — after Nasdaq Stockholm closes
+    - cron: "30 17 * * 5"
+  workflow_dispatch:  # Allow manual trigger from Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-momentum-screener:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install yfinance pandas
+
+      - name: Run Compound Momentum Screener
+        run: python momentum_screener.py
+
+      - name: Commit & push updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add momentum_data.json momentum_prev_ranks.json
+          git diff --cached --quiet || git commit -m "chore: compound momentum update $(date -u +'%Y-%m-%d')"
+          git push
