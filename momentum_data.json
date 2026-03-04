@@ -1,228 +1,274 @@
 {
-  "updated": "2026-02-27 17:57 UTC",
+  "updated": "2026-03-04 15:49 UTC",
   "total_attempted": 461,
-  "stocks_screened": 439,
-  "skipped_count": 22,
+  "stocks_screened": 441,
+  "skipped_count": 20,
+  "filters": {
+    "size_filter": false,
+    "size_min_msek": null,
+    "fscore_filter": false,
+    "fscore_min": null
+  },
   "top20": [
+    {
+      "name": "Africa Energy Corp.",
+      "ticker": "AEC.ST",
+      "price": 2.8,
+      "mom_3m": 236.13,
+      "mom_6m": 124.0,
+      "mom_12m": 107.41,
+      "compound_score": 467.54,
+      "market_cap_msek": 11302,
+      "fscore": 2,
+      "rank": 1,
+      "prev_rank": null
+    },
     {
       "name": "GomSpace Group AB (publ)",
       "ticker": "GOMX.ST",
-      "price": 20.15,
-      "mom_3m": 34.69,
-      "mom_6m": 82.19,
-      "mom_12m": 365.36,
-      "compound_score": 482.24,
-      "rank": 1,
+      "price": 17.46,
+      "mom_3m": 24.71,
+      "mom_6m": 41.49,
+      "mom_12m": 364.36,
+      "compound_score": 430.57,
+      "market_cap_msek": 33260,
+      "fscore": 3,
+      "rank": 2,
       "prev_rank": 1
     },
     {
       "name": "Lundin Mining Corporation",
       "ticker": "LUMI.ST",
-      "price": 278.4,
-      "mom_3m": 60.76,
-      "mom_6m": 167.54,
-      "mom_12m": 204.27,
-      "compound_score": 432.58,
-      "rank": 2,
-      "prev_rank": 2
-    },
-    {
-      "name": "Actic Group AB (publ)",
-      "ticker": "ATIC.ST",
-      "price": 30.5,
-      "mom_3m": 26.03,
-      "mom_6m": 10.51,
-      "mom_12m": 379.56,
-      "compound_score": 416.1,
+      "price": 269.0,
+      "mom_3m": 59.57,
+      "mom_6m": 146.66,
+      "mom_12m": 191.29,
+      "compound_score": 397.53,
+      "market_cap_msek": 2379063,
+      "fscore": 6,
       "rank": 3,
-      "prev_rank": 3
-    },
-    {
-      "name": "Nanexa AB (publ)",
-      "ticker": "NANEXA.ST",
-      "price": 4.01,
-      "mom_3m": 135.04,
-      "mom_6m": 88.92,
-      "mom_12m": 176.21,
-      "compound_score": 400.16,
-      "rank": 4,
-      "prev_rank": 4
-    },
-    {
-      "name": "Leading Edge Materials Corp.",
-      "ticker": "LEMSE.ST",
-      "price": 2.25,
-      "mom_3m": 50.0,
-      "mom_6m": 85.19,
-      "mom_12m": 216.01,
-      "compound_score": 351.2,
-      "rank": 5,
-      "prev_rank": 5
-    },
-    {
-      "name": "Cheffelo AB (publ)",
-      "ticker": "CHEF.ST",
-      "price": 98.4,
-      "mom_3m": 15.76,
-      "mom_6m": 86.72,
-      "mom_12m": 243.22,
-      "compound_score": 345.7,
-      "rank": 6,
-      "prev_rank": 6
+      "prev_rank": 2
     },
     {
       "name": "Ovzon AB (publ)",
       "ticker": "OVZON.ST",
-      "price": 56.7,
-      "mom_3m": 66.03,
-      "mom_6m": 56.2,
-      "mom_12m": 211.88,
-      "compound_score": 334.11,
-      "rank": 7,
+      "price": 57.6,
+      "mom_3m": 85.81,
+      "mom_6m": 54.63,
+      "mom_12m": 233.72,
+      "compound_score": 374.16,
+      "market_cap_msek": 69093,
+      "fscore": 6,
+      "rank": 4,
       "prev_rank": 7
     },
     {
-      "name": "Cantargia AB (publ)",
-      "ticker": "CANTA.ST",
-      "price": 4.8,
-      "mom_3m": 51.42,
-      "mom_6m": 73.29,
-      "mom_12m": 201.32,
-      "compound_score": 326.02,
-      "rank": 8,
-      "prev_rank": 8
+      "name": "Nanexa AB (publ)",
+      "ticker": "NANEXA.ST",
+      "price": 3.79,
+      "mom_3m": 116.29,
+      "mom_6m": 72.05,
+      "mom_12m": 165.61,
+      "compound_score": 353.95,
+      "market_cap_msek": 6751,
+      "fscore": 4,
+      "rank": 5,
+      "prev_rank": 4
+    },
+    {
+      "name": "Actic Group AB (publ)",
+      "ticker": "ATIC.ST",
+      "price": 27.3,
+      "mom_3m": 0.0,
+      "mom_6m": 2.63,
+      "mom_12m": 302.65,
+      "compound_score": 305.29,
+      "market_cap_msek": 6642,
+      "fscore": 5,
+      "rank": 6,
+      "prev_rank": 3
+    },
+    {
+      "name": "Cheffelo AB (publ)",
+      "ticker": "CHEF.ST",
+      "price": 94.5,
+      "mom_3m": 14.96,
+      "mom_6m": 65.21,
+      "mom_12m": 224.37,
+      "compound_score": 304.54,
+      "market_cap_msek": 12920,
+      "fscore": 6,
+      "rank": 7,
+      "prev_rank": 6
     },
     {
       "name": "Berner Industrier AB",
       "ticker": "BERNER-B.ST",
-      "price": 110.0,
-      "mom_3m": 51.1,
-      "mom_6m": 43.98,
-      "mom_12m": 212.18,
-      "compound_score": 307.25,
-      "rank": 9,
+      "price": 107.0,
+      "mom_3m": 33.75,
+      "mom_6m": 46.58,
+      "mom_12m": 198.67,
+      "compound_score": 279.0,
+      "market_cap_msek": 21124,
+      "fscore": 6,
+      "rank": 8,
       "prev_rank": 9
     },
     {
-      "name": "Maha Capital AB (publ)",
-      "ticker": "MAHA-A.ST",
-      "price": 10.98,
-      "mom_3m": 45.62,
-      "mom_6m": 170.44,
-      "mom_12m": 80.0,
-      "compound_score": 296.07,
+      "name": "Cantargia AB (publ)",
+      "ticker": "CANTA.ST",
+      "price": 4.3,
+      "mom_3m": 33.33,
+      "mom_6m": 63.5,
+      "mom_12m": 175.82,
+      "compound_score": 272.65,
+      "market_cap_msek": 10859,
+      "fscore": 6,
+      "rank": 9,
+      "prev_rank": 8
+    },
+    {
+      "name": "Leading Edge Materials Corp.",
+      "ticker": "LEMSE.ST",
+      "price": 2.0,
+      "mom_3m": 32.45,
+      "mom_6m": 61.29,
+      "mom_12m": 163.16,
+      "compound_score": 256.9,
+      "market_cap_msek": 5446,
+      "fscore": 2,
       "rank": 10,
-      "prev_rank": 10
-    },
-    {
-      "name": "Acconeer AB (publ)",
-      "ticker": "ACCON.ST",
-      "price": 11.44,
-      "mom_3m": 7.12,
-      "mom_6m": 126.98,
-      "mom_12m": 153.1,
-      "compound_score": 287.2,
-      "rank": 11,
-      "prev_rank": 11
-    },
-    {
-      "name": "ByggPartner Gruppen AB (publ)",
-      "ticker": "BYGGP.ST",
-      "price": 45.4,
-      "mom_3m": 6.32,
-      "mom_6m": 89.96,
-      "mom_12m": 177.53,
-      "compound_score": 273.81,
-      "rank": 12,
-      "prev_rank": 12
-    },
-    {
-      "name": "Boliden AB (publ)",
-      "ticker": "BOL.ST",
-      "price": 699.6,
-      "mom_3m": 66.57,
-      "mom_6m": 119.65,
-      "mom_12m": 86.81,
-      "compound_score": 273.04,
-      "rank": 13,
-      "prev_rank": 13
+      "prev_rank": 5
     },
     {
       "name": "Nordrest Holding AB (publ)",
       "ticker": "NREST.ST",
-      "price": 310.0,
-      "mom_3m": 27.57,
-      "mom_6m": 58.0,
-      "mom_12m": 181.01,
-      "compound_score": 266.58,
-      "rank": 14,
+      "price": 300.0,
+      "mom_3m": 20.0,
+      "mom_6m": 50.6,
+      "mom_12m": 169.58,
+      "compound_score": 240.18,
+      "market_cap_msek": 40621,
+      "fscore": 6,
+      "rank": 11,
       "prev_rank": 14
+    },
+    {
+      "name": "ByggPartner Gruppen AB (publ)",
+      "ticker": "BYGGP.ST",
+      "price": 43.5,
+      "mom_3m": 0.23,
+      "mom_6m": 47.46,
+      "mom_12m": 189.23,
+      "compound_score": 236.91,
+      "market_cap_msek": 21186,
+      "fscore": 5,
+      "rank": 12,
+      "prev_rank": 12
     },
     {
       "name": "Saab AB (publ)",
       "ticker": "SAAB-B.ST",
-      "price": 651.2,
-      "mom_3m": 32.38,
-      "mom_6m": 30.88,
-      "mom_12m": 199.56,
-      "compound_score": 262.82,
-      "rank": 15,
+      "price": 644.2,
+      "mom_3m": 42.13,
+      "mom_6m": 20.62,
+      "mom_12m": 164.48,
+      "compound_score": 227.23,
+      "market_cap_msek": 3747632,
+      "fscore": 6,
+      "rank": 13,
       "prev_rank": 15
-    },
-    {
-      "name": "Arctic Minerals AB (publ)",
-      "ticker": "ARCT.ST",
-      "price": 8.15,
-      "mom_3m": 71.22,
-      "mom_6m": 52.34,
-      "mom_12m": 136.23,
-      "compound_score": 259.79,
-      "rank": 16,
-      "prev_rank": 16
-    },
-    {
-      "name": "Medivir AB (publ)",
-      "ticker": "MVIR.ST",
-      "price": 1.71,
-      "mom_3m": 288.64,
-      "mom_6m": -7.67,
-      "mom_12m": -27.23,
-      "compound_score": 253.73,
-      "rank": 17,
-      "prev_rank": 17
-    },
-    {
-      "name": "Metacon AB (publ)",
-      "ticker": "META.ST",
-      "price": 0.3,
-      "mom_3m": -47.02,
-      "mom_6m": 28.51,
-      "mom_12m": 263.86,
-      "compound_score": 245.35,
-      "rank": 18,
-      "prev_rank": 18
     },
     {
       "name": "Lundin Gold Inc.",
       "ticker": "LUG.ST",
-      "price": 810.0,
-      "mom_3m": 2.58,
-      "mom_6m": 51.19,
-      "mom_12m": 164.37,
-      "compound_score": 218.13,
-      "rank": 19,
+      "price": 794.0,
+      "mom_3m": 4.59,
+      "mom_6m": 43.65,
+      "mom_12m": 178.59,
+      "compound_score": 226.83,
+      "market_cap_msek": 2034723,
+      "fscore": 6,
+      "rank": 14,
       "prev_rank": 19
     },
     {
-      "name": "Cloetta AB (publ)",
-      "ticker": "CLA-B.ST",
-      "price": 52.05,
-      "mom_3m": 51.75,
-      "mom_6m": 59.56,
-      "mom_12m": 88.59,
-      "compound_score": 199.91,
+      "name": "Boliden AB (publ)",
+      "ticker": "BOL.ST",
+      "price": 650.6,
+      "mom_3m": 54.1,
+      "mom_6m": 98.17,
+      "mom_12m": 68.94,
+      "compound_score": 221.21,
+      "market_cap_msek": 1995241,
+      "fscore": 7,
+      "rank": 15,
+      "prev_rank": 13
+    },
+    {
+      "name": "Acconeer AB (publ)",
+      "ticker": "ACCON.ST",
+      "price": 10.94,
+      "mom_3m": -4.04,
+      "mom_6m": 117.93,
+      "mom_12m": 106.42,
+      "compound_score": 220.31,
+      "market_cap_msek": 8938,
+      "fscore": 2,
+      "rank": 16,
+      "prev_rank": 11
+    },
+    {
+      "name": "Arctic Minerals AB (publ)",
+      "ticker": "ARCT.ST",
+      "price": 7.5,
+      "mom_3m": 52.44,
+      "mom_6m": 45.63,
+      "mom_12m": 106.04,
+      "compound_score": 204.11,
+      "market_cap_msek": 3802,
+      "fscore": 2,
+      "rank": 17,
+      "prev_rank": 16
+    },
+    {
+      "name": "HÃ¶egh Autoliners ASA",
+      "ticker": "HAUTOO.ST",
+      "price": 136.5,
+      "mom_3m": 66.64,
+      "mom_6m": 37.19,
+      "mom_12m": 92.15,
+      "compound_score": 195.98,
+      "market_cap_msek": 241571,
+      "fscore": null,
+      "rank": 18,
+      "prev_rank": null
+    },
+    {
+      "name": "Metacon AB (publ)",
+      "ticker": "META.ST",
+      "price": 0.28,
+      "mom_3m": -34.57,
+      "mom_6m": -8.27,
+      "mom_12m": 237.71,
+      "compound_score": 194.88,
+      "market_cap_msek": 4188,
+      "fscore": 4,
+      "rank": 19,
+      "prev_rank": 18
+    },
+    {
+      "name": "Clavister Holding AB (publ.)",
+      "ticker": "CLAV.ST",
+      "price": 4.7,
+      "mom_3m": 51.53,
+      "mom_6m": 2.28,
+      "mom_12m": 138.23,
+      "compound_score": 192.04,
+      "market_cap_msek": 18310,
+      "fscore": 4,
       "rank": 20,
-      "prev_rank": 20
+      "prev_rank": null
     }
   ],
   "skipped": [
@@ -235,14 +281,14 @@
     {
       "name": "Frontline plc",
       "ticker": "FROO.ST",
-      "reason": "Insufficient history (need 265d, have 224d)",
-      "days_available": 224
+      "reason": "Insufficient history (need 265d, have 227d)",
+      "days_available": 227
     },
     {
       "name": "NOBA Bank Group AB (publ)",
       "ticker": "NOBA.ST",
-      "reason": "Insufficient history (need 265d, have 104d)",
-      "days_available": 104
+      "reason": "Insufficient history (need 265d, have 107d)",
+      "days_available": 107
     },
     {
       "name": "Cmb.Tech NV",
@@ -251,40 +297,34 @@
       "days_available": 0
     },
     {
-      "name": "Asmodee Group AB (publ)",
-      "ticker": "ASMDEE-B.ST",
-      "reason": "Insufficient history (need 265d, have 263d)",
-      "days_available": 263
-    },
-    {
       "name": "Asker Healthcare Group AB",
       "ticker": "ASKER.ST",
-      "reason": "Insufficient history (need 265d, have 229d)",
-      "days_available": 229
+      "reason": "Insufficient history (need 265d, have 232d)",
+      "days_available": 232
     },
     {
       "name": "RÃ¶ko AB (publ)",
       "ticker": "ROKO-B.ST",
-      "reason": "Insufficient history (need 265d, have 241d)",
-      "days_available": 241
+      "reason": "Insufficient history (need 265d, have 244d)",
+      "days_available": 244
     },
     {
       "name": "Hacksaw AB (publ)",
       "ticker": "HACK.ST",
-      "reason": "Insufficient history (need 265d, have 171d)",
-      "days_available": 171
+      "reason": "Insufficient history (need 265d, have 174d)",
+      "days_available": 174
     },
     {
       "name": "Alvotech",
       "ticker": "ALVO-SDB.ST",
-      "reason": "Insufficient history (need 265d, have 195d)",
-      "days_available": 195
+      "reason": "Insufficient history (need 265d, have 198d)",
+      "days_available": 198
     },
     {
       "name": "Meren Energy Inc.",
       "ticker": "MER.ST",
-      "reason": "Insufficient history (need 265d, have 200d)",
-      "days_available": 200
+      "reason": "Insufficient history (need 265d, have 203d)",
+      "days_available": 203
     },
     {
       "name": "Paratus Energy Services Ltd.",
@@ -295,20 +335,14 @@
     {
       "name": "Enity Holding AB (publ)",
       "ticker": "ENITY.ST",
-      "reason": "Insufficient history (need 265d, have 178d)",
-      "days_available": 178
+      "reason": "Insufficient history (need 265d, have 181d)",
+      "days_available": 181
     },
     {
       "name": "Coffee Stain Group AB (publ)",
       "ticker": "COFFEE-B.ST",
-      "reason": "Insufficient history (need 265d, have 50d)",
-      "days_available": 50
-    },
-    {
-      "name": "Morrow Bank AB",
-      "ticker": "MORROW.ST",
-      "reason": "Insufficient history (need 265d, have 35d)",
-      "days_available": 35
+      "reason": "Insufficient history (need 265d, have 53d)",
+      "days_available": 53
     },
     {
       "name": "Envipco Holding N.V.",
@@ -317,10 +351,16 @@
       "days_available": 0
     },
     {
+      "name": "Morrow Bank AB",
+      "ticker": "MORROW.ST",
+      "reason": "Insufficient history (need 265d, have 38d)",
+      "days_available": 38
+    },
+    {
       "name": "Siljansvik AB (publ)",
       "ticker": "SIVI.ST",
-      "reason": "Insufficient history (need 265d, have 53d)",
-      "days_available": 53
+      "reason": "Insufficient history (need 265d, have 56d)",
+      "days_available": 56
     },
     {
       "name": "Norse Atlantic ASA",
@@ -331,32 +371,26 @@
     {
       "name": "Terranor Group AB (publ)",
       "ticker": "TERNOR.ST",
-      "reason": "Insufficient history (need 265d, have 168d)",
-      "days_available": 168
+      "reason": "Insufficient history (need 265d, have 171d)",
+      "days_available": 171
     },
     {
       "name": "Qualisys Holding AB (publ)",
       "ticker": "QSYS.ST",
-      "reason": "Insufficient history (need 265d, have 253d)",
-      "days_available": 253
+      "reason": "Insufficient history (need 265d, have 256d)",
+      "days_available": 256
     },
     {
       "name": "Guldbrev Holding AB (publ)",
       "ticker": "GULD.ST",
-      "reason": "Insufficient history (need 265d, have 92d)",
-      "days_available": 92
+      "reason": "Insufficient history (need 265d, have 95d)",
+      "days_available": 95
     },
     {
       "name": "Brock Milton Capital AB (publ)",
       "ticker": "BMC.ST",
-      "reason": "Insufficient history (need 265d, have 228d)",
-      "days_available": 228
-    },
-    {
-      "name": "Capsol Technologies ASA",
-      "ticker": "CAPSLO.ST",
-      "reason": "No price data",
-      "days_available": 0
+      "reason": "Insufficient history (need 265d, have 231d)",
+      "days_available": 231
     }
   ]
 }
