@@ -38,33 +38,26 @@
       overflow-x: hidden;
     }
 
-    /* Scanlines */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: repeating-linear-gradient(
         0deg, transparent, transparent 2px,
         rgba(0,0,0,0.055) 2px, rgba(0,0,0,0.055) 4px
       );
-      pointer-events: none;
-      z-index: 9999;
+      pointer-events: none; z-index: 9999;
     }
 
-    /* Grid */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         linear-gradient(rgba(255,107,53,0.015) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,107,53,0.015) 1px, transparent 1px);
       background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* Glow ambients */
     .glow-tl {
       position: fixed; top: -160px; left: -160px;
       width: 560px; height: 560px;
@@ -80,7 +73,7 @@
 
     .container {
       position: relative; z-index: 1;
-      max-width: 1140px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
       padding: 0 28px 100px;
     }
 
@@ -93,8 +86,7 @@
     }
 
     .header-top {
-      display: flex;
-      align-items: flex-end;
+      display: flex; align-items: flex-end;
       justify-content: space-between;
       gap: 24px; flex-wrap: wrap;
     }
@@ -139,7 +131,7 @@
     /* ── FORMULA STRIP ── */
     .formula-strip {
       display: flex; gap: 0;
-      margin-bottom: 44px;
+      margin-bottom: 28px;
       border: 1px solid var(--border2);
       overflow: hidden;
       animation: fadeDown 0.65s 0.08s ease both;
@@ -155,9 +147,7 @@
     .formula-part:last-child { border-right: none; }
 
     .formula-part::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     }
 
     .fp-3m::before  { background: var(--accent3); }
@@ -177,22 +167,15 @@
 
     .formula-val {
       font-family: 'Syne', sans-serif;
-      font-size: 13px; font-weight: 700;
-      color: var(--text);
+      font-size: 13px; font-weight: 700; color: var(--text);
     }
 
-    .fp-sum .formula-val {
-      color: var(--accent);
-      font-size: 14px;
-    }
+    .fp-sum .formula-val { color: var(--accent); font-size: 14px; }
 
     .formula-eq {
-      display: flex; align-items: center;
-      justify-content: center;
-      padding: 0 4px;
-      font-size: 18px; color: var(--muted);
-      background: var(--surface);
-      border-right: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px; font-size: 18px; color: var(--muted);
+      background: var(--surface); border-right: 1px solid var(--border2);
     }
 
     @media (max-width: 700px) {
@@ -201,19 +184,177 @@
       .formula-part { border-right: none; border-bottom: 1px solid var(--border2); }
     }
 
+    /* ── FILTER PANEL ── */
+    .filter-panel {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.65s 0.1s ease both;
+    }
+
+    .filter-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap; gap: 12px;
+    }
+
+    .filter-title {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .filter-note {
+      font-size: 10px; color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .filter-note span { color: var(--accent2); }
+
+    .filter-controls {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+
+    /* ── Filter Card ── */
+    .filter-card {
+      flex: 1; min-width: 220px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      position: relative;
+      transition: border-color 0.25s;
+    }
+
+    .filter-card.active { border-color: var(--border2); }
+    .filter-card.disabled { opacity: 0.55; }
+
+    .filter-card-top {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .filter-card-label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+
+    .fc-size   .filter-card-label { color: #60a5fa; }
+    .fc-fscore .filter-card-label { color: var(--blue); }
+
+    /* Toggle switch */
+    .toggle-wrap {
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .toggle {
+      position: relative; width: 36px; height: 20px;
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    .toggle input { opacity: 0; width: 0; height: 0; }
+
+    .toggle-track {
+      position: absolute; inset: 0;
+      background: var(--border2); border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--muted); transition: transform 0.2s, background 0.2s;
+    }
+
+    .toggle input:checked ~ .toggle-track { background: rgba(0,229,160,0.25); }
+    .toggle input:checked ~ .toggle-thumb {
+      transform: translateX(16px);
+      background: var(--blue);
+    }
+
+    .fc-size .toggle input:checked ~ .toggle-track { background: rgba(96,165,250,0.25); }
+    .fc-size .toggle input:checked ~ .toggle-thumb { background: #60a5fa; }
+
+    .toggle-status {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+
+    .status-off { color: var(--muted); }
+    .status-on  { color: var(--blue); }
+    .fc-size .status-on { color: #60a5fa; }
+
+    .filter-desc {
+      font-size: 11px; color: var(--muted);
+      line-height: 1.6; margin-bottom: 12px;
+    }
+
+    /* Threshold slider */
+    .threshold-row {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .threshold-label {
+      font-size: 10px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .threshold-input {
+      flex: 1; height: 3px;
+      -webkit-appearance: none; appearance: none;
+      background: var(--border2); border-radius: 2px; outline: none;
+      cursor: pointer;
+    }
+
+    .threshold-input::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--muted2); cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .threshold-input::-webkit-slider-thumb:hover { background: var(--accent); }
+
+    .fc-size  .threshold-input::-webkit-slider-thumb { background: #60a5fa; }
+    .fc-fscore .threshold-input::-webkit-slider-thumb { background: var(--blue); }
+
+    .threshold-val {
+      font-size: 12px; font-weight: 500;
+      min-width: 72px; text-align: right;
+    }
+
+    .fc-size   .threshold-val { color: #60a5fa; }
+    .fc-fscore .threshold-val { color: var(--blue); }
+
+    /* Filter active badge */
+    .filter-badge {
+      display: none;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 2px 8px;
+      border: 1px solid;
+      position: absolute; top: 10px; right: 10px;
+    }
+
+    .fc-size   .filter-badge { color: #60a5fa; border-color: rgba(96,165,250,0.3);  background: rgba(96,165,250,0.07);  }
+    .fc-fscore .filter-badge { color: var(--blue); border-color: rgba(0,229,160,0.3); background: rgba(0,229,160,0.07); }
+
+    .filter-badge.visible { display: inline-block; }
+
     /* ── STATS ROW ── */
     .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px; margin-bottom: 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 32px;
       animation: fadeDown 0.65s 0.12s ease both;
     }
 
     @media (max-width: 700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
 
     .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       padding: 18px 20px;
     }
 
@@ -231,6 +372,26 @@
       margin-top: 5px;
     }
 
+    /* ── ACTIVE FILTERS SUMMARY ── */
+    .active-filters {
+      display: none;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      background: rgba(0,229,160,0.04);
+      border: 1px solid rgba(0,229,160,0.15);
+      font-size: 11px; color: var(--blue);
+      animation: fadeDown 0.3s ease both;
+    }
+
+    .active-filters.visible { display: block; }
+
+    /* ── RESEARCH BUTTON ── */
+    .research-row {
+      display: flex; justify-content: flex-end;
+      margin-bottom: 28px;
+      animation: fadeDown 0.65s 0.11s ease both;
+    }
+
     /* ── TABLE ── */
     .table-wrap {
       overflow-x: auto;
@@ -238,16 +399,13 @@
     }
 
     table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
+      width: 100%; border-collapse: collapse; font-size: 13px;
     }
 
     thead tr { border-bottom: 1px solid var(--border2); }
 
     thead th {
-      padding: 10px 14px;
-      text-align: left;
+      padding: 10px 14px; text-align: left;
       font-size: 10px; font-weight: 500;
       letter-spacing: 0.15em; color: var(--muted);
       text-transform: uppercase; white-space: nowrap;
@@ -256,11 +414,18 @@
     thead th.right { text-align: right; }
     thead th.center { text-align: center; }
 
-    /* Column header accent lines */
-    th.col-3m { border-bottom: 2px solid var(--accent3); }
-    th.col-6m { border-bottom: 2px solid var(--accent2); }
-    th.col-12m { border-bottom: 2px solid var(--accent); }
-    th.col-compound { border-bottom: 2px solid rgba(255,107,53,0.6); }
+    th.col-3m      { border-bottom: 2px solid var(--accent3); }
+    th.col-6m      { border-bottom: 2px solid var(--accent2); }
+    th.col-12m     { border-bottom: 2px solid var(--accent); }
+    th.col-compound{ border-bottom: 2px solid rgba(255,107,53,0.6); }
+    th.col-cap     { border-bottom: 2px solid rgba(96,165,250,0.5); }
+    th.col-fscore  { border-bottom: 2px solid rgba(0,229,160,0.5); }
+
+    /* Hidden columns by default */
+    .col-cap-data, .th-cap,
+    .col-fscore-data, .th-fscore {
+      display: none;
+    }
 
     tbody tr {
       border-bottom: 1px solid var(--border);
@@ -270,14 +435,10 @@
 
     tbody tr:hover { background: rgba(255,107,53,0.03); }
 
-    td {
-      padding: 13px 14px; white-space: nowrap;
-    }
-
+    td { padding: 13px 14px; white-space: nowrap; }
     td.right { text-align: right; }
     td.center { text-align: center; }
 
-    /* Rank */
     .rank-num {
       font-family: 'Syne', sans-serif;
       font-size: 20px; font-weight: 800;
@@ -300,10 +461,8 @@
       margin-top: 2px; display: block;
     }
 
-    /* Momentum cells */
     .mom-val {
-      font-weight: 500;
-      display: inline-block;
+      font-weight: 500; display: inline-block;
       min-width: 64px; text-align: right;
     }
 
@@ -312,7 +471,6 @@
     .mom-pos-weak   { color: var(--muted2); }
     .mom-neg        { color: var(--red); }
 
-    /* Compound score bar */
     .compound-wrap {
       display: flex; align-items: center;
       gap: 10px; justify-content: flex-end;
@@ -337,6 +495,45 @@
       background: linear-gradient(90deg, var(--accent2), var(--accent));
       transition: width 0.5s ease;
     }
+
+    /* Market cap display */
+    .cap-val {
+      font-size: 12px; color: var(--muted2); text-align: right;
+    }
+
+    .cap-large  { color: #60a5fa; }
+    .cap-mid    { color: rgba(96,165,250,0.65); }
+    .cap-small  { color: var(--muted2); }
+    .cap-na     { color: var(--muted); font-size: 11px; }
+
+    /* F-Score display */
+    .fscore-wrap {
+      display: flex; align-items: center;
+      gap: 8px; justify-content: flex-end;
+    }
+
+    .fscore-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 700;
+      min-width: 28px; text-align: center;
+    }
+
+    .fscore-9, .fscore-8, .fscore-7, .fscore-6 { color: var(--blue); }
+    .fscore-5 { color: #7ec8a0; }
+    .fscore-4, .fscore-3 { color: var(--muted2); }
+    .fscore-2, .fscore-1, .fscore-0 { color: var(--red); }
+    .fscore-na { color: var(--muted); font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+
+    .fscore-dots {
+      display: flex; gap: 2px;
+    }
+
+    .fscore-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border2);
+    }
+
+    .fscore-dot.lit { background: var(--blue); }
 
     /* Change badge */
     .rank-change {
@@ -366,8 +563,7 @@
     }
 
     .error-msg {
-      display: none;
-      padding: 24px;
+      display: none; padding: 24px;
       border: 1px solid rgba(255,68,85,0.3);
       color: var(--red); font-size: 13px;
       background: rgba(255,68,85,0.05);
@@ -397,20 +593,14 @@
 
     .method-item h3 {
       font-size: 11px; color: var(--accent);
-      letter-spacing: 0.18em; text-transform: uppercase;
-      margin-bottom: 8px;
+      letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px;
     }
 
-    .method-item p {
-      font-size: 12px; color: var(--muted);
-      line-height: 1.75;
-    }
-
+    .method-item p { font-size: 12px; color: var(--muted); line-height: 1.75; }
     .method-item p strong { color: var(--text); font-weight: 400; }
 
     .formula-box {
-      margin-top: 24px;
-      padding: 14px 20px;
+      margin-top: 24px; padding: 14px 20px;
       background: rgba(255,107,53,0.06);
       border: 1px solid rgba(255,107,53,0.18);
       font-size: 13px; color: var(--accent2);
@@ -419,8 +609,7 @@
 
     /* ── FOOTER ── */
     footer {
-      margin-top: 64px;
-      padding-top: 24px;
+      margin-top: 64px; padding-top: 24px;
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-between;
       align-items: center; flex-wrap: wrap; gap: 12px;
@@ -472,7 +661,6 @@
       to   { opacity: 1; transform: translateX(0); }
     }
 
-    /* Back link */
     .back-link {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 11px; color: var(--muted); text-decoration: none;
@@ -532,33 +720,72 @@
     </div>
   </div>
 
-  <!-- RESEARCH BUTTON -->
-  <div style="display:flex; justify-content:flex-end; margin-bottom: 28px; animation: fadeDown 0.65s 0.11s ease both;">
-    <a href="research.html" style="
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      padding: 12px 22px;
-      border: 1px solid rgba(255,107,53,0.35);
-      color: var(--accent);
-      background: rgba(255,107,53,0.06);
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-      position: relative; overflow: hidden;
-    "
-    onmouseover="this.style.borderColor='rgba(255,107,53,0.7)'; this.style.background='rgba(255,107,53,0.12)'; this.style.transform='translateY(-2px)';"
-    onmouseout="this.style.borderColor='rgba(255,107,53,0.35)'; this.style.background='rgba(255,107,53,0.06)'; this.style.transform='translateY(0)';">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <rect x="8" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <rect x="1" y="8" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M8 10.5h5M10.5 8v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Research &amp; Evidence
-      <span style="font-size:13px; margin-left:2px; transition: transform 0.2s;">→</span>
-    </a>
+  <!-- ── FILTER PANEL ── -->
+  <div class="filter-panel">
+    <div class="filter-header">
+      <div class="filter-title">Display Filters</div>
+      <div class="filter-note">Toggle columns to show — <span>disabled by default</span></div>
+    </div>
+
+    <div class="filter-controls">
+
+      <!-- Company Size filter -->
+      <div class="filter-card fc-size" id="fc-size">
+        <div class="filter-badge" id="badge-size">Active</div>
+        <div class="filter-card-top">
+          <div class="filter-card-label">Company Size</div>
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="toggle-size" onchange="onFilterChange()">
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+            <span class="toggle-status status-off" id="status-size">Off</span>
+          </div>
+        </div>
+        <div class="filter-desc">
+          Show market capitalisation column. Useful for excluding micro-cap stocks with thin liquidity.
+        </div>
+        <div class="threshold-row">
+          <span class="threshold-label">Min cap</span>
+          <input type="range" class="threshold-input" id="slider-size"
+                 min="0" max="20000" step="500" value="0"
+                 oninput="updateSizeLabel()" onchange="onFilterChange()">
+          <span class="threshold-val" id="label-size">No filter</span>
+        </div>
+      </div>
+
+      <!-- Piotroski F-Score filter -->
+      <div class="filter-card fc-fscore" id="fc-fscore">
+        <div class="filter-badge" id="badge-fscore">Active</div>
+        <div class="filter-card-top">
+          <div class="filter-card-label">Piotroski F-Score</div>
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="toggle-fscore" onchange="onFilterChange()">
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+            <span class="toggle-status status-off" id="status-fscore">Off</span>
+          </div>
+        </div>
+        <div class="filter-desc">
+          Show financial quality score (0–9). Combines profitability, leverage, and efficiency signals from balance sheet data.
+        </div>
+        <div class="threshold-row">
+          <span class="threshold-label">Min score</span>
+          <input type="range" class="threshold-input" id="slider-fscore"
+                 min="0" max="9" step="1" value="0"
+                 oninput="updateFscoreLabel()" onchange="onFilterChange()">
+          <span class="threshold-val" id="label-fscore">No filter</span>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <!-- Active filters summary -->
+  <div class="active-filters" id="active-filters-bar"></div>
 
   <!-- STATS -->
   <div class="stats-row">
@@ -578,6 +805,33 @@
       <div class="stat-num" id="stat-new">—</div>
       <div class="stat-desc">New Entries This Week</div>
     </div>
+  </div>
+
+  <!-- RESEARCH BUTTON -->
+  <div class="research-row">
+    <a href="research.html" style="
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 12px 22px;
+      border: 1px solid rgba(255,107,53,0.35);
+      color: var(--accent);
+      background: rgba(255,107,53,0.06);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    "
+    onmouseover="this.style.borderColor='rgba(255,107,53,0.7)'; this.style.background='rgba(255,107,53,0.12)'; this.style.transform='translateY(-2px)';"
+    onmouseout="this.style.borderColor='rgba(255,107,53,0.35)'; this.style.background='rgba(255,107,53,0.06)'; this.style.transform='translateY(0)';">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <rect x="1" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
+        <rect x="8" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
+        <rect x="1" y="8" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M8 10.5h5M10.5 8v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Research &amp; Evidence
+      <span style="font-size:13px; margin-left:2px;">→</span>
+    </a>
   </div>
 
   <!-- ERROR -->
@@ -600,6 +854,8 @@
           <th class="right col-6m">6M Return</th>
           <th class="right col-12m">12M Return</th>
           <th class="right col-compound">Compound Score</th>
+          <th class="right col-cap th-cap">Mkt Cap</th>
+          <th class="right col-fscore th-fscore">F-Score</th>
           <th class="center">vs Last Week</th>
         </tr>
       </thead>
@@ -620,12 +876,12 @@
         <p>Different momentum horizons capture different phenomena. The <strong>3-month</strong> window captures short-term trend acceleration. The <strong>6-month</strong> window filters noise and confirms the trend. The <strong>12-month</strong> window ensures structural, sustained outperformance — not a brief spike.</p>
       </div>
       <div class="method-item">
-        <h3>03 · Signal Interpretation</h3>
-        <p>A high Compound score means the stock has been consistently rising for the full year. <strong>Positive across all three windows</strong> is the strongest signal — momentum alignment. Stocks negative in any single window are flagged and may be losing strength.</p>
+        <h3>03 · Company Size Column</h3>
+        <p>Market capitalisation in million SEK, converted from Yahoo Finance's USD figure. Enables quick identification of <strong>micro-cap vs large-cap</strong> stocks. Thin liquidity in very small companies can amplify momentum moves and widen spreads.</p>
       </div>
       <div class="method-item">
-        <h3>04 · Academic Foundation</h3>
-        <p>Multi-period momentum is grounded in <strong>Jegadeesh & Titman (1993)</strong> and <strong>Fama & French (1996)</strong>. Cross-horizon momentum signals have been shown to produce stronger and more persistent results than any single lookback period in isolation.</p>
+        <h3>04 · Piotroski F-Score</h3>
+        <p>A 0–9 quality score based on <strong>9 binary signals</strong> across profitability (ROA, cash flow, margins), leverage (debt ratio, current ratio, dilution), and efficiency (operating margin, return on equity). Higher scores indicate stronger financial health.</p>
       </div>
     </div>
     <div class="formula-box">
@@ -648,12 +904,16 @@
 </div>
 
 <script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let RAW_DATA = null;
+
+// ─── Load data ───────────────────────────────────────────────────────────────
 async function loadData() {
   try {
     const res = await fetch('momentum_data.json?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    render(data);
+    RAW_DATA = await res.json();
+    render(RAW_DATA);
   } catch (e) {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('error-msg').style.display = 'block';
@@ -661,9 +921,9 @@ async function loadData() {
   }
 }
 
+// ─── Render ──────────────────────────────────────────────────────────────────
 function render(data) {
   document.getElementById('loader').style.display = 'none';
-
   document.getElementById('updated-time').textContent = 'Updated: ' + data.updated;
   document.getElementById('stocks-screened').textContent =
     data.stocks_screened + ' of ' + (data.total_attempted || '?') + ' stocks screened';
@@ -679,14 +939,40 @@ function render(data) {
   const allPos = top20.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
   document.getElementById('stat-positive').textContent = allPos + '/20';
 
-  // Table
-  const maxScore = Math.max(...top20.map(s => s.compound_score));
-  const minScore = Math.min(...top20.map(s => s.compound_score));
+  renderTable(top20);
+  document.getElementById('mom-table').style.display = 'table';
+}
+
+function renderTable(stocks) {
+  const showSize   = document.getElementById('toggle-size').checked;
+  const showFscore = document.getElementById('toggle-fscore').checked;
+  const minCap     = showSize   ? parseInt(document.getElementById('slider-size').value)   : 0;
+  const minFscore  = showFscore ? parseInt(document.getElementById('slider-fscore').value) : 0;
+
+  // Show/hide columns
+  document.querySelectorAll('.col-cap-data, .th-cap').forEach(el =>
+    el.style.display = showSize ? '' : 'none');
+  document.querySelectorAll('.col-fscore-data, .th-fscore').forEach(el =>
+    el.style.display = showFscore ? '' : 'none');
+
+  const maxScore = Math.max(...stocks.map(s => s.compound_score));
+  const minScore = Math.min(...stocks.map(s => s.compound_score));
   const tbody = document.getElementById('mom-tbody');
   tbody.innerHTML = '';
 
-  top20.forEach((s, i) => {
-    const rank = i + 1;
+  let visibleRank = 0;
+
+  stocks.forEach((s) => {
+    // Apply client-side filters
+    if (showSize && minCap > 0) {
+      if (s.market_cap_msek == null || s.market_cap_msek < minCap) return;
+    }
+    if (showFscore && minFscore > 0) {
+      if (s.fscore == null || s.fscore < minFscore) return;
+    }
+
+    visibleRank++;
+    const rank = visibleRank;
     const barPct = maxScore > minScore
       ? ((s.compound_score - minScore) / (maxScore - minScore)) * 100
       : 80;
@@ -696,16 +982,24 @@ function render(data) {
     if (s.prev_rank === null || s.prev_rank === undefined) {
       prevHTML = '<span class="rank-change rank-new">NEW</span>';
     } else {
-      const diff = s.prev_rank - rank;
+      const diff = s.prev_rank - s.rank;
       if (diff > 0)       prevHTML = `<span class="rank-change rank-up">▲ ${diff} &nbsp;#${s.prev_rank}</span>`;
       else if (diff < 0)  prevHTML = `<span class="rank-change rank-down">▼ ${Math.abs(diff)} &nbsp;#${s.prev_rank}</span>`;
       else                prevHTML = `<span class="rank-change rank-same">— &nbsp;#${s.prev_rank}</span>`;
     }
 
-    const ticker = s.ticker.replace('.ST', '');
+    const ticker        = s.ticker.replace('.ST', '');
     const compoundClass = s.compound_score >= 0 ? 'pos-compound' : 'neg-compound';
 
+    // Market cap cell
+    const capCell = buildCapCell(s.market_cap_msek);
+
+    // F-Score cell
+    const fscoreCell = buildFscoreCell(s.fscore);
+
     const tr = document.createElement('tr');
+    if (rank === 1) tr.style.setProperty('--rank-color', 'var(--accent)');
+
     tr.innerHTML = `
       <td><span class="rank-num">${String(rank).padStart(2, '0')}</span></td>
       <td>
@@ -723,14 +1017,93 @@ function render(data) {
           </div>
         </div>
       </td>
+      <td class="right col-cap-data" style="display:${showSize ? '' : 'none'}">${capCell}</td>
+      <td class="right col-fscore-data" style="display:${showFscore ? '' : 'none'}">${fscoreCell}</td>
       <td class="center">${prevHTML}</td>
     `;
     tbody.appendChild(tr);
   });
-
-  document.getElementById('mom-table').style.display = 'table';
 }
 
+// ─── Cap cell ────────────────────────────────────────────────────────────────
+function buildCapCell(cap) {
+  if (cap == null) return '<span class="cap-na">N/A</span>';
+  let cls = 'cap-small';
+  let label = '';
+  if (cap >= 10000)      { cls = 'cap-large'; label = 'Large'; }
+  else if (cap >= 2000)  { cls = 'cap-mid';   label = 'Mid'; }
+  else                   { cls = 'cap-small'; label = 'Small'; }
+
+  const display = cap >= 1000
+    ? (cap / 1000).toFixed(1) + ' bn'
+    : Math.round(cap) + ' m';
+
+  return `<span class="cap-val ${cls}" title="${label} Cap · ${Math.round(cap)} MSEK">${display} SEK</span>`;
+}
+
+// ─── F-Score cell ─────────────────────────────────────────────────────────────
+function buildFscoreCell(score) {
+  if (score == null) return '<span class="fscore-na">N/A</span>';
+  const dots = Array.from({length: 9}, (_, i) =>
+    `<div class="fscore-dot${i < score ? ' lit' : ''}"></div>`
+  ).join('');
+  return `
+    <div class="fscore-wrap">
+      <span class="fscore-val fscore-${score}">${score}</span>
+      <div class="fscore-dots">${dots}</div>
+    </div>`;
+}
+
+// ─── Filter change handler ───────────────────────────────────────────────────
+function onFilterChange() {
+  const showSize   = document.getElementById('toggle-size').checked;
+  const showFscore = document.getElementById('toggle-fscore').checked;
+  const minCap     = parseInt(document.getElementById('slider-size').value);
+  const minFscore  = parseInt(document.getElementById('slider-fscore').value);
+
+  // Update toggle status labels
+  document.getElementById('status-size').textContent   = showSize   ? 'On' : 'Off';
+  document.getElementById('status-size').className     = showSize   ? 'toggle-status status-on' : 'toggle-status status-off';
+  document.getElementById('status-fscore').textContent = showFscore ? 'On' : 'Off';
+  document.getElementById('status-fscore').className   = showFscore ? 'toggle-status status-on' : 'toggle-status status-off';
+
+  // Update badges
+  const sizeActive   = showSize   && minCap > 0;
+  const fscoreActive = showFscore && minFscore > 0;
+  document.getElementById('badge-size').classList.toggle('visible',   sizeActive);
+  document.getElementById('badge-fscore').classList.toggle('visible', fscoreActive);
+
+  // Active filters summary bar
+  const bar = document.getElementById('active-filters-bar');
+  const parts = [];
+  if (sizeActive)   parts.push('Size filter: min ' + formatCap(minCap));
+  if (fscoreActive) parts.push('F-Score filter: min F=' + minFscore);
+  if (parts.length) {
+    bar.textContent = '⚡ Active filters — ' + parts.join('  ·  ') + '  (showing only matching stocks)';
+    bar.classList.add('visible');
+  } else {
+    bar.classList.remove('visible');
+  }
+
+  if (RAW_DATA) renderTable(RAW_DATA.top20 || []);
+}
+
+// ─── Slider label updates ────────────────────────────────────────────────────
+function updateSizeLabel() {
+  const v = parseInt(document.getElementById('slider-size').value);
+  document.getElementById('label-size').textContent = v === 0 ? 'No filter' : formatCap(v);
+}
+
+function updateFscoreLabel() {
+  const v = parseInt(document.getElementById('slider-fscore').value);
+  document.getElementById('label-fscore').textContent = v === 0 ? 'No filter' : 'F ≥ ' + v;
+}
+
+function formatCap(msek) {
+  return msek >= 1000 ? (msek / 1000).toFixed(1) + ' bn SEK' : msek + ' m SEK';
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 function momClass(v) {
   if (v === null || v === undefined) return '';
   if (v >= 30)  return 'mom-pos-strong';
@@ -741,8 +1114,7 @@ function momClass(v) {
 
 function formatPct(v) {
   if (v === null || v === undefined) return '—';
-  const sign = v >= 0 ? '+' : '';
-  return sign + v.toFixed(1) + '%';
+  return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
 }
 
 function esc(s) {
@@ -752,6 +1124,9 @@ function esc(s) {
     .replace(/>/g, '&gt;');
 }
 
+// Init slider labels
+updateSizeLabel();
+updateFscoreLabel();
 loadData();
 </script>
 </body>

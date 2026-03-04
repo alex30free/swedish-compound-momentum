@@ -8,6 +8,10 @@ Ranks all OMX Stockholm stocks by COMPOUND MOMENTUM SCORE:
 Each return is the raw percentage price change over the window.
 Top 20 stocks by compound score are saved to momentum_data.json.
 
+Optional filters (disabled by default — set to True to enable):
+    FILTER_BY_SIZE    — exclude stocks below MIN_MARKET_CAP_MSEK
+    FILTER_BY_FSCORE  — exclude stocks with Piotroski F-Score below MIN_FSCORE
+
 Updated every Friday evening after Nasdaq Stockholm closes,
 via GitHub Actions (.github/workflows/update_momentum.yml).
 """
@@ -29,8 +33,25 @@ from fetch_swedish_tickers import get_tickers
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Optional filters ── (set to True to activate)
+FILTER_BY_SIZE   = False   # Filter by minimum market capitalisation
+FILTER_BY_FSCORE = False   # Filter by minimum Piotroski F-Score
+
+# Size filter threshold (in million SEK)
+# Examples: 500 = small cap+, 2000 = mid cap+, 10000 = large cap only
+MIN_MARKET_CAP_MSEK = 500
+
+# Piotroski F-Score filter threshold (0–9 scale)
+# 0–2 = weak, 3–5 = medium, 6–9 = strong
+# Recommended: 5 or 6 to keep only financially healthy companies
+MIN_FSCORE = 5
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # FULL SWEDISH STOCK UNIVERSE
-# Source: Nasdaq OMX Stockholm (Large + Mid + Small Cap)
 # ─────────────────────────────────────────────────────────────────────────────
 
 TICKERS = get_tickers(verbose=True, max_pages=2)
@@ -44,7 +65,7 @@ for item in TICKERS:
         TICKERS_DEDUP.append(item)
 TICKERS = TICKERS_DEDUP
 
-OUTPUT_JSON    = "momentum_data.json"
+OUTPUT_JSON     = "momentum_data.json"
 PREV_RANKS_FILE = "momentum_prev_ranks.json"
 
 # Approximate trading days per calendar period
@@ -52,6 +73,136 @@ DAYS_3M  = 65    # ~3 months
 DAYS_6M  = 130   # ~6 months
 DAYS_12M = 260   # ~12 months
 
+# SEK per USD (approximate — used to convert market cap from USD to SEK)
+# Yahoo Finance returns market cap in USD regardless of listing currency
+USD_TO_SEK = 10.5
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PIOTROSKI F-SCORE
+# ─────────────────────────────────────────────────────────────────────────────
+
+def compute_fscore(info: dict) -> int | None:
+    """
+    Compute a simplified Piotroski F-Score (0–9) from Yahoo Finance fundamentals.
+
+    The original Piotroski (2000) score uses 9 binary signals across three groups:
+      Profitability (4 signals): ROA, Operating Cash Flow, Change in ROA, Accruals
+      Leverage / Liquidity (3 signals): Change in Leverage, Change in Current Ratio, No new shares issued
+      Operating Efficiency (2 signals): Change in Gross Margin, Change in Asset Turnover
+
+    Since Yahoo Finance does not provide prior-year balance sheet data directly via
+    yfinance .info, we compute a *proxy F-Score* using available TTM and balance sheet
+    fields. Signals that cannot be computed are scored conservatively as 0 (not awarded).
+
+    Returns the integer score (0–9), or None if too few signals can be computed.
+    """
+    score = 0
+    signals_available = 0
+
+    def safe(key, default=None):
+        v = info.get(key)
+        return v if v is not None and v == v else default  # also guards NaN
+
+    # ── GROUP A: PROFITABILITY ────────────────────────────────────────────────
+
+    # A1 — ROA > 0  (Net income / Total assets)
+    net_income   = safe('netIncomeToCommon')
+    total_assets = safe('totalAssets')
+    if net_income is not None and total_assets and total_assets > 0:
+        signals_available += 1
+        roa = net_income / total_assets
+        if roa > 0:
+            score += 1
+
+    # A2 — Operating Cash Flow > 0
+    operating_cf = safe('operatingCashflow')
+    if operating_cf is not None:
+        signals_available += 1
+        if operating_cf > 0:
+            score += 1
+
+    # A3 — Cash flow from operations > Net income (Accruals quality)
+    if operating_cf is not None and net_income is not None:
+        signals_available += 1
+        if operating_cf > net_income:
+            score += 1
+
+    # A4 — Positive gross profit margin
+    gross_margins = safe('grossMargins')
+    if gross_margins is not None:
+        signals_available += 1
+        if gross_margins > 0:
+            score += 1
+
+    # ── GROUP B: LEVERAGE / LIQUIDITY ─────────────────────────────────────────
+
+    # B1 — Debt ratio not too high  (Total Debt / Total Assets < 0.6)
+    total_debt = safe('totalDebt', 0)
+    if total_assets and total_assets > 0:
+        signals_available += 1
+        debt_ratio = (total_debt or 0) / total_assets
+        if debt_ratio < 0.6:
+            score += 1
+
+    # B2 — Current ratio >= 1  (Current Assets / Current Liabilities)
+    current_ratio = safe('currentRatio')
+    if current_ratio is not None:
+        signals_available += 1
+        if current_ratio >= 1.0:
+            score += 1
+
+    # B3 — No recent share dilution  (shares outstanding stable or falling)
+    # Proxy: use sharesOutstanding vs floatShares — if float ≈ shares, no preferred/warrants overhang
+    shares_out   = safe('sharesOutstanding')
+    float_shares = safe('floatShares')
+    if shares_out and float_shares and shares_out > 0:
+        signals_available += 1
+        dilution_ratio = float_shares / shares_out
+        if dilution_ratio >= 0.80:   # float is at least 80% of total = limited dilution overhang
+            score += 1
+
+    # ── GROUP C: OPERATING EFFICIENCY ─────────────────────────────────────────
+
+    # C1 — Positive operating margin
+    operating_margins = safe('operatingMargins')
+    if operating_margins is not None:
+        signals_available += 1
+        if operating_margins > 0:
+            score += 1
+
+    # C2 — Positive return on equity
+    return_on_equity = safe('returnOnEquity')
+    if return_on_equity is not None:
+        signals_available += 1
+        if return_on_equity > 0:
+            score += 1
+
+    # Need at least 5 of the 9 signals to have a reliable score
+    if signals_available < 5:
+        return None
+
+    return score
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MARKET CAP HELPER
+# ─────────────────────────────────────────────────────────────────────────────
+
+def get_market_cap_msek(info: dict) -> float | None:
+    """
+    Return market capitalisation in million SEK, or None if unavailable.
+    Yahoo Finance returns market cap in USD — we convert using USD_TO_SEK.
+    """
+    mc = info.get('marketCap')
+    if mc is None or mc != mc or mc <= 0:
+        return None
+    return (mc * USD_TO_SEK) / 1_000_000   # USD → SEK → million SEK
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MOMENTUM CALCULATION
+# ─────────────────────────────────────────────────────────────────────────────
 
 def compute_momentum(name, symbol, prices):
     """
@@ -66,7 +217,7 @@ def compute_momentum(name, symbol, prices):
     def pct_return(days_back):
         idx = max(0, n - 1 - days_back)
         p_past = float(prices.iloc[idx])
-        if p_past == 0 or p_past != p_past:  # guard div/0 and NaN
+        if p_past == 0 or p_past != p_past:
             return None
         return ((price_now / p_past) - 1.0) * 100.0
 
@@ -79,6 +230,10 @@ def compute_momentum(name, symbol, prices):
 
     return m3, m6, m12
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PREV RANKS
+# ─────────────────────────────────────────────────────────────────────────────
 
 def load_prev_ranks():
     if os.path.exists(PREV_RANKS_FILE):
@@ -93,10 +248,14 @@ def save_prev_ranks(top20):
         json.dump(ranks, f)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# MAIN
+# ─────────────────────────────────────────────────────────────────────────────
+
 def main():
     now        = datetime.datetime.now(datetime.timezone.utc)
     end_date   = datetime.datetime.today()
-    start_date = end_date - datetime.timedelta(days=420)  # a little extra buffer
+    start_date = end_date - datetime.timedelta(days=420)
 
     total = len(TICKERS)
 
@@ -105,6 +264,8 @@ def main():
     print("  Universe: " + str(total) + " tickers")
     print("  Running at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     print("  Windows: 3M (" + str(DAYS_3M) + "d)  6M (" + str(DAYS_6M) + "d)  12M (" + str(DAYS_12M) + "d)")
+    print("  Filter — Size:    " + ("ON  (min " + str(MIN_MARKET_CAP_MSEK) + " MSEK)" if FILTER_BY_SIZE   else "OFF"))
+    print("  Filter — FScore:  " + ("ON  (min F=" + str(MIN_FSCORE) + ")"              if FILTER_BY_FSCORE else "OFF"))
     print("=" * 65)
     print("")
 
@@ -145,20 +306,74 @@ def main():
             m3, m6, m12 = mom
             compound = round(m3 + m6 + m12, 2)
 
+            # Fetch fundamentals (needed for size + fscore filters, and always stored)
+            info = stock.info
+
+            # ── Market cap ────────────────────────────────────────────────────
+            market_cap_msek = get_market_cap_msek(info)
+
+            if FILTER_BY_SIZE:
+                if market_cap_msek is None:
+                    skipped.append({
+                        "name": name, "ticker": symbol,
+                        "reason": "Filtered: market cap unavailable",
+                        "days_available": days
+                    })
+                    print("✗  Filtered: market cap unavailable")
+                    time.sleep(0.3)
+                    continue
+                if market_cap_msek < MIN_MARKET_CAP_MSEK:
+                    skipped.append({
+                        "name": name, "ticker": symbol,
+                        "reason": "Filtered: market cap " + str(round(market_cap_msek)) + " MSEK < " + str(MIN_MARKET_CAP_MSEK) + " MSEK minimum",
+                        "days_available": days
+                    })
+                    print("✗  Filtered: " + str(round(market_cap_msek)) + " MSEK < min " + str(MIN_MARKET_CAP_MSEK) + " MSEK")
+                    time.sleep(0.3)
+                    continue
+
+            # ── Piotroski F-Score ─────────────────────────────────────────────
+            fscore = compute_fscore(info)
+
+            if FILTER_BY_FSCORE:
+                if fscore is None:
+                    skipped.append({
+                        "name": name, "ticker": symbol,
+                        "reason": "Filtered: F-Score could not be computed (insufficient fundamental data)",
+                        "days_available": days
+                    })
+                    print("✗  Filtered: F-Score unavailable")
+                    time.sleep(0.3)
+                    continue
+                if fscore < MIN_FSCORE:
+                    skipped.append({
+                        "name": name, "ticker": symbol,
+                        "reason": "Filtered: F-Score " + str(fscore) + " < minimum " + str(MIN_FSCORE),
+                        "days_available": days
+                    })
+                    print("✗  Filtered: F-Score=" + str(fscore) + " < min " + str(MIN_FSCORE))
+                    time.sleep(0.3)
+                    continue
+
             results.append({
-                "name":           name,
-                "ticker":         symbol,
-                "price":          round(float(prices.iloc[-1]), 2),
-                "mom_3m":         round(m3, 2),
-                "mom_6m":         round(m6, 2),
-                "mom_12m":        round(m12, 2),
-                "compound_score": compound,
+                "name":             name,
+                "ticker":           symbol,
+                "price":            round(float(prices.iloc[-1]), 2),
+                "mom_3m":           round(m3, 2),
+                "mom_6m":           round(m6, 2),
+                "mom_12m":          round(m12, 2),
+                "compound_score":   compound,
+                "market_cap_msek":  round(market_cap_msek) if market_cap_msek else None,
+                "fscore":           fscore,
             })
 
+            cap_str    = (str(round(market_cap_msek)) + "MSEK").rjust(10) if market_cap_msek else "    N/A MSEK"
+            fscore_str = ("F=" + str(fscore)) if fscore is not None else "F=N/A"
             print("✓  3M=" + str(round(m3, 1)).rjust(7) + "%"
                   "  6M=" + str(round(m6, 1)).rjust(7) + "%"
                   "  12M=" + str(round(m12, 1)).rjust(7) + "%"
-                  "  COMPOUND=" + str(compound).rjust(8) + "%")
+                  "  COMPOUND=" + str(compound).rjust(8) + "%"
+                  "  " + cap_str + "  " + fscore_str)
 
         except Exception as e:
             skipped.append({"name": name, "ticker": symbol, "reason": "Error: " + str(e)[:60], "days_available": 0})
@@ -192,19 +407,33 @@ def main():
     print("=" * 65)
     for r in top20:
         prev = "(prev #" + str(r["prev_rank"]) + ")" if r["prev_rank"] else "(new)"
+        cap_str = (str(r["market_cap_msek"]) + " MSEK") if r["market_cap_msek"] else "N/A"
+        fs_str  = ("F=" + str(r["fscore"])) if r["fscore"] is not None else "F=N/A"
         print("  #" + str(r["rank"]).rjust(2)
               + "  " + r["name"].ljust(30)
               + "  Score=" + str(r["compound_score"]).rjust(8) + "%"
+              + "  Cap=" + cap_str.rjust(12)
+              + "  " + fs_str
               + "  " + prev)
+
+    # Determine size/fscore category labels for output
+    size_filter_label = ("min " + str(MIN_MARKET_CAP_MSEK) + " MSEK") if FILTER_BY_SIZE else "disabled"
+    fscore_filter_label = ("min F=" + str(MIN_FSCORE)) if FILTER_BY_FSCORE else "disabled"
 
     # Write JSON
     output = {
-        "updated":         now.strftime("%Y-%m-%d %H:%M UTC"),
-        "total_attempted": len(TICKERS),
-        "stocks_screened": len(results),
-        "skipped_count":   len(skipped),
-        "top20":           top20,
-        "skipped":         skipped,
+        "updated":              now.strftime("%Y-%m-%d %H:%M UTC"),
+        "total_attempted":      len(TICKERS),
+        "stocks_screened":      len(results),
+        "skipped_count":        len(skipped),
+        "filters": {
+            "size_filter":      FILTER_BY_SIZE,
+            "size_min_msek":    MIN_MARKET_CAP_MSEK if FILTER_BY_SIZE else None,
+            "fscore_filter":    FILTER_BY_FSCORE,
+            "fscore_min":       MIN_FSCORE if FILTER_BY_FSCORE else None,
+        },
+        "top20":                top20,
+        "skipped":              skipped,
     }
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
@@ -212,7 +441,10 @@ def main():
 
     print("")
     print("✅  Saved → " + OUTPUT_JSON)
-    print("    Updated: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+    print("    Universe screened : " + str(len(results)) + " stocks")
+    print("    Size filter       : " + size_filter_label)
+    print("    F-Score filter    : " + fscore_filter_label)
+    print("    Updated           : " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 
 
 if __name__ == "__main__":
