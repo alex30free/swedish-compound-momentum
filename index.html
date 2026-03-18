@@ -147,6 +147,7 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s} footer a:
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,107,53,.5)}50%{box-shadow:0 0 0 5px rgba(255,107,53,0)}}
 @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes rowIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+@keyframes rowOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-8px)}}
 tbody tr:nth-child(1){animation-delay:.22s} tbody tr:nth-child(2){animation-delay:.25s}
 tbody tr:nth-child(3){animation-delay:.28s} tbody tr:nth-child(4){animation-delay:.31s}
 tbody tr:nth-child(5){animation-delay:.34s} tbody tr:nth-child(6){animation-delay:.37s}
@@ -162,6 +163,18 @@ tbody tr:nth-child(23){animation-delay:.88s} tbody tr:nth-child(24){animation-de
 tbody tr:nth-child(25){animation-delay:.94s} tbody tr:nth-child(26){animation-delay:.97s}
 tbody tr:nth-child(27){animation-delay:1.00s} tbody tr:nth-child(28){animation-delay:1.03s}
 tbody tr:nth-child(29){animation-delay:1.06s} tbody tr:nth-child(30){animation-delay:1.09s}
+tbody tr:nth-child(31){animation-delay:1.12s} tbody tr:nth-child(32){animation-delay:1.15s}
+tbody tr:nth-child(33){animation-delay:1.18s} tbody tr:nth-child(34){animation-delay:1.21s}
+tbody tr:nth-child(35){animation-delay:1.24s} tbody tr:nth-child(36){animation-delay:1.27s}
+tbody tr:nth-child(37){animation-delay:1.30s} tbody tr:nth-child(38){animation-delay:1.33s}
+tbody tr:nth-child(39){animation-delay:1.36s} tbody tr:nth-child(40){animation-delay:1.39s}
+tbody tr:nth-child(41){animation-delay:1.42s} tbody tr:nth-child(42){animation-delay:1.45s}
+tbody tr:nth-child(43){animation-delay:1.48s} tbody tr:nth-child(44){animation-delay:1.51s}
+tbody tr:nth-child(45){animation-delay:1.54s} tbody tr:nth-child(46){animation-delay:1.57s}
+tbody tr:nth-child(47){animation-delay:1.60s} tbody tr:nth-child(48){animation-delay:1.63s}
+tbody tr:nth-child(49){animation-delay:1.66s} tbody tr:nth-child(50){animation-delay:1.69s}
+tbody tr.row-hiding{animation:rowOut .22s ease forwards}
+tbody tr.row-showing{animation:rowIn .35s ease both}
 .back-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px;transition:color .2s}
 .back-link:hover{color:var(--accent)} .back-link::before{content:'←';font-size:14px}
 </style>
@@ -177,7 +190,7 @@ tbody tr:nth-child(29){animation-delay:1.06s} tbody tr:nth-child(30){animation-d
       <div class="brand">
         <div class="brand-tag">Momentum Screener — Strategy III</div>
         <h1>Compound<br><em>Momentum</em></h1>
-        <div class="brand-sub">3M + 6M + 12M price return · Top 30 Swedish stocks · Ranked weekly</div>
+        <div class="brand-sub">3M + 6M + 12M price return · Top 50 Swedish stocks · Ranked weekly</div>
       </div>
       <div class="header-right">
         <div><span class="live-dot"></span><span id="updated-time">Loading…</span></div>
@@ -345,16 +358,16 @@ function render(data) {
   document.getElementById('stocks-screened').textContent =
     data.stocks_screened + ' of ' + (data.total_attempted || '?') + ' stocks screened';
 
-  // Support both top30 (new) and top20 (old JSON) keys
-  const top30 = data.top30 || data.top20 || [];
+  // Support both top50 (new) and top20 (old JSON) keys
+  const top50 = data.top50 || data.top30 || data.top20 || [];
 
   document.getElementById('stat-total').textContent = data.stocks_screened;
-  document.getElementById('stat-new').textContent = top30.filter(s => s.prev_rank == null).length;
-  document.getElementById('stat-top-score').textContent = top30.length ? formatPct(top30[0].compound_score) : '—';
-  const allPos = top30.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
-  document.getElementById('stat-positive').textContent = allPos + '/30';
+  document.getElementById('stat-new').textContent = top50.filter(s => s.prev_rank == null).length;
+  document.getElementById('stat-top-score').textContent = top50.length ? formatPct(top50[0].compound_score) : '—';
+  const allPos = top50.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
+  document.getElementById('stat-positive').textContent = allPos + '/50';
 
-  renderTable(top30);
+  renderTable(top50);
   document.getElementById('mom-table').style.display = 'table';
   // Apply initial rank numbers and colours
   updateRankNumbers(Array.from(document.querySelectorAll('#mom-tbody tr')));
@@ -484,14 +497,21 @@ function setMcapThreshold(val) {
 
 function applyFilters() {
   const rows = Array.from(document.querySelectorAll('#mom-tbody tr'));
-  let passing = rows.length;
 
   // Remove any existing divider row
   const existingDivider = document.getElementById('filter-divider-row');
   if (existingDivider) existingDivider.remove();
 
   if (!fscoreEnabled && !mcapEnabled) {
-    rows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
+    // Show all rows with slide-in animation
+    rows.forEach((r, i) => {
+      r.style.display = '';
+      r.classList.remove('row-hiding');
+      r.classList.remove('row-showing');
+      void r.offsetWidth; // force reflow
+      r.classList.add('row-showing');
+      r.style.animationDelay = (i * 0.03) + 's';
+    });
     updateRankNumbers(rows);
     document.getElementById('filter-count-label').textContent = `Showing all ${rows.length} stocks`;
     document.getElementById('filter-count-label').className = 'filter-count';
@@ -506,13 +526,31 @@ function applyFilters() {
     const mPass = !mcapEnabled  || (mc !== null && mc >= mcapThreshold);
     (fPass && mPass ? passRows : failRows).push(r);
   });
-  passing = passRows.length;
 
-  // Hide failing rows completely, show passing rows
-  passRows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
-  failRows.forEach(r => { r.style.display='none'; r.style.opacity=''; r.style.filter=''; });
+  // Animate out failing rows, then hide them after animation completes
+  failRows.forEach(r => {
+    if (r.style.display === 'none') return; // already hidden, skip
+    r.classList.remove('row-showing');
+    r.classList.add('row-hiding');
+    r.addEventListener('animationend', () => {
+      r.style.display = 'none';
+      r.classList.remove('row-hiding');
+    }, { once: true });
+  });
 
-  // Re-number visible rows 1, 2, 3...
+  // Animate in passing rows that were previously hidden
+  passRows.forEach((r, i) => {
+    const wasHidden = r.style.display === 'none';
+    r.style.display = '';
+    r.classList.remove('row-hiding');
+    if (wasHidden) {
+      r.classList.remove('row-showing');
+      void r.offsetWidth;
+      r.classList.add('row-showing');
+      r.style.animationDelay = (i * 0.03) + 's';
+    }
+  });
+
   updateRankNumbers(passRows);
 
   const both = fscoreEnabled && mcapEnabled;
@@ -520,7 +558,7 @@ function applyFilters() {
   const parts = [];
   if (fscoreEnabled) parts.push(`F ≥ ${fscoreThreshold}`);
   if (mcapEnabled)   parts.push(`MCap ≥ ${mcapThreshold >= 1000 ? (mcapThreshold/1000)+'B' : mcapThreshold+'M'} SEK`);
-  label.textContent = `Showing ${passing} of ${rows.length} stocks (${parts.join(', ')})`;
+  label.textContent = `Showing ${passRows.length} of ${rows.length} stocks (${parts.join(', ')})`;
   label.className = 'filter-count' + (both ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
 }
 

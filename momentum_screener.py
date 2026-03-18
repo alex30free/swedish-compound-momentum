@@ -201,8 +201,8 @@ def compute_momentum(prices):
 def load_prev_ranks():
     return json.load(open(PREV_RANKS_FILE)) if os.path.exists(PREV_RANKS_FILE) else {}
 
-def save_prev_ranks(top30):
-    json.dump({r["ticker"]: r["rank"] for r in top30}, open(PREV_RANKS_FILE,"w"))
+def save_prev_ranks(top50):
+    json.dump({r["ticker"]: r["rank"] for r in top50}, open(PREV_RANKS_FILE,"w"))
 
 
 def main():
@@ -213,7 +213,7 @@ def main():
 
     print("=" * 65)
     print("  Compound Momentum Screener — OMX Stockholm")
-    print(f"  Universe: {total} tickers  |  Top 30 output")
+    print(f"  Universe: {total} tickers  |  Top 50 output")
     print(f"  Running at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("=" * 65 + "\n")
 
@@ -266,13 +266,13 @@ def main():
     results.sort(key=lambda x: x["compound_score"], reverse=True)
     for i, r in enumerate(results): r["rank"] = i+1
 
-    top30 = results[:30]  # ← TOP 30
+    top50 = results[:50]  # ← TOP 50
     prev_ranks = load_prev_ranks()
-    for r in top30: r["prev_rank"] = prev_ranks.get(r["ticker"], None)
-    save_prev_ranks(top30)
+    for r in top50: r["prev_rank"] = prev_ranks.get(r["ticker"], None)
+    save_prev_ranks(top50)
 
-    print(f"\n{'='*65}\n  TOP 30 — COMPOUND MOMENTUM RANKING\n{'='*65}")
-    for r in top30:
+    print(f"\n{'='*65}\n  TOP 50 — COMPOUND MOMENTUM RANKING\n{'='*65}")
+    for r in top50:
         prev = f"(prev #{r['prev_rank']})" if r['prev_rank'] else "(new)"
         print(f"  #{r['rank']:>2}  {r['name']:<30}  Score={r['compound_score']:>8}%  {prev}")
 
@@ -287,12 +287,12 @@ def main():
             "fscore_filter": FILTER_BY_FSCORE,
             "fscore_min": MIN_FSCORE if FILTER_BY_FSCORE else None,
         },
-        "top30": top30,   # ← key changed to top30
+        "top50": top50,   # ← key is top50
         "skipped": skipped,
     }
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    print(f"\n✅  Saved → {OUTPUT_JSON}  (top 30 stocks)")
+    print(f"\n✅  Saved → {OUTPUT_JSON}  (top 50 stocks)")
 
 if __name__ == "__main__":
     main()
