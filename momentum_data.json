@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-18 12:55 UTC",
+  "updated": "2026-03-18 15:08 UTC",
   "total_attempted": 275,
   "stocks_screened": 270,
   "skipped_count": 5,
@@ -9,7 +9,7 @@
     "fscore_filter": false,
     "fscore_min": null
   },
-  "top20": [
+  "top30": [
     {
       "name": "Medivir",
       "ticker": "MVIR.ST",
@@ -18,7 +18,7 @@
       "mom_6m": 33.72,
       "mom_12m": 41.07,
       "compound_score": 646.96,
-      "market_cap_msek": 13518,
+      "market_cap_msek": 12896,
       "fscore": 2,
       "rank": 1,
       "prev_rank": 1
@@ -44,7 +44,7 @@
       "mom_6m": 111.91,
       "mom_12m": 168.97,
       "compound_score": 313.75,
-      "market_cap_msek": 2053252,
+      "market_cap_msek": 2049663,
       "fscore": 6,
       "rank": 3,
       "prev_rank": 3
@@ -57,7 +57,7 @@
       "mom_6m": 46.98,
       "mom_12m": 152.26,
       "compound_score": 209.35,
-      "market_cap_msek": 27356,
+      "market_cap_msek": 27787,
       "fscore": 5,
       "rank": 4,
       "prev_rank": 4
@@ -70,10 +70,10 @@
       "mom_6m": 75.34,
       "mom_12m": 36.19,
       "compound_score": 195.87,
-      "market_cap_msek": 23975,
+      "market_cap_msek": 26310,
       "fscore": 3,
       "rank": 5,
-      "prev_rank": null
+      "prev_rank": 5
     },
     {
       "name": "Berner Industrier",
@@ -83,10 +83,10 @@
       "mom_6m": 34.15,
       "mom_12m": 149.66,
       "compound_score": 194.55,
-      "market_cap_msek": 19703,
+      "market_cap_msek": 19622,
       "fscore": 6,
       "rank": 6,
-      "prev_rank": 5
+      "prev_rank": 6
     },
     {
       "name": "Cloetta",
@@ -96,10 +96,10 @@
       "mom_6m": 54.48,
       "mom_12m": 100.8,
       "compound_score": 194.47,
-      "market_cap_msek": 158937,
+      "market_cap_msek": 156980,
       "fscore": 6,
       "rank": 7,
-      "prev_rank": 11
+      "prev_rank": 7
     },
     {
       "name": "Maha Capital",
@@ -109,10 +109,10 @@
       "mom_6m": 42.14,
       "mom_12m": 114.42,
       "compound_score": 186.89,
-      "market_cap_msek": 21060,
+      "market_cap_msek": 20986,
       "fscore": 2,
       "rank": 8,
-      "prev_rank": 7
+      "prev_rank": 8
     },
     {
       "name": "Saab",
@@ -122,7 +122,7 @@
       "mom_6m": 31.85,
       "mom_12m": 115.99,
       "compound_score": 185.81,
-      "market_cap_msek": 3941623,
+      "market_cap_msek": 3963710,
       "fscore": 6,
       "rank": 9,
       "prev_rank": 9
@@ -135,10 +135,10 @@
       "mom_6m": 86.56,
       "mom_12m": 65.43,
       "compound_score": 185.72,
-      "market_cap_msek": 1843780,
+      "market_cap_msek": 1816349,
       "fscore": 7,
       "rank": 10,
-      "prev_rank": 8
+      "prev_rank": 10
     },
     {
       "name": "Nokia",
@@ -148,10 +148,10 @@
       "mom_6m": 87.28,
       "mom_12m": 55.16,
       "compound_score": 180.95,
-      "market_cap_msek": 4683467,
+      "market_cap_msek": 4655331,
       "fscore": 7,
       "rank": 11,
-      "prev_rank": 15
+      "prev_rank": 11
     },
     {
       "name": "Hanza",
@@ -161,10 +161,10 @@
       "mom_6m": 38.66,
       "mom_12m": 106.09,
       "compound_score": 178.9,
-      "market_cap_msek": 108813,
+      "market_cap_msek": 108416,
       "fscore": 6,
       "rank": 12,
-      "prev_rank": 14
+      "prev_rank": 12
     },
     {
       "name": "Cantargia",
@@ -174,10 +174,10 @@
       "mom_6m": 50.19,
       "mom_12m": 126.29,
       "compound_score": 178.32,
-      "market_cap_msek": 10546,
+      "market_cap_msek": 10128,
       "fscore": 6,
       "rank": 13,
-      "prev_rank": 10
+      "prev_rank": 13
     },
     {
       "name": "Episurf Medical",
@@ -187,10 +187,10 @@
       "mom_6m": 74.16,
       "mom_12m": -38.73,
       "compound_score": 175.29,
-      "market_cap_msek": 1933,
+      "market_cap_msek": 1859,
       "fscore": 3,
       "rank": 14,
-      "prev_rank": null
+      "prev_rank": 14
     },
     {
       "name": "FM Mattsson",
@@ -200,10 +200,10 @@
       "mom_6m": 26.83,
       "mom_12m": 90.23,
       "compound_score": 171.3,
-      "market_cap_msek": 39361,
+      "market_cap_msek": 38295,
       "fscore": 6,
       "rank": 15,
-      "prev_rank": 6
+      "prev_rank": 15
     },
     {
       "name": "Lundin Gold",
@@ -213,10 +213,10 @@
       "mom_6m": 16.52,
       "mom_12m": 150.36,
       "compound_score": 168.38,
-      "market_cap_msek": 1846740,
+      "market_cap_msek": 1840341,
       "fscore": 6,
       "rank": 16,
-      "prev_rank": 12
+      "prev_rank": 16
     },
     {
       "name": "Scandi Standard",
@@ -226,10 +226,10 @@
       "mom_6m": 48.1,
       "mom_12m": 69.33,
       "compound_score": 163.83,
-      "market_cap_msek": 97568,
+      "market_cap_msek": 97156,
       "fscore": 6,
       "rank": 17,
-      "prev_rank": null
+      "prev_rank": 17
     },
     {
       "name": "Coor Service Management",
@@ -239,10 +239,10 @@
       "mom_6m": 31.18,
       "mom_12m": 90.18,
       "compound_score": 152.55,
-      "market_cap_msek": 60900,
+      "market_cap_msek": 60402,
       "fscore": 5,
       "rank": 18,
-      "prev_rank": null
+      "prev_rank": 18
     },
     {
       "name": "Orrön Energy",
@@ -252,10 +252,10 @@
       "mom_6m": 77.73,
       "mom_12m": 30.64,
       "compound_score": 142.22,
-      "market_cap_msek": 23626,
+      "market_cap_msek": 24016,
       "fscore": 3,
       "rank": 19,
-      "prev_rank": 16
+      "prev_rank": 19
     },
     {
       "name": "International Petroleum",
@@ -265,9 +265,139 @@
       "mom_6m": 49.18,
       "mom_12m": 59.77,
       "compound_score": 140.95,
-      "market_cap_msek": 292232,
+      "market_cap_msek": 294843,
       "fscore": 5,
       "rank": 20,
+      "prev_rank": 20
+    },
+    {
+      "name": "Attendo",
+      "ticker": "ATT.ST",
+      "price": 101.8,
+      "mom_3m": 26.77,
+      "mom_6m": 47.32,
+      "mom_12m": 66.05,
+      "compound_score": 140.15,
+      "market_cap_msek": 155388,
+      "fscore": 5,
+      "rank": 21,
+      "prev_rank": null
+    },
+    {
+      "name": "Actic Group",
+      "ticker": "ATIC.ST",
+      "price": 28.7,
+      "mom_3m": -5.59,
+      "mom_6m": 5.51,
+      "mom_12m": 140.17,
+      "compound_score": 140.09,
+      "market_cap_msek": 6929,
+      "fscore": 5,
+      "rank": 22,
+      "prev_rank": null
+    },
+    {
+      "name": "Viaplay B",
+      "ticker": "VPLAY-B.ST",
+      "price": 1.45,
+      "mom_3m": 60.73,
+      "mom_6m": 7.54,
+      "mom_12m": 71.38,
+      "compound_score": 139.66,
+      "market_cap_msek": 67603,
+      "fscore": 3,
+      "rank": 23,
+      "prev_rank": null
+    },
+    {
+      "name": "Midsona B",
+      "ticker": "MSON-B.ST",
+      "price": 12.45,
+      "mom_3m": 45.1,
+      "mom_6m": 46.47,
+      "mom_12m": 43.72,
+      "compound_score": 135.3,
+      "market_cap_msek": 18171,
+      "fscore": 6,
+      "rank": 24,
+      "prev_rank": null
+    },
+    {
+      "name": "Sandvik",
+      "ticker": "SAND.ST",
+      "price": 352.5,
+      "mom_3m": 20.31,
+      "mom_6m": 42.37,
+      "mom_12m": 55.91,
+      "compound_score": 118.59,
+      "market_cap_msek": 4737628,
+      "fscore": 7,
+      "rank": 25,
+      "prev_rank": null
+    },
+    {
+      "name": "Revolutionrace",
+      "ticker": "RVRC.ST",
+      "price": 68.4,
+      "mom_3m": 10.06,
+      "mom_6m": 47.01,
+      "mom_12m": 60.15,
+      "compound_score": 117.22,
+      "market_cap_msek": 75968,
+      "fscore": 7,
+      "rank": 26,
+      "prev_rank": null
+    },
+    {
+      "name": "Saniona",
+      "ticker": "SANION.ST",
+      "price": 15.16,
+      "mom_3m": -24.2,
+      "mom_6m": 18.81,
+      "mom_12m": 119.39,
+      "compound_score": 114.0,
+      "market_cap_msek": 22435,
+      "fscore": 5,
+      "rank": 27,
+      "prev_rank": null
+    },
+    {
+      "name": "Inission",
+      "ticker": "INISS-B.ST",
+      "price": 59.0,
+      "mom_3m": 30.53,
+      "mom_6m": 25.53,
+      "mom_12m": 56.5,
+      "compound_score": 112.56,
+      "market_cap_msek": 14325,
+      "fscore": 6,
+      "rank": 28,
+      "prev_rank": null
+    },
+    {
+      "name": "Telia Company",
+      "ticker": "TELIA.ST",
+      "price": 47.94,
+      "mom_3m": 27.56,
+      "mom_6m": 38.2,
+      "mom_12m": 44.64,
+      "compound_score": 110.41,
+      "market_cap_msek": 1955772,
+      "fscore": 4,
+      "rank": 29,
+      "prev_rank": null
+    },
+    {
+      "name": "Tele2 B",
+      "ticker": "TEL2-B.ST",
+      "price": 193.25,
+      "mom_3m": 30.84,
+      "mom_6m": 19.59,
+      "mom_12m": 58.18,
+      "compound_score": 108.61,
+      "market_cap_msek": 1395727,
+      "fscore": 6,
+      "rank": 30,
       "prev_rank": null
     }
   ],
