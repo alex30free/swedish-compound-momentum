@@ -106,7 +106,7 @@ tbody tr{border-bottom:1px solid var(--border);transition:background .15s;animat
 tbody tr:hover{background:rgba(255,107,53,.03)}
 td{padding:13px 14px;white-space:nowrap} td.right{text-align:right} td.center{text-align:center}
 .rank-num{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--border2);min-width:32px;display:inline-flex;align-items:center;justify-content:center}
-tr:nth-child(1) .rank-num{color:var(--accent)} tr:nth-child(2) .rank-num{color:rgba(255,107,53,.6)} tr:nth-child(3) .rank-num{color:rgba(255,107,53,.38)}
+/* rank colours applied dynamically via JS so they update when filters change */
 .ticker-main{font-weight:500;color:var(--white);letter-spacing:1px;font-size:13px;display:block}
 .company-name{font-size:11px;color:var(--muted);margin-top:2px;display:block}
 .mom-val{font-weight:500;display:inline-block;min-width:64px;text-align:right}
@@ -356,6 +356,8 @@ function render(data) {
 
   renderTable(top30);
   document.getElementById('mom-table').style.display = 'table';
+  // Apply initial rank numbers and colours
+  updateRankNumbers(Array.from(document.querySelectorAll('#mom-tbody tr')));
 }
 
 function renderTable(stocks) {
@@ -490,6 +492,7 @@ function applyFilters() {
 
   if (!fscoreEnabled && !mcapEnabled) {
     rows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
+    updateRankNumbers(rows);
     document.getElementById('filter-count-label').textContent = `Showing all ${rows.length} stocks`;
     document.getElementById('filter-count-label').className = 'filter-count';
     return;
@@ -505,9 +508,12 @@ function applyFilters() {
   });
   passing = passRows.length;
 
-  // Show passing rows normally, hide failing rows completely
+  // Hide failing rows completely, show passing rows
   passRows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
   failRows.forEach(r => { r.style.display='none'; r.style.opacity=''; r.style.filter=''; });
+
+  // Re-number visible rows 1, 2, 3...
+  updateRankNumbers(passRows);
 
   const both = fscoreEnabled && mcapEnabled;
   const label = document.getElementById('filter-count-label');
@@ -516,6 +522,21 @@ function applyFilters() {
   if (mcapEnabled)   parts.push(`MCap ≥ ${mcapThreshold >= 1000 ? (mcapThreshold/1000)+'B' : mcapThreshold+'M'} SEK`);
   label.textContent = `Showing ${passing} of ${rows.length} stocks (${parts.join(', ')})`;
   label.className = 'filter-count' + (both ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
+}
+
+function updateRankNumbers(visibleRows) {
+  const COLOURS = [
+    'var(--accent)',               // 1st
+    'rgba(255,107,53,0.6)',        // 2nd
+    'rgba(255,107,53,0.38)',       // 3rd
+  ];
+  visibleRows.forEach((r, i) => {
+    const n = i + 1;
+    const el = r.querySelector('.rank-num');
+    if (!el) return;
+    el.textContent = String(n).padStart(2, '0');
+    el.style.color = COLOURS[i] || 'var(--border2)';
+  });
 }
 
 loadData();
