@@ -236,7 +236,7 @@ tbody tr:nth-child(29){animation-delay:1.06s} tbody tr:nth-child(30){animation-d
     </div>
     <div class="info-box-desc">
       Only stocks with F-Score <strong>≥ <span id="info-f-threshold">5</span></strong> pass this filter.
-      Stocks below the threshold are dimmed. Score 5+ means <strong>more criteria are passing than failing</strong>.
+      Stocks below the threshold are <strong style="color:var(--red)">hidden from the list</strong>. Score 5+ means <strong>more criteria are passing than failing</strong>.
       <em style="color:var(--muted)">Approximated from Yahoo Finance fundamentals, updated weekly.</em>
     </div>
   </div>
@@ -484,24 +484,30 @@ function applyFilters() {
   const rows = Array.from(document.querySelectorAll('#mom-tbody tr'));
   let passing = rows.length;
 
+  // Remove any existing divider row
+  const existingDivider = document.getElementById('filter-divider-row');
+  if (existingDivider) existingDivider.remove();
+
   if (!fscoreEnabled && !mcapEnabled) {
-    rows.forEach(r => { r.style.opacity=''; r.style.filter=''; });
+    rows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
     document.getElementById('filter-count-label').textContent = `Showing all ${rows.length} stocks`;
     document.getElementById('filter-count-label').className = 'filter-count';
     return;
   }
 
-  passing = 0;
+  const passRows = [], failRows = [];
   rows.forEach(r => {
     const fs = r.dataset.fscore !== '' ? parseInt(r.dataset.fscore) : null;
     const mc = r.dataset.mcap !== '' ? parseFloat(r.dataset.mcap) : null;
     const fPass = !fscoreEnabled || (fs !== null && fs >= fscoreThreshold);
     const mPass = !mcapEnabled  || (mc !== null && mc >= mcapThreshold);
-    const pass = fPass && mPass;
-    r.style.opacity = pass ? '' : '0.2';
-    r.style.filter  = pass ? '' : 'grayscale(0.5)';
-    if (pass) passing++;
+    (fPass && mPass ? passRows : failRows).push(r);
   });
+  passing = passRows.length;
+
+  // Show passing rows normally, hide failing rows completely
+  passRows.forEach(r => { r.style.display=''; r.style.opacity=''; r.style.filter=''; });
+  failRows.forEach(r => { r.style.display='none'; r.style.opacity=''; r.style.filter=''; });
 
   const both = fscoreEnabled && mcapEnabled;
   const label = document.getElementById('filter-count-label');
