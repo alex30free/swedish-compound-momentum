@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-18 15:08 UTC",
+  "updated": "2026-03-18 16:01 UTC",
   "total_attempted": 275,
   "stocks_screened": 270,
   "skipped_count": 5,
@@ -9,7 +9,7 @@
     "fscore_filter": false,
     "fscore_min": null
   },
-  "top30": [
+  "top50": [
     {
       "name": "Medivir",
       "ticker": "MVIR.ST",
@@ -18,7 +18,7 @@
       "mom_6m": 33.72,
       "mom_12m": 41.07,
       "compound_score": 646.96,
-      "market_cap_msek": 12896,
+      "market_cap_msek": 12981,
       "fscore": 2,
       "rank": 1,
       "prev_rank": 1
@@ -31,7 +31,7 @@
       "mom_6m": 83.4,
       "mom_12m": 232.65,
       "compound_score": 408.39,
-      "market_cap_msek": 75066,
+      "market_cap_msek": 74597,
       "fscore": 6,
       "rank": 2,
       "prev_rank": 2
@@ -44,7 +44,7 @@
       "mom_6m": 111.91,
       "mom_12m": 168.97,
       "compound_score": 313.75,
-      "market_cap_msek": 2049663,
+      "market_cap_msek": 2019151,
       "fscore": 6,
       "rank": 3,
       "prev_rank": 3
@@ -57,7 +57,7 @@
       "mom_6m": 46.98,
       "mom_12m": 152.26,
       "compound_score": 209.35,
-      "market_cap_msek": 27787,
+      "market_cap_msek": 27615,
       "fscore": 5,
       "rank": 4,
       "prev_rank": 4
@@ -70,7 +70,7 @@
       "mom_6m": 75.34,
       "mom_12m": 36.19,
       "compound_score": 195.87,
-      "market_cap_msek": 26310,
+      "market_cap_msek": 27773,
       "fscore": 3,
       "rank": 5,
       "prev_rank": 5
@@ -83,7 +83,7 @@
       "mom_6m": 34.15,
       "mom_12m": 149.66,
       "compound_score": 194.55,
-      "market_cap_msek": 19622,
+      "market_cap_msek": 19422,
       "fscore": 6,
       "rank": 6,
       "prev_rank": 6
@@ -96,7 +96,7 @@
       "mom_6m": 54.48,
       "mom_12m": 100.8,
       "compound_score": 194.47,
-      "market_cap_msek": 156980,
+      "market_cap_msek": 156830,
       "fscore": 6,
       "rank": 7,
       "prev_rank": 7
@@ -109,7 +109,7 @@
       "mom_6m": 42.14,
       "mom_12m": 114.42,
       "compound_score": 186.89,
-      "market_cap_msek": 20986,
+      "market_cap_msek": 20654,
       "fscore": 2,
       "rank": 8,
       "prev_rank": 8
@@ -122,7 +122,7 @@
       "mom_6m": 31.85,
       "mom_12m": 115.99,
       "compound_score": 185.81,
-      "market_cap_msek": 3963710,
+      "market_cap_msek": 3928598,
       "fscore": 6,
       "rank": 9,
       "prev_rank": 9
@@ -135,7 +135,7 @@
       "mom_6m": 86.56,
       "mom_12m": 65.43,
       "compound_score": 185.72,
-      "market_cap_msek": 1816349,
+      "market_cap_msek": 1808597,
       "fscore": 7,
       "rank": 10,
       "prev_rank": 10
@@ -148,7 +148,7 @@
       "mom_6m": 87.28,
       "mom_12m": 55.16,
       "compound_score": 180.95,
-      "market_cap_msek": 4655331,
+      "market_cap_msek": 4657676,
       "fscore": 7,
       "rank": 11,
       "prev_rank": 11
@@ -161,7 +161,7 @@
       "mom_6m": 38.66,
       "mom_12m": 106.09,
       "compound_score": 178.9,
-      "market_cap_msek": 108416,
+      "market_cap_msek": 108019,
       "fscore": 6,
       "rank": 12,
       "prev_rank": 12
@@ -174,7 +174,7 @@
       "mom_6m": 50.19,
       "mom_12m": 126.29,
       "compound_score": 178.32,
-      "market_cap_msek": 10128,
+      "market_cap_msek": 10155,
       "fscore": 6,
       "rank": 13,
       "prev_rank": 13
@@ -187,7 +187,7 @@
       "mom_6m": 74.16,
       "mom_12m": -38.73,
       "compound_score": 175.29,
-      "market_cap_msek": 1859,
+      "market_cap_msek": 1889,
       "fscore": 3,
       "rank": 14,
       "prev_rank": 14
@@ -200,7 +200,7 @@
       "mom_6m": 26.83,
       "mom_12m": 90.23,
       "compound_score": 171.3,
-      "market_cap_msek": 38295,
+      "market_cap_msek": 38384,
       "fscore": 6,
       "rank": 15,
       "prev_rank": 15
@@ -213,7 +213,7 @@
       "mom_6m": 16.52,
       "mom_12m": 150.36,
       "compound_score": 168.38,
-      "market_cap_msek": 1840341,
+      "market_cap_msek": 1826263,
       "fscore": 6,
       "rank": 16,
       "prev_rank": 16
@@ -226,7 +226,7 @@
       "mom_6m": 48.1,
       "mom_12m": 69.33,
       "compound_score": 163.83,
-      "market_cap_msek": 97156,
+      "market_cap_msek": 97293,
       "fscore": 6,
       "rank": 17,
       "prev_rank": 17
@@ -239,7 +239,7 @@
       "mom_6m": 31.18,
       "mom_12m": 90.18,
       "compound_score": 152.55,
-      "market_cap_msek": 60402,
+      "market_cap_msek": 60203,
       "fscore": 5,
       "rank": 18,
       "prev_rank": 18
@@ -252,7 +252,7 @@
       "mom_6m": 77.73,
       "mom_12m": 30.64,
       "compound_score": 142.22,
-      "market_cap_msek": 24016,
+      "market_cap_msek": 23941,
       "fscore": 3,
       "rank": 19,
       "prev_rank": 19
@@ -265,7 +265,7 @@
       "mom_6m": 49.18,
       "mom_12m": 59.77,
       "compound_score": 140.95,
-      "market_cap_msek": 294843,
+      "market_cap_msek": 296979,
       "fscore": 5,
       "rank": 20,
       "prev_rank": 20
@@ -278,10 +278,10 @@
       "mom_6m": 47.32,
       "mom_12m": 66.05,
       "compound_score": 140.15,
-      "market_cap_msek": 155388,
+      "market_cap_msek": 154778,
       "fscore": 5,
       "rank": 21,
-      "prev_rank": null
+      "prev_rank": 21
     },
     {
       "name": "Actic Group",
@@ -294,7 +294,7 @@
       "market_cap_msek": 6929,
       "fscore": 5,
       "rank": 22,
-      "prev_rank": null
+      "prev_rank": 22
     },
     {
       "name": "Viaplay B",
@@ -304,10 +304,10 @@
       "mom_6m": 7.54,
       "mom_12m": 71.38,
       "compound_score": 139.66,
-      "market_cap_msek": 67603,
+      "market_cap_msek": 66529,
       "fscore": 3,
       "rank": 23,
-      "prev_rank": null
+      "prev_rank": 23
     },
     {
       "name": "Midsona B",
@@ -320,7 +320,7 @@
       "market_cap_msek": 18171,
       "fscore": 6,
       "rank": 24,
-      "prev_rank": null
+      "prev_rank": 24
     },
     {
       "name": "Sandvik",
@@ -330,10 +330,10 @@
       "mom_6m": 42.37,
       "mom_12m": 55.91,
       "compound_score": 118.59,
-      "market_cap_msek": 4737628,
+      "market_cap_msek": 4712602,
       "fscore": 7,
       "rank": 25,
-      "prev_rank": null
+      "prev_rank": 25
     },
     {
       "name": "Revolutionrace",
@@ -343,10 +343,10 @@
       "mom_6m": 47.01,
       "mom_12m": 60.15,
       "compound_score": 117.22,
-      "market_cap_msek": 75968,
+      "market_cap_msek": 75688,
       "fscore": 7,
       "rank": 26,
-      "prev_rank": null
+      "prev_rank": 26
     },
     {
       "name": "Saniona",
@@ -356,10 +356,10 @@
       "mom_6m": 18.81,
       "mom_12m": 119.39,
       "compound_score": 114.0,
-      "market_cap_msek": 22435,
+      "market_cap_msek": 22319,
       "fscore": 5,
       "rank": 27,
-      "prev_rank": null
+      "prev_rank": 27
     },
     {
       "name": "Inission",
@@ -369,10 +369,10 @@
       "mom_6m": 25.53,
       "mom_12m": 56.5,
       "compound_score": 112.56,
-      "market_cap_msek": 14325,
+      "market_cap_msek": 14373,
       "fscore": 6,
       "rank": 28,
-      "prev_rank": null
+      "prev_rank": 28
     },
     {
       "name": "Telia Company",
@@ -382,10 +382,10 @@
       "mom_6m": 38.2,
       "mom_12m": 44.64,
       "compound_score": 110.41,
-      "market_cap_msek": 1955772,
+      "market_cap_msek": 1952882,
       "fscore": 4,
       "rank": 29,
-      "prev_rank": null
+      "prev_rank": 29
     },
     {
       "name": "Tele2 B",
@@ -398,6 +398,266 @@
       "market_cap_msek": 1395727,
       "fscore": 6,
       "rank": 30,
+      "prev_rank": 30
+    },
+    {
+      "name": "Ericsson B",
+      "ticker": "ERIC-B.ST",
+      "price": 111.7,
+      "mom_3m": 23.64,
+      "mom_6m": 52.49,
+      "mom_12m": 31.31,
+      "compound_score": 107.45,
+      "market_cap_msek": 3836992,
+      "fscore": 7,
+      "rank": 31,
+      "prev_rank": null
+    },
+    {
+      "name": "Clas Ohlson",
+      "ticker": "CLAS-B.ST",
+      "price": 396.2,
+      "mom_3m": 13.03,
+      "mom_6m": 22.99,
+      "mom_12m": 66.97,
+      "compound_score": 102.99,
+      "market_cap_msek": 259360,
+      "fscore": 6,
+      "rank": 32,
+      "prev_rank": null
+    },
+    {
+      "name": "Acast",
+      "ticker": "ACAST.ST",
+      "price": 27.05,
+      "mom_3m": -16.51,
+      "mom_6m": 49.94,
+      "mom_12m": 64.94,
+      "compound_score": 98.37,
+      "market_cap_msek": 52495,
+      "fscore": 5,
+      "rank": 33,
+      "prev_rank": null
+    },
+    {
+      "name": "Hexatronic",
+      "ticker": "HTRO.ST",
+      "price": 30.97,
+      "mom_3m": 54.85,
+      "mom_6m": 40.96,
+      "mom_12m": 0.0,
+      "compound_score": 95.81,
+      "market_cap_msek": 71491,
+      "fscore": 6,
+      "rank": 34,
+      "prev_rank": null
+    },
+    {
+      "name": "Axfood",
+      "ticker": "AXFO.ST",
+      "price": 336.9,
+      "mom_3m": 25.38,
+      "mom_6m": 13.38,
+      "mom_12m": 52.78,
+      "compound_score": 91.54,
+      "market_cap_msek": 727764,
+      "fscore": 5,
+      "rank": 35,
+      "prev_rank": null
+    },
+    {
+      "name": "Rusta",
+      "ticker": "RUSTA.ST",
+      "price": 93.75,
+      "mom_3m": 33.64,
+      "mom_6m": 35.85,
+      "mom_12m": 20.11,
+      "compound_score": 89.61,
+      "market_cap_msek": 146065,
+      "fscore": 6,
+      "rank": 36,
+      "prev_rank": null
+    },
+    {
+      "name": "Peab",
+      "ticker": "PEAB-B.ST",
+      "price": 98.9,
+      "mom_3m": 25.19,
+      "mom_6m": 35.57,
+      "mom_12m": 26.72,
+      "compound_score": 87.49,
+      "market_cap_msek": 294405,
+      "fscore": 6,
+      "rank": 37,
+      "prev_rank": null
+    },
+    {
+      "name": "Infrea",
+      "ticker": "INFREA.ST",
+      "price": 16.85,
+      "mom_3m": 19.08,
+      "mom_6m": 24.81,
+      "mom_12m": 39.87,
+      "compound_score": 83.76,
+      "market_cap_msek": 5305,
+      "fscore": 6,
+      "rank": 38,
+      "prev_rank": null
+    },
+    {
+      "name": "mySafety",
+      "ticker": "SAFETY-B.ST",
+      "price": 18.66,
+      "mom_3m": 5.42,
+      "mom_6m": -3.39,
+      "mom_12m": 80.62,
+      "compound_score": 82.66,
+      "market_cap_msek": 4551,
+      "fscore": 6,
+      "rank": 39,
+      "prev_rank": null
+    },
+    {
+      "name": "Better Collective",
+      "ticker": "BETCO.ST",
+      "price": 144.8,
+      "mom_3m": 28.37,
+      "mom_6m": 20.67,
+      "mom_12m": 31.4,
+      "compound_score": 80.43,
+      "market_cap_msek": 87543,
+      "fscore": 6,
+      "rank": 40,
+      "prev_rank": null
+    },
+    {
+      "name": "Synsam",
+      "ticker": "SYNSAM.ST",
+      "price": 67.7,
+      "mom_3m": 3.04,
+      "mom_6m": 16.93,
+      "mom_12m": 57.17,
+      "compound_score": 77.14,
+      "market_cap_msek": 101121,
+      "fscore": 7,
+      "rank": 41,
+      "prev_rank": null
+    },
+    {
+      "name": "Eniro",
+      "ticker": "ENRO.ST",
+      "price": 0.58,
+      "mom_3m": 49.23,
+      "mom_6m": 27.07,
+      "mom_12m": 0.34,
+      "compound_score": 76.65,
+      "market_cap_msek": 4907,
+      "fscore": 6,
+      "rank": 42,
+      "prev_rank": null
+    },
+    {
+      "name": "Swedish Orphan Biovitrum",
+      "ticker": "SOBI.ST",
+      "price": 382.6,
+      "mom_3m": 11.68,
+      "mom_6m": 38.62,
+      "mom_12m": 21.23,
+      "compound_score": 71.53,
+      "market_cap_msek": 1362957,
+      "fscore": 5,
+      "rank": 43,
+      "prev_rank": null
+    },
+    {
+      "name": "ABB",
+      "ticker": "ABB.ST",
+      "price": 787.6,
+      "mom_3m": 14.05,
+      "mom_6m": 19.51,
+      "mom_12m": 37.35,
+      "compound_score": 70.91,
+      "market_cap_msek": 15338564,
+      "fscore": 7,
+      "rank": 44,
+      "prev_rank": null
+    },
+    {
+      "name": "Svedbergs Group",
+      "ticker": "SVED-B.ST",
+      "price": 68.0,
+      "mom_3m": 4.78,
+      "mom_6m": 22.34,
+      "mom_12m": 41.41,
+      "compound_score": 68.53,
+      "market_cap_msek": 37127,
+      "fscore": 6,
+      "rank": 45,
+      "prev_rank": null
+    },
+    {
+      "name": "Wise Group",
+      "ticker": "WISE.ST",
+      "price": 19.95,
+      "mom_3m": 58.33,
+      "mom_6m": 5.28,
+      "mom_12m": 4.72,
+      "compound_score": 68.33,
+      "market_cap_msek": 1455,
+      "fscore": 2,
+      "rank": 46,
+      "prev_rank": null
+    },
+    {
+      "name": "Moberg Pharma",
+      "ticker": "MOB.ST",
+      "price": 11.53,
+      "mom_3m": 28.54,
+      "mom_6m": 4.82,
+      "mom_12m": 27.12,
+      "compound_score": 60.48,
+      "market_cap_msek": 5577,
+      "fscore": 4,
+      "rank": 47,
+      "prev_rank": null
+    },
+    {
+      "name": "Hennes & Mauritz",
+      "ticker": "HM-B.ST",
+      "price": 179.15,
+      "mom_3m": 2.99,
+      "mom_6m": 23.82,
+      "mom_12m": 30.01,
+      "compound_score": 56.82,
+      "market_cap_msek": 2940597,
+      "fscore": 6,
+      "rank": 48,
+      "prev_rank": null
+    },
+    {
+      "name": "Instalco",
+      "ticker": "INSTAL.ST",
+      "price": 31.96,
+      "mom_3m": 31.63,
+      "mom_6m": 26.32,
+      "mom_12m": -2.94,
+      "compound_score": 55.02,
+      "market_cap_msek": 90310,
+      "fscore": 7,
+      "rank": 49,
+      "prev_rank": null
+    },
+    {
+      "name": "Bravida",
+      "ticker": "BRAV.ST",
+      "price": 102.0,
+      "mom_3m": 20.78,
+      "mom_6m": 13.14,
+      "mom_12m": 15.27,
+      "compound_score": 49.2,
+      "market_cap_msek": 218871,
+      "fscore": 6,
+      "rank": 50,
       "prev_rank": null
     }
   ],
