@@ -1,654 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swedish Compound Momentum Screener</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --bg:        #080c10;
-      --surface:   #0d1318;
-      --surface2:  #111820;
-      --border:    #1c2830;
-      --border2:   #253340;
-      --text:      #c8d8e8;
-      --muted:     #4a6070;
-      --muted2:    #6a8090;
-      --accent:    #ff6b35;
-      --accent2:   #ff9f1c;
-      --accent3:   #ffcc02;
-      --blue:      #00e5a0;
-      --red:       #ff4455;
-      --white:     #f0f4f8;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 300;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.055) 2px, rgba(0,0,0,0.055) 4px
-      );
-      pointer-events: none; z-index: 9999;
-    }
-
-    body::after {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,107,53,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,107,53,0.015) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none; z-index: 0;
-    }
-
-    .glow-tl {
-      position: fixed; top: -160px; left: -160px;
-      width: 560px; height: 560px;
-      background: radial-gradient(circle, rgba(255,107,53,0.07) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
-    .glow-br {
-      position: fixed; bottom: -100px; right: -100px;
-      width: 460px; height: 460px;
-      background: radial-gradient(circle, rgba(255,159,28,0.05) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
-
-    .container {
-      position: relative; z-index: 1;
-      max-width: 1200px; margin: 0 auto;
-      padding: 0 28px 100px;
-    }
-
-    /* ── HEADER ── */
-    header {
-      padding: 52px 0 40px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 44px;
-      animation: fadeDown 0.65s ease both;
-    }
-
-    .header-top {
-      display: flex; align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px; flex-wrap: wrap;
-    }
-
-    .brand-tag {
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.28em; color: var(--accent);
-      text-transform: uppercase;
-      background: rgba(255,107,53,0.08);
-      border: 1px solid rgba(255,107,53,0.22);
-      padding: 4px 12px; display: inline-block;
-      width: fit-content; margin-bottom: 12px;
-    }
-
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(26px, 5vw, 46px);
-      font-weight: 800; color: var(--white);
-      line-height: 1.0; letter-spacing: -0.03em;
-    }
-
-    h1 em { font-style: normal; color: var(--accent); }
-
-    .brand-sub {
-      font-size: 12px; font-weight: 300;
-      color: var(--muted2); letter-spacing: 0.04em;
-      margin-top: 6px;
-    }
-
-    .header-right {
-      font-size: 11px; color: var(--muted);
-      text-align: right; line-height: 1.9;
-    }
-
-    .live-dot {
-      display: inline-block; width: 7px; height: 7px;
-      background: var(--accent); border-radius: 50%;
-      margin-right: 6px;
-      animation: pulse 2.2s ease infinite;
-    }
-
-    /* ── FORMULA STRIP ── */
-    .formula-strip {
-      display: flex; gap: 0;
-      margin-bottom: 28px;
-      border: 1px solid var(--border2);
-      overflow: hidden;
-      animation: fadeDown 0.65s 0.08s ease both;
-    }
-
-    .formula-part {
-      flex: 1; padding: 18px 22px;
-      background: var(--surface);
-      border-right: 1px solid var(--border2);
-      position: relative;
-    }
-
-    .formula-part:last-child { border-right: none; }
-
-    .formula-part::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
-
-    .fp-3m::before  { background: var(--accent3); }
-    .fp-6m::before  { background: var(--accent2); }
-    .fp-12m::before { background: var(--accent); }
-    .fp-sum::before { background: linear-gradient(90deg, var(--accent3), var(--accent2), var(--accent)); }
-
-    .formula-label {
-      font-size: 10px; letter-spacing: 0.2em;
-      text-transform: uppercase; margin-bottom: 5px;
-    }
-
-    .fp-3m  .formula-label { color: var(--accent3); }
-    .fp-6m  .formula-label { color: var(--accent2); }
-    .fp-12m .formula-label { color: var(--accent); }
-    .fp-sum .formula-label { color: var(--white); }
-
-    .formula-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px; font-weight: 700; color: var(--text);
-    }
-
-    .fp-sum .formula-val { color: var(--accent); font-size: 14px; }
-
-    .formula-eq {
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 4px; font-size: 18px; color: var(--muted);
-      background: var(--surface); border-right: 1px solid var(--border2);
-    }
-
-    @media (max-width: 700px) {
-      .formula-strip { flex-direction: column; }
-      .formula-eq { display: none; }
-      .formula-part { border-right: none; border-bottom: 1px solid var(--border2); }
-    }
-
-    /* ── FILTER TOOLBAR ── */
-    .filter-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 14px 20px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      animation: fadeDown 0.65s 0.08s ease both;
-    }
-
-    .filter-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-    .filter-divider {
-      width: 1px; height: 28px;
-      background: var(--border2);
-      flex-shrink: 0;
-    }
-
-    .filter-label {
-      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .filter-btn {
-      display: flex; align-items: center; gap: 9px;
-      background: transparent;
-      border: 1px solid var(--border2);
-      padding: 8px 14px;
-      cursor: pointer;
-      font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted2);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      position: relative; user-select: none;
-    }
-
-    /* F-Score button — gold theme (blue = --blue = #00e5a0 = accent in this screener) */
-    .filter-btn.fscore-btn:hover  { border-color: var(--blue);   color: var(--blue);   background: rgba(0,229,160,0.05); }
-    .filter-btn.fscore-btn.active { border-color: var(--blue);   color: var(--blue);   background: rgba(0,229,160,0.08); }
-
-    /* Market Cap button — accent2/gold theme */
-    .filter-btn.mcap-btn:hover  { border-color: var(--accent2); color: var(--accent2); background: rgba(255,159,28,0.05); }
-    .filter-btn.mcap-btn.active { border-color: var(--accent2); color: var(--accent2); background: rgba(255,159,28,0.08); }
-
-    .toggle-track {
-      width: 28px; height: 14px; border-radius: 7px;
-      background: var(--border2); position: relative;
-      transition: background 0.2s; flex-shrink: 0;
-    }
-    .toggle-thumb {
-      position: absolute; top: 2px; left: 2px;
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--muted);
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .filter-btn.fscore-btn.active .toggle-track { background: rgba(0,229,160,0.35); }
-    .filter-btn.fscore-btn.active .toggle-thumb { transform: translateX(14px); background: var(--blue); }
-
-    .filter-btn.mcap-btn.active .toggle-track { background: rgba(255,159,28,0.35); }
-    .filter-btn.mcap-btn.active .toggle-thumb { transform: translateX(14px); background: var(--accent2); }
-
-    .filter-badge-inline {
-      font-size: 10px; padding: 1px 6px;
-      border: 1px solid; border-radius: 2px;
-      opacity: 0; transform: translateX(-4px);
-      transition: opacity 0.2s, transform 0.2s;
-      white-space: nowrap;
-    }
-    .filter-btn.fscore-btn .filter-badge-inline { border-color: rgba(0,229,160,0.3);  color: var(--blue);    background: rgba(0,229,160,0.08); }
-    .filter-btn.mcap-btn   .filter-badge-inline { border-color: rgba(255,159,28,0.3); color: var(--accent2); background: rgba(255,159,28,0.08); }
-    .filter-btn.active .filter-badge-inline { opacity: 1; transform: translateX(0); }
-
-    .filter-status { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .filter-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); transition: background 0.3s; }
-    .filter-status-dot.active-green  { background: var(--blue); }
-    .filter-status-dot.active-orange { background: var(--accent2); }
-    .filter-count { transition: color 0.2s; }
-    .filter-count.filtered-green  { color: var(--blue); }
-    .filter-count.filtered-orange { color: var(--accent2); }
-    .filter-count.filtered-both   { color: var(--accent); }
-
-    /* ── INFO BOXES ── */
-    .filter-info-box {
-      border-left: 3px solid;
-      padding: 14px 20px;
-      margin-bottom: 16px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      display: none;
-      animation: slideDown 0.25s ease both;
-    }
-    .filter-info-box.visible { display: block; }
-
-    .fscore-info-box { background: var(--surface); border: 1px solid rgba(0,229,160,0.2);  border-left: 3px solid var(--blue); }
-    .mcap-info-box   { background: var(--surface); border: 1px solid rgba(255,159,28,0.2); border-left: 3px solid var(--accent2); }
-
-    .info-box-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-    .info-box-title  { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
-    .fscore-info-box .info-box-title { color: var(--blue); }
-    .mcap-info-box   .info-box-title { color: var(--accent2); }
-
-    .info-box-desc { color: var(--muted2); line-height: 1.6; font-size: 11px; max-width: 760px; }
-    .info-box-desc strong { color: var(--text); font-weight: 400; }
-
-    .threshold-selector { display: flex; align-items: center; gap: 8px; }
-    .threshold-label    { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
-    .threshold-btns     { display: flex; gap: 4px; }
-
-    .threshold-btn {
-      font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
-      width: 30px; height: 24px;
-      border: 1px solid var(--border2); background: transparent;
-      color: var(--muted2); cursor: pointer;
-      transition: border-color 0.15s, color 0.15s, background 0.15s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .threshold-btn:hover { border-color: var(--blue); color: var(--blue); }
-    .threshold-btn.active { border-color: var(--blue); color: var(--bg); background: var(--blue); }
-
-    .mcap-selector { display: flex; align-items: center; gap: 8px; }
-    .mcap-btns     { display: flex; gap: 4px; }
-    .mcap-btn-sel {
-      font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500;
-      padding: 3px 10px; height: 24px;
-      border: 1px solid var(--border2); background: transparent;
-      color: var(--muted2); cursor: pointer; white-space: nowrap;
-      transition: border-color 0.15s, color 0.15s, background 0.15s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .mcap-btn-sel:hover  { border-color: var(--accent2); color: var(--accent2); }
-    .mcap-btn-sel.active { border-color: var(--accent2); color: var(--bg); background: var(--accent2); }
-
-    /* ── STATS ROW ── */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 16px; margin-bottom: 32px;
-      animation: fadeDown 0.65s 0.12s ease both;
-    }
-
-    @media (max-width: 700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
-
-    .stat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 18px 20px;
-    }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 26px; font-weight: 700;
-      color: var(--white); line-height: 1;
-    }
-
-    .stat-num.orange { color: var(--accent); }
-
-    /* ── RESEARCH BUTTON ── */
-    .research-row {
-      display: flex; justify-content: flex-end;
-      margin-bottom: 28px;
-      animation: fadeDown 0.65s 0.11s ease both;
-    }
-
-    /* ── TABLE ── */
-    .table-wrap {
-      overflow-x: auto;
-      animation: fadeUp 0.65s 0.18s ease both;
-    }
-
-    table {
-      width: 100%; border-collapse: collapse; font-size: 13px;
-    }
-
-    thead tr { border-bottom: 1px solid var(--border2); }
-
-    thead th {
-      padding: 10px 14px; text-align: left;
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.15em; color: var(--muted);
-      text-transform: uppercase; white-space: nowrap;
-    }
-
-    thead th.right { text-align: right; }
-    thead th.center { text-align: center; }
-
-    th.col-3m      { border-bottom: 2px solid var(--accent3); }
-    th.col-6m      { border-bottom: 2px solid var(--accent2); }
-    th.col-12m     { border-bottom: 2px solid var(--accent); }
-    th.col-compound{ border-bottom: 2px solid rgba(255,107,53,0.6); }
-    th.col-cap     { border-bottom: 2px solid rgba(96,165,250,0.5); }
-    th.col-fscore  { border-bottom: 2px solid rgba(0,229,160,0.5); }
-
-    /* Hidden columns by default */
-    .col-cap-data, .th-cap,
-    .col-fscore-data, .th-fscore {
-      display: none;
-    }
-
-    .td-fscore.visible, .td-mcap.visible { display: table-cell !important; }
-    .th-fscore.visible, .th-cap.visible  { display: table-cell !important; }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-      animation: rowIn 0.4s ease both;
-    }
-
-    tbody tr:hover { background: rgba(255,107,53,0.03); }
-
-    td { padding: 13px 14px; white-space: nowrap; }
-    td.right { text-align: right; }
-    td.center { text-align: center; }
-
-    .rank-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px; font-weight: 800;
-      color: var(--border2);
-      min-width: 32px;
-      display: inline-flex; align-items: center; justify-content: center;
-    }
-
-    tr:nth-child(1)  .rank-num { color: var(--accent); }
-    tr:nth-child(2)  .rank-num { color: rgba(255,107,53,0.6); }
-    tr:nth-child(3)  .rank-num { color: rgba(255,107,53,0.38); }
-
-    .ticker-main {
-      font-weight: 500; color: var(--white);
-      letter-spacing: 1px; font-size: 13px; display: block;
-    }
-
-    .company-name {
-      font-size: 11px; color: var(--muted);
-      margin-top: 2px; display: block;
-    }
-
-    .mom-val {
-      font-weight: 500; display: inline-block;
-      min-width: 64px; text-align: right;
-    }
-
-    .mom-pos-strong { color: #00e5a0; }
-    .mom-pos-mid    { color: #7ec8a0; }
-    .mom-pos-weak   { color: var(--muted2); }
-    .mom-neg        { color: var(--red); }
-
-    .compound-wrap {
-      display: flex; align-items: center;
-      gap: 10px; justify-content: flex-end;
-    }
-
-    .compound-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 14px; font-weight: 700;
-      min-width: 76px; text-align: right;
-    }
-
-    .pos-compound { color: var(--accent); }
-    .neg-compound { color: var(--red); }
-
-    .spark-bar-bg {
-      width: 56px; height: 4px;
-      background: var(--border2); border-radius: 2px; overflow: hidden;
-    }
-
-    .spark-bar-fill {
-      height: 100%; border-radius: 2px;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      transition: width 0.5s ease;
-    }
-
-    /* Market cap display */
-    .cap-val {
-      font-size: 12px; color: var(--muted2); text-align: right;
-    }
-
-    .cap-large  { color: #60a5fa; }
-    .cap-mid    { color: rgba(96,165,250,0.65); }
-    .cap-small  { color: var(--muted2); }
-    .cap-na     { color: var(--muted); font-size: 11px; }
-
-    /* F-Score display */
-    .fscore-wrap {
-      display: flex; align-items: center;
-      gap: 8px; justify-content: flex-end;
-    }
-
-    .fscore-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px; font-weight: 700;
-      min-width: 28px; text-align: center;
-    }
-
-    .fscore-9, .fscore-8, .fscore-7, .fscore-6 { color: var(--blue); }
-    .fscore-5 { color: #7ec8a0; }
-    .fscore-4, .fscore-3 { color: var(--muted2); }
-    .fscore-2, .fscore-1, .fscore-0 { color: var(--red); }
-    .fscore-na { color: var(--muted); font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
-
-    .fscore-dots {
-      display: flex; gap: 2px;
-    }
-
-    .fscore-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--border2);
-    }
-
-    .fscore-dot.lit { background: var(--blue); }
-
-    /* Change badge */
-    .rank-change {
-      display: inline-flex; align-items: center;
-      gap: 3px; padding: 2px 7px;
-      font-size: 11px; font-weight: 500; border-radius: 2px;
-    }
-
-    .rank-up   { color: var(--blue);  background: rgba(0,229,160,0.08); }
-    .rank-down { color: var(--red);   background: rgba(255,68,85,0.08); }
-    .rank-same { color: var(--muted); background: rgba(255,255,255,0.04); }
-    .rank-new  { color: var(--accent2); background: rgba(255,159,28,0.08); font-size: 10px; letter-spacing: 0.1em; }
-
-    /* ── LOADER / ERROR ── */
-    .loader {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 300px; gap: 12px;
-      font-size: 13px; color: var(--muted);
-    }
-
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2px solid var(--border2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    .error-msg {
-      display: none; padding: 24px;
-      border: 1px solid rgba(255,68,85,0.3);
-      color: var(--red); font-size: 13px;
-      background: rgba(255,68,85,0.05);
-    }
-
-    /* ── METHODOLOGY ── */
-    .methodology {
-      margin-top: 64px;
-      border: 1px solid var(--border2);
-      border-left: 3px solid var(--accent);
-      background: var(--surface);
-      padding: 36px 40px;
-      animation: fadeUp 0.65s 0.3s ease both;
-    }
-
-    .method-title {
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.22em; color: var(--accent);
-      text-transform: uppercase; margin-bottom: 24px;
-    }
-
-    .method-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 28px;
-    }
-
-    .method-item h3 {
-      font-size: 11px; color: var(--accent);
-      letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px;
-    }
-
-    .method-item p { font-size: 12px; color: var(--muted); line-height: 1.75; }
-    .method-item p strong { color: var(--text); font-weight: 400; }
-
-    .formula-box {
-      margin-top: 24px; padding: 14px 20px;
-      background: rgba(255,107,53,0.06);
-      border: 1px solid rgba(255,107,53,0.18);
-      font-size: 13px; color: var(--accent2);
-      display: inline-block; letter-spacing: 0.04em;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      margin-top: 64px; padding-top: 24px;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 12px;
-      font-size: 11px; color: var(--muted);
-      animation: fadeDown 0.65s 0.4s ease both;
-    }
-
-    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    footer a:hover { color: var(--accent); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes pulse {
-      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(255,107,53,0.5); }
-      50%      { box-shadow: 0 0 0 5px rgba(255,107,53,0); }
-    }
-
-    tbody tr:nth-child(1)  { animation-delay: 0.22s; }
-    tbody tr:nth-child(2)  { animation-delay: 0.25s; }
-    tbody tr:nth-child(3)  { animation-delay: 0.28s; }
-    tbody tr:nth-child(4)  { animation-delay: 0.31s; }
-    tbody tr:nth-child(5)  { animation-delay: 0.34s; }
-    tbody tr:nth-child(6)  { animation-delay: 0.37s; }
-    tbody tr:nth-child(7)  { animation-delay: 0.40s; }
-    tbody tr:nth-child(8)  { animation-delay: 0.43s; }
-    tbody tr:nth-child(9)  { animation-delay: 0.46s; }
-    tbody tr:nth-child(10) { animation-delay: 0.49s; }
-    tbody tr:nth-child(11) { animation-delay: 0.52s; }
-    tbody tr:nth-child(12) { animation-delay: 0.55s; }
-    tbody tr:nth-child(13) { animation-delay: 0.58s; }
-    tbody tr:nth-child(14) { animation-delay: 0.61s; }
-    tbody tr:nth-child(15) { animation-delay: 0.64s; }
-    tbody tr:nth-child(16) { animation-delay: 0.67s; }
-    tbody tr:nth-child(17) { animation-delay: 0.70s; }
-    tbody tr:nth-child(18) { animation-delay: 0.73s; }
-    tbody tr:nth-child(19) { animation-delay: 0.76s; }
-    tbody tr:nth-child(20) { animation-delay: 0.79s; }
-
-    @keyframes rowIn {
-      from { opacity: 0; transform: translateX(-8px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    .back-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; color: var(--muted); text-decoration: none;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      margin-bottom: 32px; transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--accent); }
-    .back-link::before { content: '←'; font-size: 14px; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swedish Compound Momentum Screener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:#080c10; --surface:#0d1318; --surface2:#111820;
+  --border:#1c2830; --border2:#253340;
+  --text:#c8d8e8; --muted:#4a6070; --muted2:#6a8090;
+  --accent:#ff6b35; --accent2:#ff9f1c; --accent3:#ffcc02;
+  --blue:#00e5a0; --red:#ff4455; --white:#f0f4f8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px);pointer-events:none;z-index:9999}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,107,53,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,53,.015) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.glow-tl{position:fixed;top:-160px;left:-160px;width:560px;height:560px;background:radial-gradient(circle,rgba(255,107,53,.07) 0%,transparent 70%);pointer-events:none;z-index:0}
+.glow-br{position:fixed;bottom:-100px;right:-100px;width:460px;height:460px;background:radial-gradient(circle,rgba(255,159,28,.05) 0%,transparent 70%);pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 28px 100px}
+header{padding:52px 0 40px;border-bottom:1px solid var(--border);margin-bottom:44px;animation:fadeDown .65s ease both}
+.header-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.brand-tag{font-size:10px;font-weight:500;letter-spacing:.28em;color:var(--accent);text-transform:uppercase;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.22);padding:4px 12px;display:inline-block;width:fit-content;margin-bottom:12px}
+h1{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,46px);font-weight:800;color:var(--white);line-height:1.0;letter-spacing:-.03em}
+h1 em{font-style:normal;color:var(--accent)}
+.brand-sub{font-size:12px;font-weight:300;color:var(--muted2);letter-spacing:.04em;margin-top:6px}
+.header-right{font-size:11px;color:var(--muted);text-align:right;line-height:1.9}
+.live-dot{display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-right:6px;animation:pulse 2.2s ease infinite}
+.formula-strip{display:flex;gap:0;margin-bottom:28px;border:1px solid var(--border2);overflow:hidden;animation:fadeDown .65s .08s ease both}
+.formula-part{flex:1;padding:18px 22px;background:var(--surface);border-right:1px solid var(--border2);position:relative}
+.formula-part:last-child{border-right:none}
+.formula-part::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.fp-3m::before{background:var(--accent3)} .fp-6m::before{background:var(--accent2)} .fp-12m::before{background:var(--accent)}
+.fp-sum::before{background:linear-gradient(90deg,var(--accent3),var(--accent2),var(--accent))}
+.formula-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.fp-3m .formula-label{color:var(--accent3)} .fp-6m .formula-label{color:var(--accent2)} .fp-12m .formula-label{color:var(--accent)} .fp-sum .formula-label{color:var(--white)}
+.formula-val{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text)}
+.fp-sum .formula-val{color:var(--accent);font-size:14px}
+.formula-eq{display:flex;align-items:center;justify-content:center;padding:0 4px;font-size:18px;color:var(--muted);background:var(--surface);border-right:1px solid var(--border2)}
+@media(max-width:700px){.formula-strip{flex-direction:column}.formula-eq{display:none}.formula-part{border-right:none;border-bottom:1px solid var(--border2)}}
+.filter-bar{background:var(--surface);border:1px solid var(--border);padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;animation:fadeDown .65s .08s ease both}
+.filter-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.filter-divider{width:1px;height:28px;background:var(--border2);flex-shrink:0}
+.filter-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.filter-btn{display:flex;align-items:center;gap:9px;background:transparent;border:1px solid var(--border2);padding:8px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);transition:border-color .2s,color .2s,background .2s;position:relative;user-select:none}
+.filter-btn.fscore-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(0,229,160,.05)}
+.filter-btn.fscore-btn.active{border-color:var(--blue);color:var(--blue);background:rgba(0,229,160,.08)}
+.filter-btn.mcap-btn:hover{border-color:var(--accent2);color:var(--accent2);background:rgba(255,159,28,.05)}
+.filter-btn.mcap-btn.active{border-color:var(--accent2);color:var(--accent2);background:rgba(255,159,28,.08)}
+.toggle-track{width:28px;height:14px;border-radius:7px;background:var(--border2);position:relative;transition:background .2s;flex-shrink:0}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s}
+.filter-btn.fscore-btn.active .toggle-track{background:rgba(0,229,160,.35)}
+.filter-btn.fscore-btn.active .toggle-thumb{transform:translateX(14px);background:var(--blue)}
+.filter-btn.mcap-btn.active .toggle-track{background:rgba(255,159,28,.35)}
+.filter-btn.mcap-btn.active .toggle-thumb{transform:translateX(14px);background:var(--accent2)}
+.filter-badge-inline{font-size:10px;padding:1px 6px;border:1px solid;border-radius:2px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s;white-space:nowrap}
+.filter-btn.fscore-btn .filter-badge-inline{border-color:rgba(0,229,160,.3);color:var(--blue);background:rgba(0,229,160,.08)}
+.filter-btn.mcap-btn .filter-badge-inline{border-color:rgba(255,159,28,.3);color:var(--accent2);background:rgba(255,159,28,.08)}
+.filter-btn.active .filter-badge-inline{opacity:1;transform:translateX(0)}
+.filter-status{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .3s}
+.filter-status-dot.active-green{background:var(--blue)} .filter-status-dot.active-orange{background:var(--accent2)}
+.filter-count{transition:color .2s} .filter-count.filtered-green{color:var(--blue)} .filter-count.filtered-orange{color:var(--accent2)} .filter-count.filtered-both{color:var(--accent)}
+.filter-info-box{border-left:3px solid;padding:14px 20px;margin-bottom:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;display:none;animation:slideDown .25s ease both}
+.filter-info-box.visible{display:block}
+.fscore-info-box{background:var(--surface);border:1px solid rgba(0,229,160,.2);border-left:3px solid var(--blue)}
+.mcap-info-box{background:var(--surface);border:1px solid rgba(255,159,28,.2);border-left:3px solid var(--accent2)}
+.info-box-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.info-box-title{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.fscore-info-box .info-box-title{color:var(--blue)} .mcap-info-box .info-box-title{color:var(--accent2)}
+.info-box-desc{color:var(--muted2);line-height:1.6;font-size:11px;max-width:760px}
+.info-box-desc strong{color:var(--text);font-weight:400}
+.threshold-selector{display:flex;align-items:center;gap:8px}
+.threshold-label{font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.threshold-btns{display:flex;gap:4px}
+.threshold-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;width:30px;height:24px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;transition:border-color .15s,color .15s,background .15s;display:flex;align-items:center;justify-content:center}
+.threshold-btn:hover{border-color:var(--blue);color:var(--blue)}
+.threshold-btn.active{border-color:var(--blue);color:var(--bg);background:var(--blue)}
+.mcap-selector{display:flex;align-items:center;gap:8px} .mcap-btns{display:flex;gap:4px}
+.mcap-btn-sel{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;padding:3px 10px;height:24px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;white-space:nowrap;transition:border-color .15s,color .15s,background .15s;display:flex;align-items:center;justify-content:center}
+.mcap-btn-sel:hover{border-color:var(--accent2);color:var(--accent2)}
+.mcap-btn-sel.active{border-color:var(--accent2);color:var(--bg);background:var(--accent2)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;animation:fadeDown .65s .12s ease both}
+@media(max-width:700px){.stats-row{grid-template-columns:1fr 1fr}}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:18px 20px}
+.stat-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--white);line-height:1}
+.stat-num.orange{color:var(--accent)}
+.research-row{display:flex;justify-content:flex-end;margin-bottom:28px;animation:fadeDown .65s .11s ease both}
+.table-wrap{overflow-x:auto;animation:fadeUp .65s .18s ease both}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:1px solid var(--border2)}
+thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:500;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+thead th.right{text-align:right} thead th.center{text-align:center}
+th.col-3m{border-bottom:2px solid var(--accent3)} th.col-6m{border-bottom:2px solid var(--accent2)}
+th.col-12m{border-bottom:2px solid var(--accent)} th.col-compound{border-bottom:2px solid rgba(255,107,53,.6)}
+th.col-cap{border-bottom:2px solid rgba(96,165,250,.5)} th.col-fscore{border-bottom:2px solid rgba(0,229,160,.5)}
+.col-cap-data,.th-cap,.col-fscore-data,.th-fscore{display:none}
+.td-fscore.visible,.td-mcap.visible{display:table-cell!important}
+.th-fscore.visible,.th-cap.visible{display:table-cell!important}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;animation:rowIn .4s ease both}
+tbody tr:hover{background:rgba(255,107,53,.03)}
+td{padding:13px 14px;white-space:nowrap} td.right{text-align:right} td.center{text-align:center}
+.rank-num{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--border2);min-width:32px;display:inline-flex;align-items:center;justify-content:center}
+tr:nth-child(1) .rank-num{color:var(--accent)} tr:nth-child(2) .rank-num{color:rgba(255,107,53,.6)} tr:nth-child(3) .rank-num{color:rgba(255,107,53,.38)}
+.ticker-main{font-weight:500;color:var(--white);letter-spacing:1px;font-size:13px;display:block}
+.company-name{font-size:11px;color:var(--muted);margin-top:2px;display:block}
+.mom-val{font-weight:500;display:inline-block;min-width:64px;text-align:right}
+.mom-pos-strong{color:#00e5a0} .mom-pos-mid{color:#7ec8a0} .mom-pos-weak{color:var(--muted2)} .mom-neg{color:var(--red)}
+.compound-wrap{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.compound-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;min-width:76px;text-align:right}
+.pos-compound{color:var(--accent)} .neg-compound{color:var(--red)}
+.spark-bar-bg{width:56px;height:4px;background:var(--border2);border-radius:2px;overflow:hidden}
+.spark-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .5s ease}
+.cap-val{font-size:12px;color:var(--muted2);text-align:right}
+.cap-large{color:#60a5fa} .cap-mid{color:rgba(96,165,250,.65)} .cap-small{color:var(--muted2)} .cap-na{color:var(--muted);font-size:11px}
+.fscore-wrap{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.fscore-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;min-width:28px;text-align:center}
+.fscore-9,.fscore-8,.fscore-7,.fscore-6{color:var(--blue)} .fscore-5{color:#7ec8a0}
+.fscore-4,.fscore-3{color:var(--muted2)} .fscore-2,.fscore-1,.fscore-0{color:var(--red)}
+.fscore-na{color:var(--muted);font-size:11px;font-family:'IBM Plex Mono',monospace}
+.fscore-dots{display:flex;gap:2px}
+.fscore-dot{width:5px;height:5px;border-radius:50%;background:var(--border2)}
+.fscore-dot.lit{background:var(--blue)}
+.rank-change{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;font-size:11px;font-weight:500;border-radius:2px}
+.rank-up{color:var(--blue);background:rgba(0,229,160,.08)} .rank-down{color:var(--red);background:rgba(255,68,85,.08)}
+.rank-same{color:var(--muted);background:rgba(255,255,255,.04)} .rank-new{color:var(--accent2);background:rgba(255,159,28,.08);font-size:10px;letter-spacing:.1em}
+.loader{display:flex;align-items:center;justify-content:center;min-height:300px;gap:12px;font-size:13px;color:var(--muted)}
+.spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+.error-msg{display:none;padding:24px;border:1px solid rgba(255,68,85,.3);color:var(--red);font-size:13px;background:rgba(255,68,85,.05)}
+.methodology{margin-top:64px;border:1px solid var(--border2);border-left:3px solid var(--accent);background:var(--surface);padding:36px 40px;animation:fadeUp .65s .3s ease both}
+.method-title{font-size:10px;font-weight:500;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:24px}
+.method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.method-item h3{font-size:11px;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.method-item p{font-size:12px;color:var(--muted);line-height:1.75}
+.method-item p strong{color:var(--text);font-weight:400}
+.formula-box{margin-top:24px;padding:14px 20px;background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.18);font-size:13px;color:var(--accent2);display:inline-block;letter-spacing:.04em}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted);animation:fadeDown .65s .4s ease both}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s} footer a:hover{color:var(--accent)}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,107,53,.5)}50%{box-shadow:0 0 0 5px rgba(255,107,53,0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rowIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+tbody tr:nth-child(1){animation-delay:.22s} tbody tr:nth-child(2){animation-delay:.25s}
+tbody tr:nth-child(3){animation-delay:.28s} tbody tr:nth-child(4){animation-delay:.31s}
+tbody tr:nth-child(5){animation-delay:.34s} tbody tr:nth-child(6){animation-delay:.37s}
+tbody tr:nth-child(7){animation-delay:.40s} tbody tr:nth-child(8){animation-delay:.43s}
+tbody tr:nth-child(9){animation-delay:.46s} tbody tr:nth-child(10){animation-delay:.49s}
+tbody tr:nth-child(11){animation-delay:.52s} tbody tr:nth-child(12){animation-delay:.55s}
+tbody tr:nth-child(13){animation-delay:.58s} tbody tr:nth-child(14){animation-delay:.61s}
+tbody tr:nth-child(15){animation-delay:.64s} tbody tr:nth-child(16){animation-delay:.67s}
+tbody tr:nth-child(17){animation-delay:.70s} tbody tr:nth-child(18){animation-delay:.73s}
+tbody tr:nth-child(19){animation-delay:.76s} tbody tr:nth-child(20){animation-delay:.79s}
+tbody tr:nth-child(21){animation-delay:.82s} tbody tr:nth-child(22){animation-delay:.85s}
+tbody tr:nth-child(23){animation-delay:.88s} tbody tr:nth-child(24){animation-delay:.91s}
+tbody tr:nth-child(25){animation-delay:.94s} tbody tr:nth-child(26){animation-delay:.97s}
+tbody tr:nth-child(27){animation-delay:1.00s} tbody tr:nth-child(28){animation-delay:1.03s}
+tbody tr:nth-child(29){animation-delay:1.06s} tbody tr:nth-child(30){animation-delay:1.09s}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px;transition:color .2s}
+.back-link:hover{color:var(--accent)} .back-link::before{content:'←';font-size:14px}
+</style>
 </head>
 <body>
-
 <div class="glow-tl"></div>
 <div class="glow-br"></div>
-
 <div class="container">
-
   <a href="https://alex30free.github.io/stocklab/" class="back-link">StockLab Home</a>
 
-  <!-- HEADER -->
   <header>
     <div class="header-top">
       <div class="brand">
         <div class="brand-tag">Momentum Screener — Strategy III</div>
         <h1>Compound<br><em>Momentum</em></h1>
-        <div class="brand-sub">3M + 6M + 12M price return · Top 20 Swedish stocks · Ranked weekly</div>
+        <div class="brand-sub">3M + 6M + 12M price return · Top 30 Swedish stocks · Ranked weekly</div>
       </div>
       <div class="header-right">
         <div><span class="live-dot"></span><span id="updated-time">Loading…</span></div>
@@ -659,51 +188,31 @@
     </div>
   </header>
 
-  <!-- FORMULA STRIP -->
   <div class="formula-strip">
-    <div class="formula-part fp-3m">
-      <div class="formula-label">Window 1</div>
-      <div class="formula-val">3-Month Return</div>
-    </div>
+    <div class="formula-part fp-3m"><div class="formula-label">Window 1</div><div class="formula-val">3-Month Return</div></div>
     <div class="formula-eq">+</div>
-    <div class="formula-part fp-6m">
-      <div class="formula-label">Window 2</div>
-      <div class="formula-val">6-Month Return</div>
-    </div>
+    <div class="formula-part fp-6m"><div class="formula-label">Window 2</div><div class="formula-val">6-Month Return</div></div>
     <div class="formula-eq">+</div>
-    <div class="formula-part fp-12m">
-      <div class="formula-label">Window 3</div>
-      <div class="formula-val">12-Month Return</div>
-    </div>
+    <div class="formula-part fp-12m"><div class="formula-label">Window 3</div><div class="formula-val">12-Month Return</div></div>
     <div class="formula-eq">=</div>
-    <div class="formula-part fp-sum">
-      <div class="formula-label">Score</div>
-      <div class="formula-val">Compound Momentum</div>
-    </div>
+    <div class="formula-part fp-sum"><div class="formula-label">Score</div><div class="formula-val">Compound Momentum</div></div>
   </div>
 
-  <!-- ── FILTER TOOLBAR ── -->
   <div class="filter-bar">
     <div class="filter-left">
       <span class="filter-label">Filters</span>
-
-      <!-- F-Score Toggle -->
       <button class="filter-btn fscore-btn" id="fscore-toggle-btn" onclick="toggleFScore()">
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
         ⬡ F-Score
         <span class="filter-badge-inline" id="fscore-badge">≥ <span id="badge-threshold">5</span></span>
       </button>
-
       <div class="filter-divider"></div>
-
-      <!-- Market Cap Toggle -->
       <button class="filter-btn mcap-btn" id="mcap-toggle-btn" onclick="toggleMcap()">
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
         ◈ Market Cap
         <span class="filter-badge-inline" id="mcap-badge">≥ <span id="badge-mcap">300</span>M SEK</span>
       </button>
     </div>
-
     <div class="filter-status">
       <div class="filter-status-dot" id="filter-dot-f"></div>
       <div class="filter-status-dot" id="filter-dot-m"></div>
@@ -711,7 +220,6 @@
     </div>
   </div>
 
-  <!-- F-SCORE INFO BOX -->
   <div class="filter-info-box fscore-info-box" id="fscore-info-box">
     <div class="info-box-header">
       <div class="info-box-title">⬡ Piotroski F-Score Filter — Active</div>
@@ -729,89 +237,50 @@
     <div class="info-box-desc">
       Only stocks with F-Score <strong>≥ <span id="info-f-threshold">5</span></strong> pass this filter.
       Stocks below the threshold are dimmed. Score 5+ means <strong>more criteria are passing than failing</strong>.
-      <em style="color:var(--muted);">Approximated from Yahoo Finance fundamentals, updated weekly.</em>
+      <em style="color:var(--muted)">Approximated from Yahoo Finance fundamentals, updated weekly.</em>
     </div>
   </div>
 
-  <!-- MARKET CAP INFO BOX -->
   <div class="filter-info-box mcap-info-box" id="mcap-info-box">
     <div class="info-box-header">
       <div class="info-box-title">◈ Market Cap Filter — Active</div>
       <div class="mcap-selector">
         <span class="threshold-label">Min size:</span>
         <div class="mcap-btns">
-          <button class="mcap-btn-sel active" data-val="300"  onclick="setMcapThreshold(300)">300M</button>
-          <button class="mcap-btn-sel"        data-val="500"  onclick="setMcapThreshold(500)">500M</button>
-          <button class="mcap-btn-sel"        data-val="1000" onclick="setMcapThreshold(1000)">1B</button>
-          <button class="mcap-btn-sel"        data-val="5000" onclick="setMcapThreshold(5000)">5B</button>
+          <button class="mcap-btn-sel active" data-val="300" onclick="setMcapThreshold(300)">300M</button>
+          <button class="mcap-btn-sel" data-val="500" onclick="setMcapThreshold(500)">500M</button>
+          <button class="mcap-btn-sel" data-val="1000" onclick="setMcapThreshold(1000)">1B</button>
+          <button class="mcap-btn-sel" data-val="5000" onclick="setMcapThreshold(5000)">5B</button>
         </div>
       </div>
     </div>
     <div class="info-box-desc">
       Filtering to stocks with market cap <strong>≥ <span id="info-mcap-threshold">300</span>M SEK</strong>.
       Stocks below this size are dimmed.
-      <em style="color:var(--muted);">Market cap is fetched live from Yahoo Finance when filter is enabled.</em>
+      <em style="color:var(--muted)">Market cap is fetched live from Yahoo Finance when filter is enabled.</em>
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-num" id="stat-total">—</div>
-      <div class="stat-desc">Stocks Screened</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num orange" id="stat-top-score">—</div>
-      <div class="stat-desc">Highest Compound Score</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="stat-positive">—</div>
-      <div class="stat-desc">Positive All 3 Windows</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="stat-new">—</div>
-      <div class="stat-desc">New Entries This Week</div>
-    </div>
+    <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-desc">Stocks Screened</div></div>
+    <div class="stat-card"><div class="stat-num orange" id="stat-top-score">—</div><div class="stat-desc">Highest Compound Score</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-positive">—</div><div class="stat-desc">Positive All 3 Windows</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-new">—</div><div class="stat-desc">New Entries This Week</div></div>
   </div>
 
-  <!-- RESEARCH BUTTON -->
   <div class="research-row">
-    <a href="research.html" style="
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      padding: 12px 22px;
-      border: 1px solid rgba(255,107,53,0.35);
-      color: var(--accent);
-      background: rgba(255,107,53,0.06);
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-    "
-    onmouseover="this.style.borderColor='rgba(255,107,53,0.7)'; this.style.background='rgba(255,107,53,0.12)'; this.style.transform='translateY(-2px)';"
-    onmouseout="this.style.borderColor='rgba(255,107,53,0.35)'; this.style.background='rgba(255,107,53,0.06)'; this.style.transform='translateY(0)';">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <rect x="1" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <rect x="8" y="1" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <rect x="1" y="8" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M8 10.5h5M10.5 8v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Research &amp; Evidence
-      <span style="font-size:13px; margin-left:2px;">→</span>
+    <a href="research.html" style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:12px 22px;border:1px solid rgba(255,107,53,.35);color:var(--accent);background:rgba(255,107,53,.06);text-decoration:none;transition:border-color .2s,background .2s,transform .2s"
+       onmouseover="this.style.borderColor='rgba(255,107,53,.7)';this.style.background='rgba(255,107,53,.12)';this.style.transform='translateY(-2px)'"
+       onmouseout="this.style.borderColor='rgba(255,107,53,.35)';this.style.background='rgba(255,107,53,.06)';this.style.transform='translateY(0)'">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="1" width="5" height="5" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="8" width="5" height="5" rx=".5" stroke="currentColor" stroke-width="1.2"/><path d="M8 10.5h5M10.5 8v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Research &amp; Evidence <span style="font-size:13px;margin-left:2px">→</span>
     </a>
   </div>
 
-  <!-- ERROR -->
-  <div class="error-msg" id="error-msg">
-    ⚠ Could not load screener data. Ensure <code>momentum_data.json</code> exists and GitHub Pages is enabled.
-  </div>
+  <div class="error-msg" id="error-msg">⚠ Could not load screener data. Ensure <code>momentum_data.json</code> exists and GitHub Pages is enabled.</div>
 
-  <!-- TABLE -->
   <div class="table-wrap" id="table-wrap">
-    <div class="loader" id="loader">
-      <div class="spinner"></div>
-      Fetching latest momentum data…
-    </div>
+    <div class="loader" id="loader"><div class="spinner"></div> Fetching latest momentum data…</div>
     <table id="mom-table" style="display:none">
       <thead>
         <tr>
@@ -830,83 +299,62 @@
     </table>
   </div>
 
-  <!-- METHODOLOGY -->
   <div class="methodology">
     <div class="method-title">How Compound Momentum Works</div>
     <div class="method-grid">
-      <div class="method-item">
-        <h3>01 · What It Measures</h3>
-        <p>Compound Momentum sums a stock's raw percentage price return over <strong>three distinct time windows</strong> — 3 months, 6 months, and 12 months. A stock that rises strongly across all three windows achieves a high composite score. No weighting: each window contributes equally.</p>
-      </div>
-      <div class="method-item">
-        <h3>02 · Why Three Windows?</h3>
-        <p>Different momentum horizons capture different phenomena. The <strong>3-month</strong> window captures short-term trend acceleration. The <strong>6-month</strong> window filters noise and confirms the trend. The <strong>12-month</strong> window ensures structural, sustained outperformance — not a brief spike.</p>
-      </div>
-      <div class="method-item">
-        <h3>03 · Company Size Column</h3>
-        <p>Market capitalisation in million SEK, converted from Yahoo Finance's USD figure. Enables quick identification of <strong>micro-cap vs large-cap</strong> stocks. Thin liquidity in very small companies can amplify momentum moves and widen spreads.</p>
-      </div>
-      <div class="method-item">
-        <h3>04 · Piotroski F-Score</h3>
-        <p>A 0–9 quality score based on <strong>9 binary signals</strong> across profitability (ROA, cash flow, margins), leverage (debt ratio, current ratio, dilution), and efficiency (operating margin, return on equity). Higher scores indicate stronger financial health.</p>
-      </div>
+      <div class="method-item"><h3>01 · What It Measures</h3><p>Compound Momentum sums a stock's raw percentage price return over <strong>three distinct time windows</strong> — 3 months, 6 months, and 12 months. A stock that rises strongly across all three windows achieves a high composite score. No weighting: each window contributes equally.</p></div>
+      <div class="method-item"><h3>02 · Why Three Windows?</h3><p>Different momentum horizons capture different phenomena. The <strong>3-month</strong> window captures short-term trend acceleration. The <strong>6-month</strong> window filters noise and confirms the trend. The <strong>12-month</strong> window ensures structural, sustained outperformance — not a brief spike.</p></div>
+      <div class="method-item"><h3>03 · Company Size Column</h3><p>Market capitalisation in million SEK, converted from Yahoo Finance's USD figure. Enables quick identification of <strong>micro-cap vs large-cap</strong> stocks. Thin liquidity in very small companies can amplify momentum moves and widen spreads.</p></div>
+      <div class="method-item"><h3>04 · Piotroski F-Score</h3><p>A 0–9 quality score based on <strong>9 binary signals</strong> across profitability (ROA, cash flow, margins), leverage (debt ratio, current ratio, dilution), and efficiency (operating margin, return on equity). Higher scores indicate stronger financial health.</p></div>
     </div>
-    <div class="formula-box">
-      Compound Momentum Score = Return(3M) + Return(6M) + Return(12M)
-    </div>
+    <div class="formula-box">Compound Momentum Score = Return(3M) + Return(6M) + Return(12M)</div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <span>⚠ For informational purposes only — not financial advice.</span>
     <span>
       <a href="https://alex30free.github.io/stocklab/">← StockLab Home</a>
-      &nbsp;·&nbsp;
-      <a href="https://alex30free.github.io/swedish-rsl-screener/">RSL Screener</a>
-      &nbsp;·&nbsp;
-      <a href="https://alex30free.github.io/swedish-stock-screener/">Low-Risk Screener</a>
+      &nbsp;·&nbsp;<a href="https://alex30free.github.io/swedish-rsl-screener/">RSL Screener</a>
+      &nbsp;·&nbsp;<a href="https://alex30free.github.io/swedish-stock-screener/">Low-Risk Screener</a>
     </span>
   </footer>
-
 </div>
 
 <script>
-// ─── State ───────────────────────────────────────────────────────────────────
 let RAW_DATA = null;
+let fscoreEnabled = false, mcapEnabled = false;
+let fscoreThreshold = 5, mcapThreshold = 300;
 
-// ─── Load data ───────────────────────────────────────────────────────────────
 async function loadData() {
   try {
     const res = await fetch('momentum_data.json?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     RAW_DATA = await res.json();
     render(RAW_DATA);
-  } catch (e) {
+  } catch(e) {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('error-msg').style.display = 'block';
     console.error(e);
   }
 }
 
-// ─── Render ──────────────────────────────────────────────────────────────────
 function render(data) {
   document.getElementById('loader').style.display = 'none';
+  document.getElementById('error-msg').style.display = 'none';
   document.getElementById('updated-time').textContent = 'Updated: ' + data.updated;
   document.getElementById('stocks-screened').textContent =
     data.stocks_screened + ' of ' + (data.total_attempted || '?') + ' stocks screened';
 
-  const top20 = data.top20 || [];
+  // Support both top30 (new) and top20 (old JSON) keys
+  const top30 = data.top30 || data.top20 || [];
 
-  // Stats
   document.getElementById('stat-total').textContent = data.stocks_screened;
-  const newEntries = top20.filter(s => s.prev_rank === null || s.prev_rank === undefined).length;
-  document.getElementById('stat-new').textContent = newEntries;
-  document.getElementById('stat-top-score').textContent =
-    top20.length ? formatPct(top20[0].compound_score) : '—';
-  const allPos = top20.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
-  document.getElementById('stat-positive').textContent = allPos + '/20';
+  document.getElementById('stat-new').textContent = top30.filter(s => s.prev_rank == null).length;
+  document.getElementById('stat-top-score').textContent = top30.length ? formatPct(top30[0].compound_score) : '—';
+  const allPos = top30.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
+  document.getElementById('stat-positive').textContent = allPos + '/30';
 
-  renderTable(top20);
+  renderTable(top30);
   document.getElementById('mom-table').style.display = 'table';
 }
 
@@ -917,213 +365,151 @@ function renderTable(stocks) {
   tbody.innerHTML = '';
 
   stocks.forEach((s, i) => {
-    const rank    = i + 1;
-    const barPct  = maxScore > minScore
-      ? ((s.compound_score - minScore) / (maxScore - minScore)) * 100
-      : 80;
-
+    const rank = i + 1;
+    const barPct = maxScore > minScore ? ((s.compound_score - minScore) / (maxScore - minScore)) * 100 : 80;
     let prevHTML = '';
-    if (s.prev_rank === null || s.prev_rank === undefined) {
+    if (s.prev_rank == null) {
       prevHTML = '<span class="rank-change rank-new">NEW</span>';
     } else {
-      const diff = s.prev_rank - s.rank;
-      if (diff > 0)      prevHTML = `<span class="rank-change rank-up">▲ ${diff} &nbsp;#${s.prev_rank}</span>`;
-      else if (diff < 0) prevHTML = `<span class="rank-change rank-down">▼ ${Math.abs(diff)} &nbsp;#${s.prev_rank}</span>`;
-      else               prevHTML = `<span class="rank-change rank-same">— &nbsp;#${s.prev_rank}</span>`;
+      const d = s.prev_rank - s.rank;
+      if (d > 0) prevHTML = `<span class="rank-change rank-up">▲ ${d} &nbsp;#${s.prev_rank}</span>`;
+      else if (d < 0) prevHTML = `<span class="rank-change rank-down">▼ ${Math.abs(d)} &nbsp;#${s.prev_rank}</span>`;
+      else prevHTML = `<span class="rank-change rank-same">— &nbsp;#${s.prev_rank}</span>`;
     }
-
-    const ticker        = s.ticker.replace('.ST', '');
+    const ticker = s.ticker.replace('.ST', '');
     const compoundClass = s.compound_score >= 0 ? 'pos-compound' : 'neg-compound';
-    const capCell       = buildCapCell(s.market_cap_msek);
-    const fscoreCell    = buildFscoreCell(s.fscore);
-
     const tr = document.createElement('tr');
-    tr.dataset.rank   = rank;
+    tr.dataset.rank = rank;
     tr.dataset.fscore = s.fscore != null ? s.fscore : '';
-    tr.dataset.mcap   = s.market_cap_msek != null ? s.market_cap_msek : '';
-
+    tr.dataset.mcap = s.market_cap_msek != null ? s.market_cap_msek : '';
     tr.innerHTML = `
-      <td><span class="rank-num">${String(rank).padStart(2, '0')}</span></td>
-      <td>
-        <span class="ticker-main">${esc(ticker)}</span>
-        <span class="company-name">${esc(s.name)}</span>
-      </td>
+      <td><span class="rank-num">${String(rank).padStart(2,'0')}</span></td>
+      <td><span class="ticker-main">${esc(ticker)}</span><span class="company-name">${esc(s.name)}</span></td>
       <td class="right"><span class="mom-val ${momClass(s.mom_3m)}">${formatPct(s.mom_3m)}</span></td>
       <td class="right"><span class="mom-val ${momClass(s.mom_6m)}">${formatPct(s.mom_6m)}</span></td>
       <td class="right"><span class="mom-val ${momClass(s.mom_12m)}">${formatPct(s.mom_12m)}</span></td>
       <td class="right">
         <div class="compound-wrap">
           <span class="compound-val ${compoundClass}">${formatPct(s.compound_score)}</span>
-          <div class="spark-bar-bg">
-            <div class="spark-bar-fill" style="width:${barPct.toFixed(1)}%"></div>
-          </div>
+          <div class="spark-bar-bg"><div class="spark-bar-fill" style="width:${barPct.toFixed(1)}%"></div></div>
         </div>
       </td>
-      <td class="right td-mcap" style="display:none">${capCell}</td>
-      <td class="right td-fscore" style="display:none">${fscoreCell}</td>
-      <td class="center">${prevHTML}</td>
-    `;
+      <td class="right td-mcap" style="display:none">${buildCapCell(s.market_cap_msek)}</td>
+      <td class="right td-fscore" style="display:none">${buildFscoreCell(s.fscore)}</td>
+      <td class="center">${prevHTML}</td>`;
     tbody.appendChild(tr);
   });
-
   applyFilters();
 }
 
-// ─── Cap cell ────────────────────────────────────────────────────────────────
 function buildCapCell(cap) {
   if (cap == null) return '<span class="cap-na">N/A</span>';
-  let cls = 'cap-small';
-  let label = '';
-  if (cap >= 10000)      { cls = 'cap-large'; label = 'Large'; }
-  else if (cap >= 2000)  { cls = 'cap-mid';   label = 'Mid'; }
-  else                   { cls = 'cap-small'; label = 'Small'; }
-
-  const display = cap >= 1000
-    ? (cap / 1000).toFixed(1) + ' bn'
-    : Math.round(cap) + ' m';
-
+  const cls = cap >= 10000 ? 'cap-large' : cap >= 2000 ? 'cap-mid' : 'cap-small';
+  const label = cap >= 10000 ? 'Large' : cap >= 2000 ? 'Mid' : 'Small';
+  const display = cap >= 1000 ? (cap/1000).toFixed(1)+' bn' : Math.round(cap)+' m';
   return `<span class="cap-val ${cls}" title="${label} Cap · ${Math.round(cap)} MSEK">${display} SEK</span>`;
 }
 
-// ─── F-Score cell ─────────────────────────────────────────────────────────────
 function buildFscoreCell(score) {
   if (score == null) return '<span class="fscore-na">N/A</span>';
-  const dots = Array.from({length: 9}, (_, i) =>
-    `<div class="fscore-dot${i < score ? ' lit' : ''}"></div>`
-  ).join('');
-  return `
-    <div class="fscore-wrap">
-      <span class="fscore-val fscore-${score}">${score}</span>
-      <div class="fscore-dots">${dots}</div>
-    </div>`;
+  const dots = Array.from({length:9},(_,i)=>`<div class="fscore-dot${i<score?' lit':''}"></div>`).join('');
+  return `<div class="fscore-wrap"><span class="fscore-val fscore-${score}">${score}</span><div class="fscore-dots">${dots}</div></div>`;
 }
 
-// ─── Filter state ────────────────────────────────────────────────────────────
-let fscoreEnabled   = false;
-let mcapEnabled     = false;
-let fscoreThreshold = 5;
-let mcapThreshold   = 300;
+function momClass(v) {
+  if (v >= 20) return 'mom-pos-strong';
+  if (v >= 5)  return 'mom-pos-mid';
+  if (v >= 0)  return 'mom-pos-weak';
+  return 'mom-neg';
+}
 
-// ─── Toggle F-Score ───────────────────────────────────────────────────────────
+function formatPct(v) {
+  if (v == null) return '—';
+  return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Filters ──────────────────────────────────────────────────────────────────
 function toggleFScore() {
   fscoreEnabled = !fscoreEnabled;
   document.getElementById('fscore-toggle-btn').classList.toggle('active', fscoreEnabled);
   document.getElementById('fscore-info-box').classList.toggle('visible', fscoreEnabled);
   document.getElementById('filter-dot-f').className = 'filter-status-dot' + (fscoreEnabled ? ' active-green' : '');
-  document.querySelectorAll('.th-fscore').forEach(th => th.classList.toggle('visible', fscoreEnabled));
-  document.querySelectorAll('.td-fscore').forEach(td => td.classList.toggle('visible', fscoreEnabled));
+  if (fscoreEnabled) {
+    document.querySelectorAll('.td-fscore').forEach(el => { el.classList.add('visible'); el.style.display=''; });
+    document.querySelectorAll('.th-fscore').forEach(el => { el.classList.add('visible'); el.style.display=''; });
+  } else {
+    document.querySelectorAll('.td-fscore').forEach(el => { el.classList.remove('visible'); el.style.display='none'; });
+    document.querySelectorAll('.th-fscore').forEach(el => { el.classList.remove('visible'); el.style.display='none'; });
+  }
   applyFilters();
 }
 
-// ─── Toggle Market Cap ────────────────────────────────────────────────────────
 function toggleMcap() {
   mcapEnabled = !mcapEnabled;
   document.getElementById('mcap-toggle-btn').classList.toggle('active', mcapEnabled);
   document.getElementById('mcap-info-box').classList.toggle('visible', mcapEnabled);
   document.getElementById('filter-dot-m').className = 'filter-status-dot' + (mcapEnabled ? ' active-orange' : '');
-  document.querySelectorAll('.th-cap').forEach(th => th.classList.toggle('visible', mcapEnabled));
-  document.querySelectorAll('.td-mcap').forEach(td => td.classList.toggle('visible', mcapEnabled));
-
-  if (mcapEnabled && RAW_DATA) {
-    const stocks = RAW_DATA.top20 || [];
-    stocks.forEach((s, i) => {
-      if (!mcapCache[s.ticker]) {
-        fetchMcap(s.ticker).then(val => {
-          mcapCache[s.ticker] = val;
-          renderMcapCell(i, val);
-          applyFilters();
-        });
-      }
-    });
+  if (mcapEnabled) {
+    document.querySelectorAll('.td-mcap').forEach(el => { el.classList.add('visible'); el.style.display=''; });
+    document.querySelectorAll('.th-cap').forEach(el => { el.classList.add('visible'); el.style.display=''; });
+  } else {
+    document.querySelectorAll('.td-mcap').forEach(el => { el.classList.remove('visible'); el.style.display='none'; });
+    document.querySelectorAll('.th-cap').forEach(el => { el.classList.remove('visible'); el.style.display='none'; });
   }
   applyFilters();
 }
 
-// ─── Set F-Score threshold ────────────────────────────────────────────────────
 function setFThreshold(val) {
   fscoreThreshold = val;
-  document.getElementById('badge-threshold').textContent  = val;
+  document.getElementById('badge-threshold').textContent = val;
   document.getElementById('info-f-threshold').textContent = val;
-  document.querySelectorAll('.threshold-btn').forEach(b =>
-    b.classList.toggle('active', parseInt(b.dataset.val) === val));
+  document.querySelectorAll('.threshold-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === val));
   applyFilters();
 }
 
-// ─── Set Market Cap threshold ─────────────────────────────────────────────────
 function setMcapThreshold(val) {
   mcapThreshold = val;
-  const label = val >= 1000 ? (val/1000) + 'B' : val + 'M';
-  document.getElementById('badge-mcap').textContent          = label;
+  const label = val >= 1000 ? (val/1000)+'B' : val+'M';
+  document.getElementById('badge-mcap').textContent = label;
   document.getElementById('info-mcap-threshold').textContent = label;
-  document.querySelectorAll('.mcap-btn-sel').forEach(b =>
-    b.classList.toggle('active', parseInt(b.dataset.val) === val));
+  document.querySelectorAll('.mcap-btn-sel').forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === val));
   applyFilters();
 }
 
-// ─── Apply all filters ────────────────────────────────────────────────────────
 function applyFilters() {
-  const rows  = Array.from(document.querySelectorAll('#mom-tbody tr[data-rank]'));
-  const tbody = document.getElementById('mom-tbody');
-  const pass  = [], fail = [];
+  const rows = Array.from(document.querySelectorAll('#mom-tbody tr'));
+  let passing = rows.length;
 
-  rows.forEach(row => {
-    row.classList.remove('filtered-out');
-    const fs   = parseInt(row.dataset.fscore);
-    const mcap = parseFloat(row.dataset.mcap);
-    const fOk  = !fscoreEnabled || isNaN(fs)   || fs   >= fscoreThreshold;
-    const mOk  = !mcapEnabled   || isNaN(mcap) || mcap >= mcapThreshold;
-    if (fOk && mOk) pass.push(row); else { row.classList.add('filtered-out'); fail.push(row); }
+  if (!fscoreEnabled && !mcapEnabled) {
+    rows.forEach(r => { r.style.opacity=''; r.style.filter=''; });
+    document.getElementById('filter-count-label').textContent = `Showing all ${rows.length} stocks`;
+    document.getElementById('filter-count-label').className = 'filter-count';
+    return;
+  }
+
+  passing = 0;
+  rows.forEach(r => {
+    const fs = r.dataset.fscore !== '' ? parseInt(r.dataset.fscore) : null;
+    const mc = r.dataset.mcap !== '' ? parseFloat(r.dataset.mcap) : null;
+    const fPass = !fscoreEnabled || (fs !== null && fs >= fscoreThreshold);
+    const mPass = !mcapEnabled  || (mc !== null && mc >= mcapThreshold);
+    const pass = fPass && mPass;
+    r.style.opacity = pass ? '' : '0.2';
+    r.style.filter  = pass ? '' : 'grayscale(0.5)';
+    if (pass) passing++;
   });
 
-  // Re-order pass first, then fail (within original RSL rank order)
-  pass.sort((a,b) => parseInt(a.dataset.rank) - parseInt(b.dataset.rank));
-  fail.sort((a,b) => parseInt(a.dataset.rank) - parseInt(b.dataset.rank));
-  [...pass, ...fail].forEach(r => tbody.appendChild(r));
-
-  if (!fscoreEnabled && !mcapEnabled) {
-    rows.sort((a,b) => parseInt(a.dataset.rank) - parseInt(b.dataset.rank));
-    rows.forEach(r => tbody.appendChild(r));
-  }
-
-  // Status label
+  const both = fscoreEnabled && mcapEnabled;
   const label = document.getElementById('filter-count-label');
-  const total = rows.length;
-  const showing = fscoreEnabled || mcapEnabled ? pass.length : total;
-  if (!fscoreEnabled && !mcapEnabled) {
-    label.textContent = `Showing all ${total} stocks`;
-    label.className = 'filter-count';
-  } else {
-    const parts = [];
-    if (fscoreEnabled) parts.push(`F ≥ ${fscoreThreshold}`);
-    if (mcapEnabled)   parts.push(`MCap ≥ ${mcapThreshold >= 1000 ? (mcapThreshold/1000)+'B' : mcapThreshold+'M'} SEK`);
-    label.textContent = `Showing ${showing} of ${total} stocks (${parts.join(', ')})`;
-    label.className = 'filter-count' + (fscoreEnabled && mcapEnabled ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
-  }
-}
-
-function formatCap(msek) {
-  return msek >= 1000 ? (msek / 1000).toFixed(1) + ' bn SEK' : msek + ' m SEK';
-}
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-function momClass(v) {
-  if (v === null || v === undefined) return '';
-  if (v >= 30)  return 'mom-pos-strong';
-  if (v >= 5)   return 'mom-pos-mid';
-  if (v >= 0)   return 'mom-pos-weak';
-  return 'mom-neg';
-}
-
-function formatPct(v) {
-  if (v === null || v === undefined) return '—';
-  return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
-}
-
-function esc(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  const parts = [];
+  if (fscoreEnabled) parts.push(`F ≥ ${fscoreThreshold}`);
+  if (mcapEnabled)   parts.push(`MCap ≥ ${mcapThreshold >= 1000 ? (mcapThreshold/1000)+'B' : mcapThreshold+'M'} SEK`);
+  label.textContent = `Showing ${passing} of ${rows.length} stocks (${parts.join(', ')})`;
+  label.className = 'filter-count' + (both ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
 }
 
 loadData();
