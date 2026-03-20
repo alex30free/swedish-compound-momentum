@@ -130,6 +130,11 @@ TICKERS = [
     ("Immunovia", "IMMNOV.ST"), ("Wästbygg", "WBGR-B.ST"),
     ("Xbrane Biopharma", "XBRANE.ST"), ("Alligator Bioscience", "ATORX.ST"),
     ("Verisure", "VSURE.ST"),
+    ("Cheffelo", "CHEF.ST"),
+    ("ByggPartner Gruppen", "BYGGP.ST"),
+    ("Alcadon Group", "ALCA.ST"),
+    ("Clavister Holding", "CLAV.ST"),
+    ("Premium Snacks Nordic", "SNX.ST"),
 ]
 
 OUTPUT_JSON     = "momentum_data.json"
