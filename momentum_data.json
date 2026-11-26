@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-26 13:58 UTC",
+  "updated": "2026-11-26 18:07 UTC",
   "params": {
     "ma_days": 200,
     "buy_list_n": 5,
@@ -20,7 +20,7 @@
         "mom_3m": 104.27,
         "mom_6m": 185.98,
         "mom_12m": 94.85,
-        "market_cap_msek": 16142,
+        "market_cap_msek": 16297,
         "size_class": "Large",
         "ma200": {
           "above": true,
@@ -43,7 +43,7 @@
         "mom_3m": 48.2,
         "mom_6m": 43.31,
         "mom_12m": 62.91,
-        "market_cap_msek": 21790,
+        "market_cap_msek": 21907,
         "size_class": "Large",
         "ma200": {
           "above": true,
@@ -66,7 +66,7 @@
         "mom_3m": 24.22,
         "mom_6m": 81.36,
         "mom_12m": 39.34,
-        "market_cap_msek": 12249,
+        "market_cap_msek": 12380,
         "size_class": "Large",
         "ma200": {
           "above": true,
@@ -89,7 +89,7 @@
         "mom_3m": 26.36,
         "mom_6m": 26.93,
         "mom_12m": 90.43,
-        "market_cap_msek": 12258,
+        "market_cap_msek": 12189,
         "size_class": "Large",
         "ma200": {
           "above": true,
@@ -112,7 +112,7 @@
         "mom_3m": 21.62,
         "mom_6m": 54.34,
         "mom_12m": 39.48,
-        "market_cap_msek": 23051,
+        "market_cap_msek": 23103,
         "size_class": "Large",
         "ma200": {
           "above": true,
@@ -137,7 +137,7 @@
         "mom_3m": 36.31,
         "mom_6m": 116.09,
         "mom_12m": 159.3,
-        "market_cap_msek": 1693,
+        "market_cap_msek": 1700,
         "size_class": "Mid",
         "ma200": {
           "above": true,
@@ -160,7 +160,7 @@
         "mom_3m": 48.2,
         "mom_6m": 78.9,
         "mom_12m": 86.05,
-        "market_cap_msek": 1916,
+        "market_cap_msek": 1931,
         "size_class": "Mid",
         "ma200": {
           "above": true,
@@ -183,7 +183,7 @@
         "mom_3m": 39.25,
         "mom_6m": 82.62,
         "mom_12m": 80.26,
-        "market_cap_msek": 5161,
+        "market_cap_msek": 5180,
         "size_class": "Mid",
         "ma200": {
           "above": true,
@@ -206,7 +206,7 @@
         "mom_3m": 26.95,
         "mom_6m": 49.69,
         "mom_12m": 109.29,
-        "market_cap_msek": 5035,
+        "market_cap_msek": 5056,
         "size_class": "Mid",
         "ma200": {
           "above": true,
@@ -229,7 +229,7 @@
         "mom_3m": 8.6,
         "mom_6m": 39.11,
         "mom_12m": 77.31,
-        "market_cap_msek": 4678,
+        "market_cap_msek": 4771,
         "size_class": "Mid",
         "ma200": {
           "above": true,
@@ -254,7 +254,7 @@
         "mom_3m": 280.0,
         "mom_6m": 267.43,
         "mom_12m": 305.62,
-        "market_cap_msek": 1122,
+        "market_cap_msek": 1107,
         "size_class": "Small",
         "ma200": {
           "above": true,
@@ -292,6 +292,13 @@
       }
     ]
   },
+  "weekly_ma": {
+    "baseline": true,
+    "gained": [],
+    "lost": [],
+    "crossed_up": [],
+    "crossed_down": []
+  },
   "total_attempted": 280,
   "stocks_screened": 270,
   "skipped_count": 10,
@@ -310,7 +317,7 @@
       "mom_6m": 267.43,
       "mom_12m": 305.62,
       "compound_score": 853.05,
-      "market_cap_msek": 1122,
+      "market_cap_msek": 1107,
       "fscore": 5,
       "size_class": "Small",
       "ma200": {
@@ -324,6 +331,8 @@
       "turnover_msek": 3.27,
       "rank": 1,
       "strength_pct": 100,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 1
     },
     {
@@ -334,7 +343,7 @@
       "mom_6m": 185.98,
       "mom_12m": 94.85,
       "compound_score": 385.11,
-      "market_cap_msek": 16142,
+      "market_cap_msek": 16297,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -348,6 +357,8 @@
       "turnover_msek": 67.33,
       "rank": 2,
       "strength_pct": 100,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 2
     },
     {
@@ -358,7 +369,7 @@
       "mom_6m": 116.09,
       "mom_12m": 159.3,
       "compound_score": 311.7,
-      "market_cap_msek": 1693,
+      "market_cap_msek": 1700,
       "fscore": 3,
       "size_class": "Mid",
       "ma200": {
@@ -372,6 +383,8 @@
       "turnover_msek": 2.32,
       "rank": 3,
       "strength_pct": 99,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 3
     },
     {
@@ -382,7 +395,7 @@
       "mom_6m": 78.9,
       "mom_12m": 86.05,
       "compound_score": 213.15,
-      "market_cap_msek": 1916,
+      "market_cap_msek": 1931,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -396,6 +409,8 @@
       "turnover_msek": 7.33,
       "rank": 4,
       "strength_pct": 99,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 4
     },
     {
@@ -406,7 +421,7 @@
       "mom_6m": 82.62,
       "mom_12m": 80.26,
       "compound_score": 202.13,
-      "market_cap_msek": 5161,
+      "market_cap_msek": 5180,
       "fscore": 3,
       "size_class": "Mid",
       "ma200": {
@@ -420,6 +435,8 @@
       "turnover_msek": 32.49,
       "rank": 5,
       "strength_pct": 99,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 5
     },
     {
@@ -430,7 +447,7 @@
       "mom_6m": 49.69,
       "mom_12m": 109.29,
       "compound_score": 185.93,
-      "market_cap_msek": 5035,
+      "market_cap_msek": 5056,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -444,6 +461,8 @@
       "turnover_msek": 2.09,
       "rank": 6,
       "strength_pct": 98,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 6
     },
     {
@@ -454,7 +473,7 @@
       "mom_6m": 67.2,
       "mom_12m": 70.93,
       "compound_score": 173.13,
-      "market_cap_msek": 759,
+      "market_cap_msek": 755,
       "fscore": 6,
       "size_class": "Small",
       "ma200": {
@@ -468,6 +487,8 @@
       "turnover_msek": 0.95,
       "rank": 7,
       "strength_pct": 98,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 7
     },
     {
@@ -478,7 +499,7 @@
       "mom_6m": 43.31,
       "mom_12m": 62.91,
       "compound_score": 154.42,
-      "market_cap_msek": 21790,
+      "market_cap_msek": 21907,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -492,6 +513,8 @@
       "turnover_msek": 100.97,
       "rank": 8,
       "strength_pct": 97,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 8
     },
     {
@@ -502,7 +525,7 @@
       "mom_6m": 81.36,
       "mom_12m": 39.34,
       "compound_score": 144.92,
-      "market_cap_msek": 12249,
+      "market_cap_msek": 12380,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -516,6 +539,8 @@
       "turnover_msek": 40.45,
       "rank": 9,
       "strength_pct": 97,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 9
     },
     {
@@ -526,7 +551,7 @@
       "mom_6m": 26.93,
       "mom_12m": 90.43,
       "compound_score": 143.72,
-      "market_cap_msek": 12258,
+      "market_cap_msek": 12189,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -540,6 +565,8 @@
       "turnover_msek": 11.81,
       "rank": 10,
       "strength_pct": 97,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 10
     },
     {
@@ -564,6 +591,8 @@
       "turnover_msek": 2.08,
       "rank": 11,
       "strength_pct": 96,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 11
     },
     {
@@ -574,7 +603,7 @@
       "mom_6m": 39.11,
       "mom_12m": 77.31,
       "compound_score": 125.02,
-      "market_cap_msek": 4678,
+      "market_cap_msek": 4771,
       "fscore": 4,
       "size_class": "Mid",
       "ma200": {
@@ -588,6 +617,8 @@
       "turnover_msek": 29.37,
       "rank": 12,
       "strength_pct": 96,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 12
     },
     {
@@ -598,7 +629,7 @@
       "mom_6m": 25.89,
       "mom_12m": 83.48,
       "compound_score": 124.14,
-      "market_cap_msek": 476,
+      "market_cap_msek": 481,
       "fscore": 5,
       "size_class": "Small",
       "ma200": {
@@ -612,6 +643,8 @@
       "turnover_msek": 0.86,
       "rank": 13,
       "strength_pct": 96,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 13
     },
     {
@@ -636,6 +669,8 @@
       "turnover_msek": 7.42,
       "rank": 14,
       "strength_pct": 95,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 14
     },
     {
@@ -646,7 +681,7 @@
       "mom_6m": 54.34,
       "mom_12m": 39.48,
       "compound_score": 115.43,
-      "market_cap_msek": 23051,
+      "market_cap_msek": 23103,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -660,6 +695,8 @@
       "turnover_msek": 16.84,
       "rank": 15,
       "strength_pct": 95,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 15
     },
     {
@@ -670,7 +707,7 @@
       "mom_6m": 27.96,
       "mom_12m": 70.55,
       "compound_score": 115.42,
-      "market_cap_msek": 11972,
+      "market_cap_msek": 12009,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -684,6 +721,8 @@
       "turnover_msek": 69.37,
       "rank": 16,
       "strength_pct": 94,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 16
     },
     {
@@ -694,7 +733,7 @@
       "mom_6m": 25.51,
       "mom_12m": 83.93,
       "compound_score": 113.09,
-      "market_cap_msek": 29214,
+      "market_cap_msek": 29255,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -708,6 +747,8 @@
       "turnover_msek": 89.96,
       "rank": 17,
       "strength_pct": 94,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 17
     },
     {
@@ -718,7 +759,7 @@
       "mom_6m": 51.72,
       "mom_12m": 30.22,
       "compound_score": 113.02,
-      "market_cap_msek": 47072,
+      "market_cap_msek": 47518,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -732,6 +773,8 @@
       "turnover_msek": 66.45,
       "rank": 18,
       "strength_pct": 94,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 18
     },
     {
@@ -742,7 +785,7 @@
       "mom_6m": 30.84,
       "mom_12m": 42.43,
       "compound_score": 112.35,
-      "market_cap_msek": 4956,
+      "market_cap_msek": 5063,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -756,6 +799,8 @@
       "turnover_msek": 6.35,
       "rank": 19,
       "strength_pct": 93,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 19
     },
     {
@@ -766,7 +811,7 @@
       "mom_6m": 54.63,
       "mom_12m": 30.56,
       "compound_score": 108.76,
-      "market_cap_msek": 2574,
+      "market_cap_msek": 2592,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -780,6 +825,8 @@
       "turnover_msek": 1.14,
       "rank": 20,
       "strength_pct": 93,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 20
     },
     {
@@ -790,7 +837,7 @@
       "mom_6m": 18.14,
       "mom_12m": 81.8,
       "compound_score": 107.34,
-      "market_cap_msek": 17681,
+      "market_cap_msek": 17739,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -804,6 +851,8 @@
       "turnover_msek": 17.86,
       "rank": 21,
       "strength_pct": 93,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 21
     },
     {
@@ -814,7 +863,7 @@
       "mom_6m": 48.88,
       "mom_12m": 24.05,
       "compound_score": 105.69,
-      "market_cap_msek": 10181,
+      "market_cap_msek": 10192,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -828,6 +877,8 @@
       "turnover_msek": 13.61,
       "rank": 22,
       "strength_pct": 92,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 22
     },
     {
@@ -838,7 +889,7 @@
       "mom_6m": 30.46,
       "mom_12m": 57.15,
       "compound_score": 101.65,
-      "market_cap_msek": 16201,
+      "market_cap_msek": 16217,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -852,6 +903,8 @@
       "turnover_msek": 36.34,
       "rank": 23,
       "strength_pct": 92,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 23
     },
     {
@@ -862,7 +915,7 @@
       "mom_6m": 35.17,
       "mom_12m": 55.76,
       "compound_score": 100.59,
-      "market_cap_msek": 1856,
+      "market_cap_msek": 1865,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -876,6 +929,8 @@
       "turnover_msek": 4.74,
       "rank": 24,
       "strength_pct": 91,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 24
     },
     {
@@ -900,6 +955,8 @@
       "turnover_msek": 1.49,
       "rank": 25,
       "strength_pct": 91,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 25
     },
     {
@@ -910,7 +967,7 @@
       "mom_6m": 39.11,
       "mom_12m": 40.67,
       "compound_score": 96.87,
-      "market_cap_msek": 355,
+      "market_cap_msek": 357,
       "fscore": 6,
       "size_class": "Small",
       "ma200": {
@@ -924,6 +981,8 @@
       "turnover_msek": 0.09,
       "rank": 26,
       "strength_pct": 91,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 26
     },
     {
@@ -934,7 +993,7 @@
       "mom_6m": 33.07,
       "mom_12m": 27.59,
       "compound_score": 96.06,
-      "market_cap_msek": 72751,
+      "market_cap_msek": 73753,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -948,6 +1007,8 @@
       "turnover_msek": 56.64,
       "rank": 27,
       "strength_pct": 90,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 27
     },
     {
@@ -958,7 +1019,7 @@
       "mom_6m": 14.88,
       "mom_12m": 65.29,
       "compound_score": 92.84,
-      "market_cap_msek": 18457,
+      "market_cap_msek": 18513,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -972,6 +1033,8 @@
       "turnover_msek": 41.01,
       "rank": 28,
       "strength_pct": 90,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 28
     },
     {
@@ -982,7 +1045,7 @@
       "mom_6m": 87.32,
       "mom_12m": -2.37,
       "compound_score": 92.58,
-      "market_cap_msek": 7632,
+      "market_cap_msek": 7717,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -996,6 +1059,8 @@
       "turnover_msek": 41.57,
       "rank": 29,
       "strength_pct": 90,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 29
     },
     {
@@ -1006,7 +1071,7 @@
       "mom_6m": 31.25,
       "mom_12m": 36.17,
       "compound_score": 91.66,
-      "market_cap_msek": 3844,
+      "market_cap_msek": 3856,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -1020,6 +1085,8 @@
       "turnover_msek": 11.75,
       "rank": 30,
       "strength_pct": 89,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 30
     },
     {
@@ -1030,7 +1097,7 @@
       "mom_6m": 13.49,
       "mom_12m": 71.88,
       "compound_score": 88.62,
-      "market_cap_msek": 2304,
+      "market_cap_msek": 2320,
       "fscore": 5,
       "size_class": "Mid",
       "ma200": {
@@ -1044,6 +1111,8 @@
       "turnover_msek": 2.6,
       "rank": 31,
       "strength_pct": 89,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 31
     },
     {
@@ -1054,7 +1123,7 @@
       "mom_6m": 20.11,
       "mom_12m": 31.76,
       "compound_score": 87.22,
-      "market_cap_msek": 12539,
+      "market_cap_msek": 12520,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1068,6 +1137,8 @@
       "turnover_msek": 20.35,
       "rank": 32,
       "strength_pct": 89,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 32
     },
     {
@@ -1078,7 +1149,7 @@
       "mom_6m": 43.94,
       "mom_12m": 28.79,
       "compound_score": 85.91,
-      "market_cap_msek": 75855,
+      "market_cap_msek": 75773,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1092,6 +1163,8 @@
       "turnover_msek": 137.2,
       "rank": 33,
       "strength_pct": 88,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 33
     },
     {
@@ -1102,7 +1175,7 @@
       "mom_6m": 32.64,
       "mom_12m": 17.18,
       "compound_score": 84.75,
-      "market_cap_msek": 10803,
+      "market_cap_msek": 10927,
       "fscore": 5,
       "size_class": "Mid",
       "ma200": {
@@ -1116,6 +1189,8 @@
       "turnover_msek": 23.84,
       "rank": 34,
       "strength_pct": 88,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 34
     },
     {
@@ -1126,7 +1201,7 @@
       "mom_6m": 19.89,
       "mom_12m": 46.93,
       "compound_score": 83.53,
-      "market_cap_msek": 33149,
+      "market_cap_msek": 33053,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1140,6 +1215,8 @@
       "turnover_msek": 38.89,
       "rank": 35,
       "strength_pct": 87,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 35
     },
     {
@@ -1150,7 +1227,7 @@
       "mom_6m": 29.81,
       "mom_12m": 45.15,
       "compound_score": 82.26,
-      "market_cap_msek": 9537,
+      "market_cap_msek": 9513,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -1164,6 +1241,8 @@
       "turnover_msek": 21.0,
       "rank": 36,
       "strength_pct": 87,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 36
     },
     {
@@ -1174,9 +1253,9 @@
       "mom_6m": 0.97,
       "mom_12m": 73.56,
       "compound_score": 80.92,
-      "market_cap_msek": 10901,
+      "market_cap_msek": 11008,
       "fscore": 7,
-      "size_class": "Mid",
+      "size_class": "Large",
       "ma200": {
         "above": true,
         "ma200": 37.82,
@@ -1188,6 +1267,8 @@
       "turnover_msek": 17.43,
       "rank": 37,
       "strength_pct": 87,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 37
     },
     {
@@ -1198,7 +1279,7 @@
       "mom_6m": -17.71,
       "mom_12m": 106.84,
       "compound_score": 80.04,
-      "market_cap_msek": 8500,
+      "market_cap_msek": 8501,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -1212,6 +1293,8 @@
       "turnover_msek": 60.19,
       "rank": 38,
       "strength_pct": 86,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 38
     },
     {
@@ -1222,7 +1305,7 @@
       "mom_6m": 34.77,
       "mom_12m": 26.21,
       "compound_score": 77.52,
-      "market_cap_msek": 15691,
+      "market_cap_msek": 15707,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1236,6 +1319,8 @@
       "turnover_msek": 10.19,
       "rank": 39,
       "strength_pct": 86,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 39
     },
     {
@@ -1246,7 +1331,7 @@
       "mom_6m": 29.02,
       "mom_12m": 38.24,
       "compound_score": 73.53,
-      "market_cap_msek": 11003,
+      "market_cap_msek": 11021,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1260,6 +1345,8 @@
       "turnover_msek": 17.06,
       "rank": 40,
       "strength_pct": 86,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 40
     },
     {
@@ -1270,7 +1357,7 @@
       "mom_6m": 11.71,
       "mom_12m": 26.21,
       "compound_score": 73.0,
-      "market_cap_msek": 261,
+      "market_cap_msek": 258,
       "fscore": 3,
       "size_class": "Small",
       "ma200": {
@@ -1284,6 +1371,8 @@
       "turnover_msek": 1.49,
       "rank": 41,
       "strength_pct": 85,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 41
     },
     {
@@ -1294,7 +1383,7 @@
       "mom_6m": 14.18,
       "mom_12m": 52.44,
       "compound_score": 67.29,
-      "market_cap_msek": 36272,
+      "market_cap_msek": 36339,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1308,6 +1397,8 @@
       "turnover_msek": 49.21,
       "rank": 42,
       "strength_pct": 85,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 42
     },
     {
@@ -1318,7 +1409,7 @@
       "mom_6m": 12.62,
       "mom_12m": 46.97,
       "compound_score": 66.09,
-      "market_cap_msek": 174698,
+      "market_cap_msek": 175742,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1332,6 +1423,8 @@
       "turnover_msek": 191.15,
       "rank": 43,
       "strength_pct": 84,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 43
     },
     {
@@ -1342,7 +1435,7 @@
       "mom_6m": 25.52,
       "mom_12m": 34.82,
       "compound_score": 65.72,
-      "market_cap_msek": 158617,
+      "market_cap_msek": 159834,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1356,6 +1449,8 @@
       "turnover_msek": 388.45,
       "rank": 44,
       "strength_pct": 84,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 44
     },
     {
@@ -1380,6 +1475,8 @@
       "turnover_msek": 0.9,
       "rank": 45,
       "strength_pct": 84,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 45
     },
     {
@@ -1390,7 +1487,7 @@
       "mom_6m": 43.43,
       "mom_12m": 2.63,
       "compound_score": 62.98,
-      "market_cap_msek": 22558,
+      "market_cap_msek": 22570,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1404,6 +1501,8 @@
       "turnover_msek": 36.06,
       "rank": 46,
       "strength_pct": 83,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 46
     },
     {
@@ -1428,6 +1527,8 @@
       "turnover_msek": 0.5,
       "rank": 47,
       "strength_pct": 83,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 47
     },
     {
@@ -1438,7 +1539,7 @@
       "mom_6m": -87.31,
       "mom_12m": 217.03,
       "compound_score": 60.85,
-      "market_cap_msek": 3587,
+      "market_cap_msek": 3685,
       "fscore": 2,
       "size_class": "Mid",
       "ma200": {
@@ -1452,6 +1553,8 @@
       "turnover_msek": 146.2,
       "rank": 48,
       "strength_pct": 83,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 48
     },
     {
@@ -1462,7 +1565,7 @@
       "mom_6m": 32.39,
       "mom_12m": 19.9,
       "compound_score": 59.82,
-      "market_cap_msek": 916,
+      "market_cap_msek": 899,
       "fscore": 3,
       "size_class": "Small",
       "ma200": {
@@ -1476,6 +1579,8 @@
       "turnover_msek": 0.61,
       "rank": 49,
       "strength_pct": 82,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 49
     },
     {
@@ -1486,7 +1591,7 @@
       "mom_6m": 30.1,
       "mom_12m": 2.51,
       "compound_score": 58.07,
-      "market_cap_msek": 20620,
+      "market_cap_msek": 20928,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1500,6 +1605,8 @@
       "turnover_msek": 56.74,
       "rank": 50,
       "strength_pct": 82,
+      "ma_change": null,
+      "ma_cross": null,
       "prev_rank": 50
     },
     {
@@ -1510,7 +1617,7 @@
       "mom_6m": 3.27,
       "mom_12m": 38.89,
       "compound_score": 57.89,
-      "market_cap_msek": 198965,
+      "market_cap_msek": 198886,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1524,7 +1631,9 @@
       "turnover_msek": 296.74,
       "rank": 51,
       "strength_pct": 81,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 51
     },
     {
       "name": "Inission",
@@ -1534,7 +1643,7 @@
       "mom_6m": -7.33,
       "mom_12m": 68.84,
       "compound_score": 56.67,
-      "market_cap_msek": 1657,
+      "market_cap_msek": 1671,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -1548,7 +1657,9 @@
       "turnover_msek": 2.35,
       "rank": 52,
       "strength_pct": 81,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 52
     },
     {
       "name": "Elekta",
@@ -1558,7 +1669,7 @@
       "mom_6m": 0.17,
       "mom_12m": 43.01,
       "compound_score": 56.33,
-      "market_cap_msek": 22851,
+      "market_cap_msek": 23328,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1572,7 +1683,9 @@
       "turnover_msek": 77.33,
       "rank": 53,
       "strength_pct": 81,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 53
     },
     {
       "name": "Skanska",
@@ -1582,7 +1695,7 @@
       "mom_6m": 18.56,
       "mom_12m": 29.02,
       "compound_score": 55.7,
-      "market_cap_msek": 125037,
+      "market_cap_msek": 125244,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1596,7 +1709,9 @@
       "turnover_msek": 220.54,
       "rank": 54,
       "strength_pct": 80,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 54
     },
     {
       "name": "KnowIT",
@@ -1606,7 +1721,7 @@
       "mom_6m": 26.91,
       "mom_12m": 3.8,
       "compound_score": 52.9,
-      "market_cap_msek": 3176,
+      "market_cap_msek": 3187,
       "fscore": 4,
       "size_class": "Mid",
       "ma200": {
@@ -1620,7 +1735,9 @@
       "turnover_msek": 3.43,
       "rank": 55,
       "strength_pct": 80,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 55
     },
     {
       "name": "BioArctic",
@@ -1630,7 +1747,7 @@
       "mom_6m": 5.81,
       "mom_12m": 34.1,
       "compound_score": 49.53,
-      "market_cap_msek": 31203,
+      "market_cap_msek": 32481,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1644,7 +1761,9 @@
       "turnover_msek": 40.69,
       "rank": 56,
       "strength_pct": 80,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 56
     },
     {
       "name": "International Petroleum",
@@ -1654,7 +1773,7 @@
       "mom_6m": 0.8,
       "mom_12m": 41.1,
       "compound_score": 46.9,
-      "market_cap_msek": 28704,
+      "market_cap_msek": 28771,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1668,7 +1787,9 @@
       "turnover_msek": 47.44,
       "rank": 57,
       "strength_pct": 79,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 57
     },
     {
       "name": "Scandic Hotels",
@@ -1678,7 +1799,7 @@
       "mom_6m": 17.91,
       "mom_12m": 11.54,
       "compound_score": 46.26,
-      "market_cap_msek": 22717,
+      "market_cap_msek": 22696,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1692,7 +1813,9 @@
       "turnover_msek": 35.02,
       "rank": 58,
       "strength_pct": 79,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 58
     },
     {
       "name": "Proact IT",
@@ -1702,7 +1825,7 @@
       "mom_6m": 1.63,
       "mom_12m": 36.89,
       "compound_score": 44.9,
-      "market_cap_msek": 3459,
+      "market_cap_msek": 3474,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -1716,7 +1839,9 @@
       "turnover_msek": 8.26,
       "rank": 59,
       "strength_pct": 79,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 59
     },
     {
       "name": "Beijer Ref",
@@ -1726,7 +1851,7 @@
       "mom_6m": 23.39,
       "mom_12m": 1.62,
       "compound_score": 42.63,
-      "market_cap_msek": 81881,
+      "market_cap_msek": 82134,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1740,7 +1865,9 @@
       "turnover_msek": 126.9,
       "rank": 60,
       "strength_pct": 78,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 60
     },
     {
       "name": "Indutrade",
@@ -1764,7 +1891,9 @@
       "turnover_msek": 96.83,
       "rank": 61,
       "strength_pct": 78,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 61
     },
     {
       "name": "Axfood",
@@ -1774,7 +1903,7 @@
       "mom_6m": 10.45,
       "mom_12m": 11.47,
       "compound_score": 40.39,
-      "market_cap_msek": 62088,
+      "market_cap_msek": 62347,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -1788,7 +1917,9 @@
       "turnover_msek": 106.95,
       "rank": 62,
       "strength_pct": 77,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 62
     },
     {
       "name": "Peab",
@@ -1798,7 +1929,7 @@
       "mom_6m": 7.14,
       "mom_12m": 31.34,
       "compound_score": 39.38,
-      "market_cap_msek": 27234,
+      "market_cap_msek": 27430,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -1812,7 +1943,9 @@
       "turnover_msek": 22.9,
       "rank": 63,
       "strength_pct": 77,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 63
     },
     {
       "name": "AstraZeneca",
@@ -1822,7 +1955,7 @@
       "mom_6m": 7.13,
       "mom_12m": 11.82,
       "compound_score": 37.09,
-      "market_cap_msek": 2914175,
+      "market_cap_msek": 2918053,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1836,7 +1969,9 @@
       "turnover_msek": 820.77,
       "rank": 64,
       "strength_pct": 77,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 64
     },
     {
       "name": "BioGaia",
@@ -1860,7 +1995,9 @@
       "turnover_msek": 20.82,
       "rank": 65,
       "strength_pct": 76,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 65
     },
     {
       "name": "Elanders",
@@ -1870,7 +2007,7 @@
       "mom_6m": 18.04,
       "mom_12m": -3.19,
       "compound_score": 36.47,
-      "market_cap_msek": 2111,
+      "market_cap_msek": 2090,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -1884,7 +2021,9 @@
       "turnover_msek": 0.64,
       "rank": 66,
       "strength_pct": 76,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 66
     },
     {
       "name": "NIBE Industrier",
@@ -1894,7 +2033,7 @@
       "mom_6m": 16.01,
       "mom_12m": 16.82,
       "compound_score": 36.4,
-      "market_cap_msek": 90703,
+      "market_cap_msek": 91429,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -1908,7 +2047,9 @@
       "turnover_msek": 258.14,
       "rank": 67,
       "strength_pct": 76,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 67
     },
     {
       "name": "Medivir",
@@ -1918,7 +2059,7 @@
       "mom_6m": -49.28,
       "mom_12m": 133.59,
       "compound_score": 36.04,
-      "market_cap_msek": 718,
+      "market_cap_msek": 720,
       "fscore": 2,
       "size_class": "Small",
       "ma200": {
@@ -1932,7 +2073,9 @@
       "turnover_msek": 2.57,
       "rank": 68,
       "strength_pct": 75,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 68
     },
     {
       "name": "Assa Abloy",
@@ -1942,9 +2085,9 @@
       "mom_6m": 15.94,
       "mom_12m": 9.47,
       "compound_score": 34.76,
-      "market_cap_msek": null,
-      "fscore": 6,
-      "size_class": null,
+      "market_cap_msek": 434091,
+      "fscore": 7,
+      "size_class": "Large",
       "ma200": {
         "above": true,
         "ma200": 351.49,
@@ -1956,7 +2099,9 @@
       "turnover_msek": 599.48,
       "rank": 69,
       "strength_pct": 75,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 69
     },
     {
       "name": "Trelleborg",
@@ -1980,7 +2125,9 @@
       "turnover_msek": 167.24,
       "rank": 70,
       "strength_pct": 74,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 70
     },
     {
       "name": "Securitas",
@@ -1990,7 +2137,7 @@
       "mom_6m": 4.15,
       "mom_12m": 18.86,
       "compound_score": 33.43,
-      "market_cap_msek": 93995,
+      "market_cap_msek": 94281,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -2004,7 +2151,9 @@
       "turnover_msek": 181.89,
       "rank": 71,
       "strength_pct": 74,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 71
     },
     {
       "name": "Orrön Energy",
@@ -2014,7 +2163,7 @@
       "mom_6m": -23.8,
       "mom_12m": 55.67,
       "compound_score": 32.28,
-      "market_cap_msek": 2084,
+      "market_cap_msek": 2087,
       "fscore": 5,
       "size_class": "Mid",
       "ma200": {
@@ -2028,7 +2177,9 @@
       "turnover_msek": 9.4,
       "rank": 72,
       "strength_pct": 74,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 72
     },
     {
       "name": "CTEK",
@@ -2038,7 +2189,7 @@
       "mom_6m": 2.26,
       "mom_12m": 18.83,
       "compound_score": 32.2,
-      "market_cap_msek": 1086,
+      "market_cap_msek": 1104,
       "fscore": 6,
       "size_class": "Small",
       "ma200": {
@@ -2052,7 +2203,9 @@
       "turnover_msek": 1.35,
       "rank": 73,
       "strength_pct": 73,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 73
     },
     {
       "name": "Essity B",
@@ -2062,7 +2215,7 @@
       "mom_6m": 12.33,
       "mom_12m": 13.95,
       "compound_score": 30.33,
-      "market_cap_msek": 197509,
+      "market_cap_msek": 197577,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -2076,7 +2229,9 @@
       "turnover_msek": 357.5,
       "rank": 74,
       "strength_pct": 73,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 74
     },
     {
       "name": "mySafety",
@@ -2086,7 +2241,7 @@
       "mom_6m": -5.2,
       "mom_12m": 25.87,
       "compound_score": 29.91,
-      "market_cap_msek": 427,
+      "market_cap_msek": 432,
       "fscore": 6,
       "size_class": "Small",
       "ma200": {
@@ -2100,7 +2255,9 @@
       "turnover_msek": 0.3,
       "rank": 75,
       "strength_pct": 73,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 75
     },
     {
       "name": "Bufab",
@@ -2110,7 +2267,7 @@
       "mom_6m": 5.61,
       "mom_12m": 30.12,
       "compound_score": 29.44,
-      "market_cap_msek": 24784,
+      "market_cap_msek": 24860,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2124,7 +2281,9 @@
       "turnover_msek": 29.52,
       "rank": 76,
       "strength_pct": 72,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 76
     },
     {
       "name": "Sdiptech",
@@ -2134,7 +2293,7 @@
       "mom_6m": -1.9,
       "mom_12m": 34.75,
       "compound_score": 28.82,
-      "market_cap_msek": 9559,
+      "market_cap_msek": 9604,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -2148,7 +2307,9 @@
       "turnover_msek": 18.57,
       "rank": 77,
       "strength_pct": 72,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 77
     },
     {
       "name": "Bilia",
@@ -2158,7 +2319,7 @@
       "mom_6m": 6.73,
       "mom_12m": 19.07,
       "compound_score": 26.78,
-      "market_cap_msek": 13722,
+      "market_cap_msek": 13842,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2172,7 +2333,9 @@
       "turnover_msek": 12.94,
       "rank": 78,
       "strength_pct": 71,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 78
     },
     {
       "name": "Sinch",
@@ -2182,7 +2345,7 @@
       "mom_6m": 3.21,
       "mom_12m": 36.18,
       "compound_score": 25.91,
-      "market_cap_msek": 28559,
+      "market_cap_msek": 28954,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -2196,7 +2359,9 @@
       "turnover_msek": 101.5,
       "rank": 79,
       "strength_pct": 71,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 79
     },
     {
       "name": "Ependion",
@@ -2206,7 +2371,7 @@
       "mom_6m": 2.12,
       "mom_12m": 28.0,
       "compound_score": 25.38,
-      "market_cap_msek": 4731,
+      "market_cap_msek": 4789,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -2220,7 +2385,9 @@
       "turnover_msek": 1.55,
       "rank": 80,
       "strength_pct": 71,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 80
     },
     {
       "name": "Hennes & Mauritz",
@@ -2230,7 +2397,7 @@
       "mom_6m": 15.13,
       "mom_12m": 6.08,
       "compound_score": 25.25,
-      "market_cap_msek": 294052,
+      "market_cap_msek": 293972,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2244,7 +2411,9 @@
       "turnover_msek": 347.06,
       "rank": 81,
       "strength_pct": 70,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 81
     },
     {
       "name": "Saab",
@@ -2254,7 +2423,7 @@
       "mom_6m": 12.52,
       "mom_12m": 17.44,
       "compound_score": 24.83,
-      "market_cap_msek": 336043,
+      "market_cap_msek": 336420,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2268,7 +2437,9 @@
       "turnover_msek": 755.36,
       "rank": 82,
       "strength_pct": 70,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 82
     },
     {
       "name": "Coor Service Management",
@@ -2278,7 +2449,7 @@
       "mom_6m": -6.49,
       "mom_12m": 22.46,
       "compound_score": 24.76,
-      "market_cap_msek": 5055,
+      "market_cap_msek": 5112,
       "fscore": 5,
       "size_class": "Mid",
       "ma200": {
@@ -2292,7 +2463,9 @@
       "turnover_msek": 7.3,
       "rank": 83,
       "strength_pct": 70,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 83
     },
     {
       "name": "SSAB B",
@@ -2302,9 +2475,9 @@
       "mom_6m": -7.08,
       "mom_12m": 49.83,
       "compound_score": 24.75,
-      "market_cap_msek": null,
-      "fscore": 6,
-      "size_class": null,
+      "market_cap_msek": 87635,
+      "fscore": 7,
+      "size_class": "Large",
       "ma200": {
         "above": false,
         "ma200": 91.39,
@@ -2316,7 +2489,9 @@
       "turnover_msek": 210.34,
       "rank": 84,
       "strength_pct": 69,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 84
     },
     {
       "name": "Hexpol",
@@ -2326,9 +2501,9 @@
       "mom_6m": 17.36,
       "mom_12m": 10.86,
       "compound_score": 24.57,
-      "market_cap_msek": null,
+      "market_cap_msek": 31120,
       "fscore": 5,
-      "size_class": null,
+      "size_class": "Large",
       "ma200": {
         "above": true,
         "ma200": 81.81,
@@ -2340,7 +2515,9 @@
       "turnover_msek": 32.4,
       "rank": 85,
       "strength_pct": 69,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 85
     },
     {
       "name": "Medicover",
@@ -2350,7 +2527,7 @@
       "mom_6m": 17.73,
       "mom_12m": 2.78,
       "compound_score": 23.61,
-      "market_cap_msek": 38525,
+      "market_cap_msek": 38905,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -2364,7 +2541,9 @@
       "turnover_msek": 20.21,
       "rank": 86,
       "strength_pct": 69,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 86
     },
     {
       "name": "Troax Group",
@@ -2388,7 +2567,9 @@
       "turnover_msek": 7.63,
       "rank": 87,
       "strength_pct": 68,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 87
     },
     {
       "name": "Karnell Group",
@@ -2398,7 +2579,7 @@
       "mom_6m": 8.78,
       "mom_12m": 22.14,
       "compound_score": 22.56,
-      "market_cap_msek": 4611,
+      "market_cap_msek": 4659,
       "fscore": 7,
       "size_class": "Mid",
       "ma200": {
@@ -2412,7 +2593,9 @@
       "turnover_msek": 10.05,
       "rank": 88,
       "strength_pct": 68,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 88
     },
     {
       "name": "Asmodee",
@@ -2422,7 +2605,7 @@
       "mom_6m": -1.03,
       "mom_12m": 26.46,
       "compound_score": 21.97,
-      "market_cap_msek": 35650,
+      "market_cap_msek": 35532,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -2436,7 +2619,9 @@
       "turnover_msek": 50.65,
       "rank": 89,
       "strength_pct": 67,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 89
     },
     {
       "name": "Lammhults Design",
@@ -2446,7 +2631,7 @@
       "mom_6m": 23.35,
       "mom_12m": -20.56,
       "compound_score": 20.93,
-      "market_cap_msek": 239,
+      "market_cap_msek": 238,
       "fscore": 4,
       "size_class": "Small",
       "ma200": {
@@ -2460,7 +2645,9 @@
       "turnover_msek": 0.25,
       "rank": 90,
       "strength_pct": 67,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 90
     },
     {
       "name": "SKF B",
@@ -2470,7 +2657,7 @@
       "mom_6m": 9.44,
       "mom_12m": 12.69,
       "compound_score": 19.1,
-      "market_cap_msek": 118073,
+      "market_cap_msek": 118391,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -2484,7 +2671,9 @@
       "turnover_msek": 312.96,
       "rank": 91,
       "strength_pct": 67,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 91
     },
     {
       "name": "Vitec Software",
@@ -2494,7 +2683,7 @@
       "mom_6m": 9.74,
       "mom_12m": -7.43,
       "compound_score": 17.95,
-      "market_cap_msek": 11922,
+      "market_cap_msek": 11953,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2508,7 +2697,9 @@
       "turnover_msek": 26.4,
       "rank": 92,
       "strength_pct": 66,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 92
     },
     {
       "name": "Vitrolife",
@@ -2518,7 +2709,7 @@
       "mom_6m": 12.78,
       "mom_12m": -17.4,
       "compound_score": 17.94,
-      "market_cap_msek": 15396,
+      "market_cap_msek": 15595,
       "fscore": 5,
       "size_class": "Large",
       "ma200": {
@@ -2532,7 +2723,9 @@
       "turnover_msek": 20.3,
       "rank": 93,
       "strength_pct": 66,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 93
     },
     {
       "name": "AddLife",
@@ -2542,7 +2735,7 @@
       "mom_6m": 15.38,
       "mom_12m": -5.53,
       "compound_score": 17.86,
-      "market_cap_msek": 21241,
+      "market_cap_msek": 21375,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2556,7 +2749,9 @@
       "turnover_msek": 31.2,
       "rank": 94,
       "strength_pct": 66,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 94
     },
     {
       "name": "Novotek",
@@ -2566,7 +2761,7 @@
       "mom_6m": 19.58,
       "mom_12m": -10.55,
       "compound_score": 17.69,
-      "market_cap_msek": 737,
+      "market_cap_msek": 739,
       "fscore": 6,
       "size_class": "Small",
       "ma200": {
@@ -2580,7 +2775,9 @@
       "turnover_msek": 0.41,
       "rank": 95,
       "strength_pct": 65,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 95
     },
     {
       "name": "Railcare",
@@ -2604,7 +2801,9 @@
       "turnover_msek": 0.61,
       "rank": 96,
       "strength_pct": 65,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 96
     },
     {
       "name": "Synsam",
@@ -2614,7 +2813,7 @@
       "mom_6m": 11.81,
       "mom_12m": -0.14,
       "compound_score": 14.56,
-      "market_cap_msek": 8387,
+      "market_cap_msek": 8373,
       "fscore": 6,
       "size_class": "Mid",
       "ma200": {
@@ -2628,7 +2827,9 @@
       "turnover_msek": 11.68,
       "rank": 97,
       "strength_pct": 64,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 97
     },
     {
       "name": "Systemair",
@@ -2638,7 +2839,7 @@
       "mom_6m": 7.96,
       "mom_12m": 7.55,
       "compound_score": 13.27,
-      "market_cap_msek": 17500,
+      "market_cap_msek": 17604,
       "fscore": 6,
       "size_class": "Large",
       "ma200": {
@@ -2652,7 +2853,9 @@
       "turnover_msek": 9.93,
       "rank": 98,
       "strength_pct": 64,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 98
     },
     {
       "name": "Garo",
@@ -2662,7 +2865,7 @@
       "mom_6m": -0.28,
       "mom_12m": -14.63,
       "compound_score": 12.35,
-      "market_cap_msek": 703,
+      "market_cap_msek": 705,
       "fscore": 4,
       "size_class": "Small",
       "ma200": {
@@ -2676,7 +2879,9 @@
       "turnover_msek": 0.48,
       "rank": 99,
       "strength_pct": 64,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 99
     },
     {
       "name": "Autoliv",
@@ -2686,7 +2891,7 @@
       "mom_6m": 3.49,
       "mom_12m": 4.54,
       "compound_score": 11.78,
-      "market_cap_msek": 88856,
+      "market_cap_msek": 88928,
       "fscore": 7,
       "size_class": "Large",
       "ma200": {
@@ -2700,7 +2905,9 @@
       "turnover_msek": 73.01,
       "rank": 100,
       "strength_pct": 63,
-      "prev_rank": null
+      "ma_change": null,
+      "ma_cross": null,
+      "prev_rank": 100
     }
   ],
   "skipped": [
