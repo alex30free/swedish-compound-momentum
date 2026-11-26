@@ -341,6 +341,30 @@ def main():
     for sc, lst in buy_lists.items():
         for i, r in enumerate(lst): r["rank_in_class"] = i+1
 
+    # Weekly MA200 movers: distance to MA200 now vs. the previous run (saved per ticker)
+    PREV_MA_FILE, WEEKLY_N = "momentum_prev_ma.json", 10
+    prev_ma = json.load(open(PREV_MA_FILE)) if os.path.exists(PREV_MA_FILE) else {}
+    for r in results:
+        m, p = r.get("ma200"), prev_ma.get(r["ticker"])
+        if m and p:
+            r["ma_change"] = round(m["dist_pct"] - p["dist_pct"], 2)
+            r["ma_cross"] = ("up" if m["above"] and not p["above"]
+                             else "down" if p["above"] and not m["above"] else None)
+        else:
+            r["ma_change"], r["ma_cross"] = None, None
+    compared = [r for r in results if r["ma_change"] is not None]
+    def mover(r):
+        return {"name": r["name"], "ticker": r["ticker"], "size_class": r["size_class"],
+                "dist_pct": r["ma200"]["dist_pct"], "ma_change": r["ma_change"], "ma_cross": r["ma_cross"]}
+    weekly_ma = {
+        "baseline": not prev_ma,
+        "gained": [mover(r) for r in sorted(compared, key=lambda r: r["ma_change"], reverse=True)[:WEEKLY_N]],
+        "lost": [mover(r) for r in sorted(compared, key=lambda r: r["ma_change"])[:WEEKLY_N]],
+        "crossed_up": [mover(r) for r in compared if r["ma_cross"] == "up"][:WEEKLY_N],
+        "crossed_down": [mover(r) for r in compared if r["ma_cross"] == "down"][:WEEKLY_N],
+    }
+    json.dump({r["ticker"]: r["ma200"] for r in results if r.get("ma200")}, open(PREV_MA_FILE, "w"))
+
     top50 = results[:TOP_N]  # ← TOP 100 (key name kept as "top50" for the page)
     prev_ranks = load_prev_ranks()
     for r in top50: r["prev_rank"] = prev_ranks.get(r["ticker"], None)
@@ -363,6 +387,7 @@ def main():
             "min_turnover_msek": MIN_TURNOVER_MSEK, "turnover_days": TURNOVER_DAYS,
         },
         "buy_lists": buy_lists,
+        "weekly_ma": weekly_ma,
         "total_attempted": len(TICKERS),
         "stocks_screened": len(results),
         "skipped_count": len(skipped),

@@ -187,6 +187,15 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
 .ma-badge{font-size:10px;letter-spacing:.12em;padding:2px 7px;border-radius:2px;font-weight:500}
 .ma-up{color:var(--blue);background:rgba(0,229,160,.08)} .ma-down{color:var(--red);background:rgba(255,68,85,.08)}
 .ma-dist{font-size:12px;color:var(--text)} .ma-since{font-size:10px;color:var(--muted)}
+.filter-btn.ma-btn:hover{border-color:var(--blue);color:var(--blue)}
+.filter-btn.ma-btn.active{border-color:var(--blue);color:var(--blue);background:rgba(0,229,160,.08)}
+.filter-btn.ma-btn.active .toggle-track{background:rgba(0,229,160,.35)}
+.filter-btn.ma-btn.active .toggle-thumb{transform:translateX(14px);background:var(--blue)}
+.filter-btn.ma-btn .filter-badge-inline{border-color:rgba(0,229,160,.3);color:var(--blue);background:rgba(0,229,160,.08);opacity:1;transform:none}
+.movers-section{margin-top:56px}
+.movers-section .buy-card{border-top-color:var(--accent)}
+.mv-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;white-space:nowrap}
+.mv-up{color:var(--blue)} .mv-down{color:var(--red)}
 .buy-section{margin-top:56px}
 .buy-title{font-size:10px;font-weight:500;letter-spacing:.22em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
 .buy-note{font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:22px;max-width:820px}
@@ -255,6 +264,12 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
         ◈ Size Class
         <span class="filter-badge-inline" id="mcap-badge"><span id="badge-mcap">All</span></span>
+      </button>
+      <div class="filter-divider"></div>
+      <button class="filter-btn ma-btn active" id="ma-toggle-btn" onclick="toggleAboveMa()">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        ▲ Above MA200
+        <span class="filter-badge-inline">daily</span>
       </button>
     </div>
     <div class="filter-status">
@@ -345,6 +360,12 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
     </table>
   </div>
 
+  <div class="movers-section" id="movers-section">
+    <div class="buy-title" style="color:var(--accent)">Weekly Movers · vs MA200</div>
+    <p class="buy-note" id="movers-note"></p>
+    <div class="buy-grid" id="movers-grid"></div>
+  </div>
+
   <div class="buy-section" id="buy-section">
     <div class="buy-title">Buy List · Strongest stocks per size class</div>
     <p class="buy-note" id="buy-note"></p>
@@ -387,7 +408,7 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
 
 <script>
 let RAW_DATA = null;
-let fscoreEnabled = false, mcapEnabled = false;
+let fscoreEnabled = false, mcapEnabled = false, maEnabled = true;
 let fscoreThreshold = 5, sizeFilter = 'All';
 
 async function loadData() {
@@ -421,6 +442,7 @@ function render(data) {
 
   renderTable(top50);
   renderBuyLists(data);
+  renderMovers(data.weekly_ma);
   document.getElementById('mom-table').style.display = 'table';
   // Apply initial rank numbers and colours
   updateRankNumbers(Array.from(document.querySelectorAll('#mom-tbody tr')));
@@ -450,6 +472,7 @@ function renderTable(stocks) {
     tr.dataset.rank = rank;
     tr.dataset.fscore = s.fscore != null ? s.fscore : '';
     tr.dataset.sizeclass = s.size_class || '';
+    tr.dataset.above = s.ma200 && s.ma200.above ? '1' : '0';
     tr.innerHTML = `
       <td><span class="rank-num">${String(rank).padStart(2,'0')}</span></td>
       <td><span class="ticker-main">${esc(ticker)}</span><span class="company-name">${esc(s.name)}</span></td>
@@ -494,6 +517,27 @@ function buildMaCell(ma) {
 function maShort(ma) {
   if (!ma) return 'MA200 n/a';
   return `${ma.above ? 'above' : 'below'} MA200 ${formatPct(ma.dist_pct)}`;
+}
+
+function renderMovers(w) {
+  const sec = document.getElementById('movers-section');
+  if (!w) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  document.getElementById('movers-note').textContent = w.baseline
+    ? 'First week of tracking. The comparison with last week starts with the next screener run.'
+    : 'Each stock\'s distance from its MA200 compared with the previous weekly run. pp = percentage points.';
+  const pp = v => (v >= 0 ? '+' : '') + v.toFixed(1) + ' pp';
+  const card = (title, list, fmt) => {
+    const items = list.length
+      ? list.map(m => `<li><div class="bl-main"><span class="bl-tk">${esc(m.ticker.replace('.ST',''))}</span><span class="bl-name">${esc(m.name)}</span><div class="bl-sub">${m.size_class || ''} · now ${formatPct(m.dist_pct)} vs MA200</div></div>${fmt(m)}</li>`).join('')
+      : '<li><span class="bl-empty">None this week.</span></li>';
+    return `<div class="buy-card"><h3>${title}</h3><ol>${items}</ol></div>`;
+  };
+  document.getElementById('movers-grid').innerHTML =
+    card('Gained most vs MA200', w.gained || [], m => `<span class="mv-val mv-up">${pp(m.ma_change)}</span>`) +
+    card('Lost most vs MA200', w.lost || [], m => `<span class="mv-val mv-down">${pp(m.ma_change)}</span>`) +
+    card('Crossed above MA200', w.crossed_up || [], m => `<span class="mv-val mv-up">▲ up</span>`) +
+    card('Crossed below MA200', w.crossed_down || [], m => `<span class="mv-val mv-down">▼ down</span>`);
 }
 
 function renderBuyLists(data) {
@@ -576,6 +620,12 @@ function setFThreshold(val) {
   applyFilters();
 }
 
+function toggleAboveMa() {
+  maEnabled = !maEnabled;
+  document.getElementById('ma-toggle-btn').classList.toggle('active', maEnabled);
+  applyFilters();
+}
+
 function setSizeClass(val) {
   sizeFilter = val;
   document.getElementById('badge-mcap').textContent = val;
@@ -592,7 +642,7 @@ function applyFilters() {
   const existingDivider = document.getElementById('filter-divider-row');
   if (existingDivider) existingDivider.remove();
 
-  if (!fscoreEnabled && !mcapEnabled) {
+  if (!fscoreEnabled && !mcapEnabled && !maEnabled) {
     // Show all rows with slide-in animation
     rows.forEach((r, i) => {
       r.style.display = '';
@@ -614,7 +664,8 @@ function applyFilters() {
     const sc = r.dataset.sizeclass;
     const fPass = !fscoreEnabled || (fs !== null && fs >= fscoreThreshold);
     const mPass = !mcapEnabled  || sizeFilter === 'All' || sc === sizeFilter;
-    (fPass && mPass ? passRows : failRows).push(r);
+    const aPass = !maEnabled || r.dataset.above === '1';
+    (fPass && mPass && aPass ? passRows : failRows).push(r);
   });
 
   // Animate out failing rows, then hide them after animation completes
@@ -648,6 +699,7 @@ function applyFilters() {
   const parts = [];
   if (fscoreEnabled) parts.push(`F ≥ ${fscoreThreshold}`);
   if (mcapEnabled)   parts.push(`Size: ${sizeFilter}`);
+  if (maEnabled)     parts.push('above MA200');
   label.textContent = `Showing ${passRows.length} of ${rows.length} stocks (${parts.join(', ')})`;
   label.className = 'filter-count' + (both ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
 }
