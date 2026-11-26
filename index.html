@@ -104,7 +104,11 @@ th.col-cap{border-bottom:2px solid rgba(96,165,250,.5)} th.col-fscore{border-bot
 .th-fscore.visible,.th-cap.visible{display:table-cell!important}
 tbody tr{border-bottom:1px solid var(--border);transition:background .15s;animation:rowIn .4s ease both}
 tbody tr:hover{background:rgba(255,107,53,.03)}
-td{padding:13px 14px;white-space:nowrap} td.right{text-align:right} td.center{text-align:center}
+td{padding:6px 14px;white-space:nowrap}
+.rank-num{font-size:16px!important}
+.company-name{margin-top:0!important;font-size:10px!important}
+.ticker-main{font-size:12px!important}
+.buy-card li{padding:5px 0!important} td.right{text-align:right} td.center{text-align:center}
 .rank-num{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--border2);min-width:32px;display:inline-flex;align-items:center;justify-content:center}
 /* rank colours applied dynamically via JS so they update when filters change */
 .ticker-main{font-weight:500;color:var(--white);letter-spacing:1px;font-size:13px;display:block}
@@ -179,7 +183,7 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
 .back-link:hover{color:var(--accent)} .back-link::before{content:'←';font-size:14px}
 .str-wrap{display:flex;align-items:center;gap:8px;justify-content:flex-end}
 .str-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;min-width:30px;text-align:right;color:var(--white)}
-.ma-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.ma-wrap{display:flex;flex-wrap:wrap;flex-direction:row;align-items:center;justify-content:flex-end;gap:2px 8px;max-width:230px;margin-left:auto}
 .ma-badge{font-size:10px;letter-spacing:.12em;padding:2px 7px;border-radius:2px;font-weight:500}
 .ma-up{color:var(--blue);background:rgba(0,229,160,.08)} .ma-down{color:var(--red);background:rgba(255,68,85,.08)}
 .ma-dist{font-size:12px;color:var(--text)} .ma-since{font-size:10px;color:var(--muted)}
@@ -217,7 +221,7 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
       <div class="brand">
         <div class="brand-tag">Momentum Screener — Strategy III</div>
         <h1>Compound<br><em>Momentum</em></h1>
-        <div class="brand-sub">3M + 6M + 12M price return · MA200 trend check · Top 50 Swedish stocks · Ranked weekly</div>
+        <div class="brand-sub">3M + 6M + 12M price return · MA200 trend check · Top 100 Swedish stocks · Ranked weekly</div>
       </div>
       <div class="header-right">
         <div><span class="live-dot"></span><span id="updated-time">Loading…</span></div>
@@ -249,8 +253,8 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
       <div class="filter-divider"></div>
       <button class="filter-btn mcap-btn" id="mcap-toggle-btn" onclick="toggleMcap()">
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        ◈ Market Cap
-        <span class="filter-badge-inline" id="mcap-badge">≥ <span id="badge-mcap">300</span>M SEK</span>
+        ◈ Size Class
+        <span class="filter-badge-inline" id="mcap-badge"><span id="badge-mcap">All</span></span>
       </button>
     </div>
     <div class="filter-status">
@@ -283,21 +287,21 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
 
   <div class="filter-info-box mcap-info-box" id="mcap-info-box">
     <div class="info-box-header">
-      <div class="info-box-title">◈ Market Cap Filter — Active</div>
+      <div class="info-box-title">◈ Size Class Filter — Active</div>
       <div class="mcap-selector">
-        <span class="threshold-label">Min size:</span>
+        <span class="threshold-label">Show:</span>
         <div class="mcap-btns">
-          <button class="mcap-btn-sel active" data-val="300" onclick="setMcapThreshold(300)">300M</button>
-          <button class="mcap-btn-sel" data-val="500" onclick="setMcapThreshold(500)">500M</button>
-          <button class="mcap-btn-sel" data-val="1000" onclick="setMcapThreshold(1000)">1B</button>
-          <button class="mcap-btn-sel" data-val="5000" onclick="setMcapThreshold(5000)">5B</button>
+          <button class="mcap-btn-sel active" data-val="All" onclick="setSizeClass('All')">All</button>
+          <button class="mcap-btn-sel" data-val="Large" onclick="setSizeClass('Large')">Large</button>
+          <button class="mcap-btn-sel" data-val="Mid" onclick="setSizeClass('Mid')">Mid</button>
+          <button class="mcap-btn-sel" data-val="Small" onclick="setSizeClass('Small')">Small</button>
         </div>
       </div>
     </div>
     <div class="info-box-desc">
-      Filtering to stocks with market cap <strong>≥ <span id="info-mcap-threshold">300</span>M SEK</strong>.
-      Stocks below this size are dimmed.
-      <em style="color:var(--muted)">Market cap is fetched live from Yahoo Finance when filter is enabled.</em>
+      Showing <strong><span id="info-size-label">all size classes</span></strong>.
+      Large is about SEK 11 bn and above, Small is below about SEK 1.65 bn, Mid is in between.
+      <em style="color:var(--muted)">Size class comes from the latest screener run.</em>
     </div>
   </div>
 
@@ -384,7 +388,7 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
 <script>
 let RAW_DATA = null;
 let fscoreEnabled = false, mcapEnabled = false;
-let fscoreThreshold = 5, mcapThreshold = 300;
+let fscoreThreshold = 5, sizeFilter = 'All';
 
 async function loadData() {
   try {
@@ -413,7 +417,7 @@ function render(data) {
   document.getElementById('stat-new').textContent = top50.filter(s => s.prev_rank == null).length;
   document.getElementById('stat-top-score').textContent = top50.length ? formatPct(top50[0].compound_score) : '—';
   const allPos = top50.filter(s => s.mom_3m > 0 && s.mom_6m > 0 && s.mom_12m > 0).length;
-  document.getElementById('stat-positive').textContent = allPos + '/50';
+  document.getElementById('stat-positive').textContent = allPos + '/' + top50.length;
 
   renderTable(top50);
   renderBuyLists(data);
@@ -445,7 +449,7 @@ function renderTable(stocks) {
     const tr = document.createElement('tr');
     tr.dataset.rank = rank;
     tr.dataset.fscore = s.fscore != null ? s.fscore : '';
-    tr.dataset.mcap = s.market_cap_msek != null ? s.market_cap_msek : '';
+    tr.dataset.sizeclass = s.size_class || '';
     tr.innerHTML = `
       <td><span class="rank-num">${String(rank).padStart(2,'0')}</span></td>
       <td><span class="ticker-main">${esc(ticker)}</span><span class="company-name">${esc(s.name)}</span></td>
@@ -572,13 +576,13 @@ function setFThreshold(val) {
   applyFilters();
 }
 
-function setMcapThreshold(val) {
-  mcapThreshold = val;
-  const label = val >= 1000 ? (val/1000)+'B' : val+'M';
-  document.getElementById('badge-mcap').textContent = label;
-  document.getElementById('info-mcap-threshold').textContent = label;
-  document.querySelectorAll('.mcap-btn-sel').forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === val));
-  applyFilters();
+function setSizeClass(val) {
+  sizeFilter = val;
+  document.getElementById('badge-mcap').textContent = val;
+  document.getElementById('info-size-label').textContent = val === 'All' ? 'all size classes' : val + ' Cap stocks';
+  document.querySelectorAll('.mcap-btn-sel').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+  if (!mcapEnabled) toggleMcap();   // choosing a class switches the filter on
+  else applyFilters();
 }
 
 function applyFilters() {
@@ -607,9 +611,9 @@ function applyFilters() {
   const passRows = [], failRows = [];
   rows.forEach(r => {
     const fs = r.dataset.fscore !== '' ? parseInt(r.dataset.fscore) : null;
-    const mc = r.dataset.mcap !== '' ? parseFloat(r.dataset.mcap) : null;
+    const sc = r.dataset.sizeclass;
     const fPass = !fscoreEnabled || (fs !== null && fs >= fscoreThreshold);
-    const mPass = !mcapEnabled  || (mc !== null && mc >= mcapThreshold);
+    const mPass = !mcapEnabled  || sizeFilter === 'All' || sc === sizeFilter;
     (fPass && mPass ? passRows : failRows).push(r);
   });
 
@@ -643,7 +647,7 @@ function applyFilters() {
   const label = document.getElementById('filter-count-label');
   const parts = [];
   if (fscoreEnabled) parts.push(`F ≥ ${fscoreThreshold}`);
-  if (mcapEnabled)   parts.push(`MCap ≥ ${mcapThreshold >= 1000 ? (mcapThreshold/1000)+'B' : mcapThreshold+'M'} SEK`);
+  if (mcapEnabled)   parts.push(`Size: ${sizeFilter}`);
   label.textContent = `Showing ${passRows.length} of ${rows.length} stocks (${parts.join(', ')})`;
   label.className = 'filter-count' + (both ? ' filtered-both' : fscoreEnabled ? ' filtered-green' : ' filtered-orange');
 }

@@ -151,6 +151,7 @@ PREV_RANKS_FILE = "momentum_prev_ranks.json"
 DAYS_3M  = 65
 DAYS_6M  = 130
 DAYS_12M = 260
+TOP_N = 100   # number of stocks written to momentum_data.json
 USD_TO_SEK = 10.5   # only used if Yahoo reports a stock's market cap in USD
 
 
@@ -340,7 +341,7 @@ def main():
     for sc, lst in buy_lists.items():
         for i, r in enumerate(lst): r["rank_in_class"] = i+1
 
-    top50 = results[:50]  # ← TOP 50
+    top50 = results[:TOP_N]  # ← TOP 100 (key name kept as "top50" for the page)
     prev_ranks = load_prev_ranks()
     for r in top50: r["prev_rank"] = prev_ranks.get(r["ticker"], None)
     save_prev_ranks(top50)
