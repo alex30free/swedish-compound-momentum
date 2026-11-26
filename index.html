@@ -177,6 +177,33 @@ tbody tr.row-hiding{animation:rowOut .22s ease forwards}
 tbody tr.row-showing{animation:rowIn .35s ease both}
 .back-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px;transition:color .2s}
 .back-link:hover{color:var(--accent)} .back-link::before{content:'←';font-size:14px}
+.str-wrap{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.str-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;min-width:30px;text-align:right;color:var(--white)}
+.ma-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.ma-badge{font-size:10px;letter-spacing:.12em;padding:2px 7px;border-radius:2px;font-weight:500}
+.ma-up{color:var(--blue);background:rgba(0,229,160,.08)} .ma-down{color:var(--red);background:rgba(255,68,85,.08)}
+.ma-dist{font-size:12px;color:var(--text)} .ma-since{font-size:10px;color:var(--muted)}
+.buy-section{margin-top:56px}
+.buy-title{font-size:10px;font-weight:500;letter-spacing:.22em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
+.buy-note{font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:22px;max-width:820px}
+.buy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.buy-card{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--blue);padding:18px 20px}
+.buy-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:2px}
+.bc-rule{font-size:11px;color:var(--muted);margin-bottom:12px}
+.buy-card ol{list-style:none}
+.buy-card li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--border)}
+.bl-rank{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--accent);min-width:28px}
+.bl-main{flex:1;min-width:0}
+.bl-tk{font-weight:500;color:var(--white);letter-spacing:1px;font-size:13px} .bl-name{font-size:11px;color:var(--muted);margin-left:6px}
+.bl-sub{font-size:11px;color:var(--muted2);margin-top:2px}
+.bl-score{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--accent)}
+.bl-empty{font-size:12px;color:var(--muted);display:block;padding:12px 0}
+.strategy{margin-top:36px;padding-top:28px;border-top:1px solid var(--border2)}
+.rules{list-style:none;counter-reset:r}
+.rules li{counter-increment:r;font-size:12px;color:var(--muted);line-height:1.75;padding-left:30px;position:relative;margin-bottom:8px}
+.rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:0;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--accent)}
+.rules strong{color:var(--text);font-weight:400}
+.strat-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:16px;max-width:900px}
 </style>
 </head>
 <body>
@@ -190,7 +217,7 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
       <div class="brand">
         <div class="brand-tag">Momentum Screener — Strategy III</div>
         <h1>Compound<br><em>Momentum</em></h1>
-        <div class="brand-sub">3M + 6M + 12M price return · Top 50 Swedish stocks · Ranked weekly</div>
+        <div class="brand-sub">3M + 6M + 12M price return · MA200 trend check · Top 50 Swedish stocks · Ranked weekly</div>
       </div>
       <div class="header-right">
         <div><span class="live-dot"></span><span id="updated-time">Loading…</span></div>
@@ -303,6 +330,8 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
           <th class="right col-6m">6M Return</th>
           <th class="right col-12m">12M Return</th>
           <th class="right col-compound">Compound Score</th>
+          <th class="right">Strength (0–100)</th>
+          <th class="right">MA200</th>
           <th class="right col-cap th-cap">Mkt Cap</th>
           <th class="right col-fscore th-fscore">F-Score</th>
           <th class="center">vs Last Week</th>
@@ -312,15 +341,34 @@ tbody tr.row-showing{animation:rowIn .35s ease both}
     </table>
   </div>
 
+  <div class="buy-section" id="buy-section">
+    <div class="buy-title">Buy List · Strongest stocks per size class</div>
+    <p class="buy-note" id="buy-note"></p>
+    <div class="buy-grid" id="buy-grid"></div>
+  </div>
+
   <div class="methodology">
     <div class="method-title">How Compound Momentum Works</div>
     <div class="method-grid">
       <div class="method-item"><h3>01 · What It Measures</h3><p>Compound Momentum sums a stock's raw percentage price return over <strong>three distinct time windows</strong> — 3 months, 6 months, and 12 months. A stock that rises strongly across all three windows achieves a high composite score. No weighting: each window contributes equally.</p></div>
       <div class="method-item"><h3>02 · Why Three Windows?</h3><p>Different momentum horizons capture different phenomena. The <strong>3-month</strong> window captures short-term trend acceleration. The <strong>6-month</strong> window filters noise and confirms the trend. The <strong>12-month</strong> window ensures structural, sustained outperformance — not a brief spike.</p></div>
-      <div class="method-item"><h3>03 · Company Size Column</h3><p>Market capitalisation in million SEK, converted from Yahoo Finance's USD figure. Enables quick identification of <strong>micro-cap vs large-cap</strong> stocks. Thin liquidity in very small companies can amplify momentum moves and widen spreads.</p></div>
+      <div class="method-item"><h3>03 · Size Class</h3><p>Market cap is read in its own currency from Yahoo Finance. <strong>Large</strong> is at least about SEK 11 bn, <strong>Small</strong> is below about SEK 1.65 bn, and Mid sits between, following Nasdaq Nordic's EUR 1 bn and EUR 150 m bands at an approximate 11 SEK/EUR. Small caps trade thinner and move more, so each class is ranked on its own.</p></div>
+      <div class="method-item"><h3>05 · MA200 Trend Check</h3><p>The <strong>200-day moving average</strong> is the line between an intact uptrend and a broken one. A close above it means the trend is intact; a close below it means it has broken. The page shows the side, the distance in percent, and the date of the last crossing. Each run uses the latest daily closes.</p></div>
+      <div class="method-item"><h3>06 · Strength Ranking</h3><p><strong>Strength</strong> converts each stock's rank into a 0–100 scale across all screened stocks: 100 is the strongest, 0 the weakest. It gives one clear order to choose from. The buy list then applies the trend and liquidity checks on top.</p></div>
       <div class="method-item"><h3>04 · Piotroski F-Score</h3><p>A 0–9 quality score based on <strong>9 binary signals</strong> across profitability (ROA, cash flow, margins), leverage (debt ratio, current ratio, dilution), and efficiency (operating margin, return on equity). Higher scores indicate stronger financial health.</p></div>
     </div>
     <div class="formula-box">Compound Momentum Score = Return(3M) + Return(6M) + Return(12M)</div>
+    <div class="strategy">
+      <div class="method-title">Simple Momentum Strategy · Rules</div>
+      <ol class="rules">
+        <li><strong>Universe.</strong> Take the screener list and split it into Large, Mid and Small cap using the size bands above.</li>
+        <li><strong>Pick.</strong> In each class, take the top 5 by compound score that are above their MA200 and trade at least 2 MSEK a day on average over 60 days. These are the buy-list names.</li>
+        <li><strong>Size.</strong> Give the chosen names equal weight. How much you put in each class is your own decision.</li>
+        <li><strong>Review weekly.</strong> Check again after each Friday update. Consider selling when a holding closes below its MA200 or drops out of the top 10 of its class. This exit rule is a suggestion, not a tested rule.</li>
+        <li><strong>Respect the risk.</strong> Small caps can have wide spreads and sharp reversals. Momentum has long drawdowns, and a stock can fall fast after a strong run.</li>
+      </ol>
+      <p class="strat-note">Background: Jegadeesh and Titman (1993) documented that US stocks that did well over 3 to 12 months tended to keep outperforming in the months after. Faber (2007) found that a simple 10-month moving average rule reduced drawdowns across several asset classes; the MA200 here is a daily version of that idea. Evidence from Nordic markets is thinner. This strategy has not been backtested on this page, so test it before you rely on it. Educational content only, not financial advice.</p>
+    </div>
   </div>
 
   <footer>
@@ -368,6 +416,7 @@ function render(data) {
   document.getElementById('stat-positive').textContent = allPos + '/50';
 
   renderTable(top50);
+  renderBuyLists(data);
   document.getElementById('mom-table').style.display = 'table';
   // Apply initial rank numbers and colours
   updateRankNumbers(Array.from(document.querySelectorAll('#mom-tbody tr')));
@@ -409,7 +458,9 @@ function renderTable(stocks) {
           <div class="spark-bar-bg"><div class="spark-bar-fill" style="width:${barPct.toFixed(1)}%"></div></div>
         </div>
       </td>
-      <td class="right td-mcap" style="display:none">${buildCapCell(s.market_cap_msek)}</td>
+      <td class="right"><div class="str-wrap"><span class="str-val" title="100 = strongest of all screened stocks">${s.strength_pct != null ? s.strength_pct : '—'}</span><div class="spark-bar-bg"><div class="spark-bar-fill" style="width:${s.strength_pct || 0}%"></div></div></div></td>
+      <td class="right">${buildMaCell(s.ma200)}</td>
+      <td class="right td-mcap" style="display:none">${buildCapCell(s)}</td>
       <td class="right td-fscore" style="display:none">${buildFscoreCell(s.fscore)}</td>
       <td class="center">${prevHTML}</td>`;
     tbody.appendChild(tr);
@@ -417,12 +468,47 @@ function renderTable(stocks) {
   applyFilters();
 }
 
-function buildCapCell(cap) {
+function buildCapCell(s) {
+  const cap = s.market_cap_msek;
   if (cap == null) return '<span class="cap-na">N/A</span>';
-  const cls = cap >= 10000 ? 'cap-large' : cap >= 2000 ? 'cap-mid' : 'cap-small';
-  const label = cap >= 10000 ? 'Large' : cap >= 2000 ? 'Mid' : 'Small';
+  // Size class comes from the screener (Nasdaq Nordic bands); fall back to the same bands if absent
+  const label = s.size_class || (cap >= 11000 ? 'Large' : cap < 1650 ? 'Small' : 'Mid');
+  const cls = {Large:'cap-large', Mid:'cap-mid', Small:'cap-small'}[label];
   const display = cap >= 1000 ? (cap/1000).toFixed(1)+' bn' : Math.round(cap)+' m';
-  return `<span class="cap-val ${cls}" title="${label} Cap · ${Math.round(cap)} MSEK">${display} SEK</span>`;
+  return `<span class="cap-val ${cls}" title="${label} cap · ${Math.round(cap)} MSEK">${display} SEK</span>`;
+}
+
+function buildMaCell(ma) {
+  if (!ma) return '<span class="cap-na">N/A</span>';
+  let sub;
+  if (ma.break_today) sub = ma.above ? 'crossed up today' : 'crossed down today';
+  else if (ma.since) sub = 'since ' + ma.since;
+  else sub = 'no crossing in 1y';
+  return `<div class="ma-wrap"><span class="ma-badge ${ma.above ? 'ma-up' : 'ma-down'}">${ma.above ? '▲ ABOVE' : '▼ BELOW'}</span><span class="ma-dist">${formatPct(ma.dist_pct)}</span><span class="ma-since">${sub}</span></div>`;
+}
+
+function maShort(ma) {
+  if (!ma) return 'MA200 n/a';
+  return `${ma.above ? 'above' : 'below'} MA200 ${formatPct(ma.dist_pct)}`;
+}
+
+function renderBuyLists(data) {
+  const sec = document.getElementById('buy-section');
+  const bl = data.buy_lists, p = data.params || {};
+  if (!bl) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  const L = (p.size_large_msek || 11000) / 1000, S = (p.size_small_msek || 1650) / 1000;
+  const N = p.buy_list_n || 5, T = p.min_turnover_msek ?? 2, D = p.turnover_days || 60, MA = p.ma_days || 200;
+  document.getElementById('buy-note').textContent =
+    `Each card lists the top ${N} stocks in its size class by compound score, but only if the close is above the ${MA}-day moving average and average daily turnover over ${D} days is at least ${T} MSEK. Fewer names means fewer stocks passed the checks that week.`;
+  const defs = [['Large', 'Large Cap', `≥ ${L} bn SEK`], ['Mid', 'Mid Cap', `${S}–${L} bn SEK`], ['Small', 'Small Cap', `< ${S} bn SEK`]];
+  document.getElementById('buy-grid').innerHTML = defs.map(([k, title, range]) => {
+    const list = bl[k] || [];
+    const items = list.length
+      ? list.map(s => `<li><span class="bl-rank">${String(s.rank_in_class).padStart(2,'0')}</span><div class="bl-main"><span class="bl-tk">${esc(s.ticker.replace('.ST',''))}</span><span class="bl-name">${esc(s.name)}</span><div class="bl-sub">${maShort(s.ma200)} · ${s.turnover_msek} MSEK/day</div></div><span class="bl-score">${formatPct(s.compound_score)}</span></li>`).join('')
+      : '<li><span class="bl-empty">No stock passes the checks this week.</span></li>';
+    return `<div class="buy-card"><h3>${title}</h3><div class="bc-rule">${range}</div><ol>${items}</ol></div>`;
+  }).join('');
 }
 
 function buildFscoreCell(score) {

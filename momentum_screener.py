@@ -137,12 +137,21 @@ TICKERS = [
     ("Premium Snacks Nordic", "SNX.ST"),
 ]
 
+# ─── STRATEGY SETTINGS ───────────────────────────────────────────────────────
+MA_DAYS          = 200     # trend filter: daily close vs 200-day moving average
+BUY_LIST_N       = 5       # stocks per size class in the buy list
+EUR_SEK          = 11.0    # approximate, used only for the Nasdaq size bands
+SIZE_LARGE_MSEK  = 1000 * EUR_SEK   # Nasdaq Nordic: Large Cap > EUR 1 bn
+SIZE_SMALL_MSEK  = 150 * EUR_SEK    # Nasdaq Nordic: Small Cap < EUR 150 m
+MIN_TURNOVER_MSEK = 2.0   # average daily traded value (60 days) needed for the buy list
+TURNOVER_DAYS    = 60
+
 OUTPUT_JSON     = "momentum_data.json"
 PREV_RANKS_FILE = "momentum_prev_ranks.json"
 DAYS_3M  = 65
 DAYS_6M  = 130
 DAYS_12M = 260
-USD_TO_SEK = 10.5
+USD_TO_SEK = 10.5   # only used if Yahoo reports a stock's market cap in USD
 
 
 def compute_fscore(info):
@@ -189,9 +198,48 @@ def compute_fscore(info):
 
 
 def get_market_cap_msek(info):
+    """Market cap in MSEK. Yahoo reports Stockholm stocks in SEK, so no conversion is needed
+    unless the reported currency is something else."""
     mc = info.get('marketCap')
     if mc is None or mc != mc or mc <= 0: return None
-    return (mc * USD_TO_SEK) / 1_000_000
+    cur = (info.get('currency') or 'SEK').upper()
+    mc_sek = mc * USD_TO_SEK if cur == 'USD' else mc
+    return mc_sek / 1_000_000
+
+def size_class(mcap_msek):
+    if mcap_msek is None: return None
+    if mcap_msek >= SIZE_LARGE_MSEK: return "Large"
+    if mcap_msek < SIZE_SMALL_MSEK: return "Small"
+    return "Mid"
+
+def ma_status(prices):
+    """Where the last close sits against its MA200, and when the state last changed (the MA200 break)."""
+    if len(prices) < MA_DAYS + 1: return None
+    ma = prices.rolling(MA_DAYS).mean()
+    valid = ma.notna()
+    above = (prices > ma)[valid]
+    if above.empty: return None
+    changes = above.ne(above.shift())
+    breaks = changes[changes].index          # first entry is just the start of the series
+    has_break = len(breaks) > 1          # a real crossing inside the price window
+    now_above = bool(above.iloc[-1])
+    last_ma = float(ma.iloc[-1])
+    return {
+        "above": now_above,
+        "ma200": round(last_ma, 2),
+        "dist_pct": round((float(prices.iloc[-1]) / last_ma - 1) * 100, 2),
+        "since": breaks[-1].strftime("%Y-%m-%d") if has_break else None,   # None = no crossing in window
+        "break_today": bool(has_break and breaks[-1] == above.index[-1]),
+        "direction": ("up" if now_above else "down") if has_break else None,
+    }
+
+def avg_turnover_msek(hist):
+    """Average daily traded value in MSEK over the last TURNOVER_DAYS trading days."""
+    try:
+        tail = hist.tail(TURNOVER_DAYS)
+        return round(float((tail["Close"] * tail["Volume"]).mean()) / 1_000_000, 2)
+    except Exception:
+        return None
 
 
 def compute_momentum(prices):
@@ -261,7 +309,10 @@ def main():
             results.append({"name":name,"ticker":symbol,"price":round(float(prices.iloc[-1]),2),
                              "mom_3m":round(m3,2),"mom_6m":round(m6,2),"mom_12m":round(m12,2),
                              "compound_score":compound,
-                             "market_cap_msek":round(mcap) if mcap else None,"fscore":fscore})
+                             "market_cap_msek":round(mcap) if mcap else None,"fscore":fscore,
+                             "size_class":size_class(mcap),
+                             "ma200":ma_status(prices),
+                             "turnover_msek":avg_turnover_msek(hist)})
             print(f"✓  3M={round(m3,1):>7}%  6M={round(m6,1):>7}%  12M={round(m12,1):>7}%  COMPOUND={compound:>8}%")
         except Exception as e:
             skipped.append({"name":name,"ticker":symbol,"reason":f"Error: {str(e)[:60]}","days_available":0})
@@ -269,7 +320,25 @@ def main():
         time.sleep(0.3)
 
     results.sort(key=lambda x: x["compound_score"], reverse=True)
-    for i, r in enumerate(results): r["rank"] = i+1
+    N = len(results)
+    for i, r in enumerate(results):
+        r["rank"] = i+1
+        r["strength_pct"] = round(100 * (N - i) / N) if N else None   # 100 = strongest in the universe
+
+    # Buy list: strongest stocks per size class that are above their MA200 and liquid enough.
+    buy_lists = {"Large": [], "Mid": [], "Small": []}
+    for r in results:
+        sc, ma, to = r.get("size_class"), r.get("ma200"), r.get("turnover_msek")
+        if sc is None or ma is None or not ma["above"] or r["compound_score"] <= 0:
+            continue
+        if to is None or to < MIN_TURNOVER_MSEK:
+            continue
+        if len(buy_lists[sc]) < BUY_LIST_N:
+            buy_lists[sc].append({k: r[k] for k in ("name","ticker","price","rank","strength_pct",
+                                                    "compound_score","mom_3m","mom_6m","mom_12m",
+                                                    "market_cap_msek","size_class","ma200","turnover_msek")})
+    for sc, lst in buy_lists.items():
+        for i, r in enumerate(lst): r["rank_in_class"] = i+1
 
     top50 = results[:50]  # ← TOP 50
     prev_ranks = load_prev_ranks()
@@ -281,8 +350,18 @@ def main():
         prev = f"(prev #{r['prev_rank']})" if r['prev_rank'] else "(new)"
         print(f"  #{r['rank']:>2}  {r['name']:<30}  Score={r['compound_score']:>8}%  {prev}")
 
+    print("\nBUY LIST (above MA200, liquid, strongest per size class)")
+    for sc, lst in buy_lists.items():
+        print(f"  {sc}: " + (", ".join(f"{x['ticker']} {x['compound_score']}%" for x in lst) or "none"))
+
     output = {
         "updated": now.strftime("%Y-%m-%d %H:%M UTC"),
+        "params": {
+            "ma_days": MA_DAYS, "buy_list_n": BUY_LIST_N,
+            "size_large_msek": SIZE_LARGE_MSEK, "size_small_msek": SIZE_SMALL_MSEK,
+            "min_turnover_msek": MIN_TURNOVER_MSEK, "turnover_days": TURNOVER_DAYS,
+        },
+        "buy_lists": buy_lists,
         "total_attempted": len(TICKERS),
         "stocks_screened": len(results),
         "skipped_count": len(skipped),
